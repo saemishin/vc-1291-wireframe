@@ -1376,7 +1376,7 @@ function resetComparisonRows(){const assigned=state.resetScope==='assigned';cons
 function reservationButton(label,attrs,primary=true){if(!state.busy)return button(label,attrs,primary);return `<button class="sf-Button${primary?' primary':''} loading-button" ${attrs} aria-busy="true" aria-label="${h(t('loading'))}"><span class="button-label-placeholder" aria-hidden="true">${h(label)}</span><span class="button-spinner" aria-hidden="true"></span></button>`;}
 function replacementDialog(key='replacement'){const date=state.date[key];const selected=!!date;let body=`<div class="sf-Callout warning">${h(t('existingGuide'))}</div><p class="guide replacement-guide">${h(t('scheduleGuide'))}</p>${creatorCard()}<span class="section-label">${h(t('reservationContents'))}</span><div class="replacement-comparison" data-replacement-comparison="${key}">${table([t('information'),t('oldReservation'),t('newReservation')],replacementRows(key))}</div>${datePicker(key,'2026-11-18')}`;
 if(state.requestError)body+=`<div class="error-box" role="alert">${h(state.requestError)}</div>`;
-return modal(t('scheduleTitle'),body,button('취소','data-action="cancel-dialog"')+reservationButton(t('replaceSubmit'),`data-action="submit" data-key="${key}" ${!selected||state.busy?'disabled':''}`,true),true,false);}
+return modal('예약하시겠습니까?',body,button('취소','data-action="cancel-dialog"')+reservationButton('예약',`data-action="submit" data-key="${key}" ${!selected||state.busy?'disabled':''}`,true),true,false);}
 function scheduleDialog(key='individual',existing=false){if(existing)return replacementDialog(key);const selected=!!state.date[key]&&(key!=='individual'||reservationChanges().length>0);let body=`<p class="guide">${h(t('scheduleGuide'))}</p>`;
 if(key==='bulk'){body+=`<div class="person"><span class="person-label">${h(t('member'))}</span><strong>3명</strong></div>${datePicker(key)}`;}
 else {body+=`<span class="section-label">${h(t('reservationContents'))}</span>`+table([t('information'),t('before'),t('after')],reservationChanges())+datePicker(key);}
@@ -1426,11 +1426,11 @@ function reservationReadOnlyDate(r,label='예약 적용일'){return `<div class=
 function reviewModal(markup){return markup.replace(/class="sf-Modal( wide)?"/,(_,wide)=>`class="sf-Modal${wide||''} reset-confirm reservation-review"`);}
 function managerError(){return manager.error?`<div class="status-toast preview-error-toast" role="alert">${h(manager.error)}</div>`:'';}
 function reservationListDialog(conflict=false){const rows=visibleReservations();const content=rows.length?`<div class="reservation-list table-wrap"><table class="sf-Table"><thead><tr><th>구성원</th><th>예약 정보</th><th>예약 적용일</th><th>예약자</th><th></th></tr></thead><tbody>${rows.map(r=>`<tr><td>${userProfile(r.member,r.group)}</td><td>${h(scopeNames[r.scope])}</td><td>${h(r.date)}</td><td>${userProfile(r.creator,r.creatorGroup)}</td><td>${button('상세보기',`data-review="view-detail" data-id="${r.id}"`)}</td></tr>`).join('')}</tbody></table></div>`:'<p class="reservation-empty">진행 중인 예약 내역이 없습니다.</p>';return modal('기존 예약 내역',(conflict?`<p class="reservation-body-heading">${h(t('bulkConflictTitle'))}</p><p class="guide">${h(t('bulkConflictBody'))} ${h(t('bulkConflictGuide'))}</p>`:`<p class="guide reservation-list-guide">업로드한 구성원에게 등록된 기존 정보 수정 예약 목록입니다. 상세보기에서 예약 내용을 확인한 뒤 취소할 수 있습니다.</p>`)+content,'',true,true).replace('data-action="cancel-dialog"','data-review="close-list"').replace('class="sf-Modal wide"','class="sf-Modal wide reservation-list-modal"');}
-function reservationDetailDialog(){const r=selectedReservation();return reviewModal(modal('정보 수정 예약 내역',reservationTarget(r)+reservationCreator(r)+`<span class="section-label">예약 내용</span>`+table(['정보','수정 전','수정 후'],r.rows)+reservationReadOnlyDate(r),button('닫기','data-review="close-detail"')+button('예약 취소',`data-review="ask-cancel" ${manager.cancelled.has(r.id)?'disabled':''}`,true),false,false));}
+function reservationDetailDialog(){const r=selectedReservation();return reviewModal(modal('정보 수정 예약 내역',reservationTarget(r)+reservationCreator(r)+`<span class="section-label">예약 내용</span>`+table(['정보','수정 전','수정 후'],r.rows)+reservationReadOnlyDate(r),button('닫기','data-review="close-detail"')+button('취소',`data-review="ask-cancel" ${manager.cancelled.has(r.id)?'disabled':''}`,true),false,false));}
 function cancellationConfirmDialog(){return modal('수정 예약을 취소하시겠습니까?',`<p class="guide">현재 구성원 정보는 변경되지 않으며,<br>확인한 수정 예약만 취소됩니다.</p>`,button('돌아가기','data-review="back-detail"')+button('예약 취소',`data-review="confirm-cancel" ${manager.busy?'disabled':''}`,true),false,false)+managerError();}
 function comparisonRows(oldRows,newRows){return [...new Set([...oldRows,...newRows].map(r=>r[0]))].map(label=>{const old=oldRows.find(r=>r[0]===label),next=newRows.find(r=>r[0]===label);return [label,old?old[1]+' → '+old[2]:t('notModified'),next?next[1]+' → '+next[2]:t('notModified')];});}
 function immediateRows(){const r=selectedReservation();if(manager.reset){const before=r.scope==='fixed'?workplaceNames([entryOriginal.fixed]):workplaceNames(entryOriginal.assigned);return [[scopeNames[r.scope],before,'없음']];}return entryChanges(r.scope);}
-function immediateConfirmDialog(){const r=selectedReservation();return modal('지금 저장하고 예약을 취소하시겠습니까?',`<div class="sf-Callout warning">지금 저장하면 아래 기존 예약이 취소됩니다.</div><p class="guide replacement-guide">기존 예약과 지금 저장할 내용을 확인해주세요.</p>${reservationCreator(r,'기존 예약자',false)}<span class="section-label">예약 내용</span><div class="replacement-comparison">${table(['정보','기존 예약','지금 저장할 내용'],comparisonRows(r.rows,immediateRows()))}</div>${reservationReadOnlyDate(r,'기존 예약 적용일')}`,button('저장하지 않고 예약 유지','data-review="keep-reservation"')+button('지금 저장하고 예약 취소',`data-review="confirm-immediate" ${manager.busy?'disabled':''}`,true),true,false)+managerError();}
+function immediateConfirmDialog(){const r=selectedReservation();return modal('저장하시겠습니까?',`<div class="sf-Callout warning">이미 등록된 수정 예약이 있습니다. 저장하면 구성원 정보가 즉시 수정되고, 아래 기존 예약은 취소됩니다.</div>${reservationCreator(r,'기존 예약자',false)}<span class="section-label">예약 내용</span><div class="replacement-comparison">${table(['정보','기존 예약','저장할 내용'],comparisonRows(r.rows,immediateRows()))}</div>${reservationReadOnlyDate(r,'기존 예약 적용일')}`,button('취소','data-review="keep-reservation"')+button('저장',`data-review="confirm-immediate" ${manager.busy?'disabled':''}`,true),true,false)+managerError();}
 function cancellationEmail(immediate=false){const rows=immediate?comparisonRows([['직급','사원','대리']],[['직급','주임','과장'],['직무','매니저','점장']]):[['직급','사원','대리']];return emailFrame('구성원 정보 수정 예약이 취소되었습니다.',`<h2>${immediate?'다른 구성원이 수정 예약을 취소하고 구성원 정보를 수정했습니다.':'다른 구성원에 의해 수정 예약이 취소되었습니다.'}</h2><dl><dt>예약 취소자</dt><dd>김서연</dd><dt>예약 취소 일시</dt><dd>2026.11.18 14:30</dd></dl>${person('김샤플','1024')}<dl><dt>정보 범위</dt><dd>기본 정보</dd><dt>예약 적용일</dt><dd>2026.11.20</dd></dl><span class="section-label">예약 내용</span>${table(immediate?['정보','기존 예약','수정됨']:['정보','수정 전','수정 후'],rows)}`);}
 function beginImmediate(scope,reset=false){const r=activeReservation(scope);if(!r)return false;manager.selected=r.id;manager.origin=state.screen;manager.reset=reset;go('S17');return true;}
 function applyImmediateSample(){const scope=selectedReservation().scope;if(manager.reset){if(scope==='fixed')entryOriginal.fixed=entryDraft.fixed='';else entryOriginal.assigned=entryDraft.assigned=[];}else if(scope==='basic'){Object.keys(basicLabels).forEach(key=>{const value=normalizedBasicValue(key,state.form[key],original[key]);original[key]=state.form[key]=value;});}else if(scope==='group')Object.assign(entryOriginal.group,JSON.parse(JSON.stringify(entryDraft.group)));else if(scope==='fixed')entryOriginal.fixed=entryDraft.fixed;else entryOriginal.assigned=[...entryDraft.assigned];}
@@ -2731,7 +2731,7 @@ Web_dc_06_정보_수정_예약.md
 | 케이스 | 조건 | 명세 |
 | --- | --- | --- |
 | Case 1 | 같은 구성원·수정 범위의 진행 중 예약 없음 | &lt;ul&gt;&lt;li&gt;S6 구성을 표시한다.&lt;/li&gt;&lt;li&gt;Header, 예약 안내, 예약 내용, 예약 적용일, Footer 순서로 구성한다.&lt;/li&gt;&lt;li&gt;Footer에 [취소]·[예약] 버튼을 표시한다.&lt;/li&gt;&lt;/ul&gt; |
-| Case 2 | 같은 구성원·수정 범위의 진행 중 예약 있음 | &lt;ul&gt;&lt;li&gt;S7 구성을 표시한다.&lt;/li&gt;&lt;li&gt;Header, 기존 예약 주의, 예약 안내, 기존 예약자, 예약 내용 비교, 예약 적용일, Footer 순서로 구성한다.&lt;/li&gt;&lt;li&gt;Footer에 [취소]·[새로 예약] 버튼을 표시한다.&lt;/li&gt;&lt;/ul&gt; |
+| Case 2 | 같은 구성원·수정 범위의 진행 중 예약 있음 | &lt;ul&gt;&lt;li&gt;S7 구성을 표시하며 Header는 예약 여부를 확인하는 제목이다.&lt;/li&gt;&lt;li&gt;Header, 기존 예약 주의, 예약 안내, 기존 예약자, 예약 내용 비교, 예약 적용일, Footer 순서로 구성한다.&lt;/li&gt;&lt;li&gt;Footer에 [취소]·[예약] 버튼을 표시한다.&lt;/li&gt;&lt;/ul&gt; |
 
 ## 1. 예약 내용
 
@@ -2800,13 +2800,13 @@ Web_dc_06_정보_수정_예약.md
 | Case 5-4 | 현재 수정 권한 없음 | &lt;ul&gt;&lt;li&gt;Modal·입력값·날짜·기존 예약을 유지한다.&lt;/li&gt;&lt;li&gt;정보 노출은 현재 조회 권한을 따른다.&lt;/li&gt;&lt;li&gt;실패 Toast 노출 (구성원 정보 수정 권한이 없습니다. / cm_deniedmember)&lt;/li&gt;&lt;/ul&gt; |
 | Case 5-5 | 자정 경과 등으로 날짜 범위 변경 | &lt;ul&gt;&lt;li&gt;별도 결과 화면 없이 3번 예약 적용일 Input의 범위 오류로 처리한다.&lt;/li&gt;&lt;li&gt;입력값을 유지하고 정상 날짜로 수정할 수 있게 한다.&lt;/li&gt;&lt;/ul&gt; |
 
-## 6. [새로 예약] 버튼
+## 6. [예약] 버튼
 
 - Case 2에서 표시한다.
 - 활성화 조건은 유효한 새 예약 적용일이 있고 기존 예약 전체와 새 예약 정보에 대한 현재 수정 권한·입력 검증을 충족한 경우다.
 - 새 예약 적용일이 미입력이거나 3번 Input의 날짜 오류에 해당하면 비활성화한다.
 - 기존 예약과 새 예약의 내용·적용일이 모두 같아도 활성화 조건을 충족하면 제출할 수 있다.
-- [새로 예약] 버튼 : 최신 기존 예약·권한·수정값·날짜를 확인하고 기존 예약 취소와 새 예약 생성을 하나의 작업으로 요청한다.
+- [예약] 버튼 : 최신 기존 예약·권한·수정값·날짜를 확인하고 기존 예약 취소와 새 예약 생성을 하나의 작업으로 요청한다.
 - 기존 예약 교체 기준은 [권한 및 기존 예약 정책](../policy/Policy_03_권한_및_기존_예약.md)을 따른다.
 
 - 등록 요청 중에는 제출 버튼 안에 로딩 스피너를 표시하고 중복 제출을 차단한다. 버튼 문구를 등록 중으로 바꾸지 않으며, 접근성 설명에는 vc_1291_66을 사용한다.
@@ -3052,7 +3052,7 @@ Web_dc_11_예약_상세_및_취소.md
 | --- | --- |
 | Header | 정보 수정 예약 내역 제목을 표시한다. |
 | Body | &lt;ul&gt;&lt;li&gt;대상 구성원·예약 정보&lt;/li&gt;&lt;li&gt;예약자·예약 등록일&lt;/li&gt;&lt;li&gt;1번 예약 내용&lt;/li&gt;&lt;li&gt;예약 적용일을 읽기 전용으로 표시&lt;/li&gt;&lt;/ul&gt; |
-| Footer | &lt;ul&gt;&lt;li&gt;2번 [닫기] 버튼&lt;/li&gt;&lt;li&gt;3번 [예약 취소] 버튼&lt;/li&gt;&lt;/ul&gt; |
+| Footer | &lt;ul&gt;&lt;li&gt;2번 [닫기] 버튼&lt;/li&gt;&lt;li&gt;3번 [취소] 버튼&lt;/li&gt;&lt;/ul&gt; |
 
 ## 1. 예약 내용
 
@@ -3066,10 +3066,10 @@ Web_dc_11_예약_상세_및_취소.md
 - 진입한 편집 화면·초기화 확인·일괄 예약 목록으로 돌아간다. 작성 중인 입력·날짜·선택·업로드 내용은 유지한다.
 - 단순 조회 상태의 바깥 영역 클릭도 같은 동작을 수행한다.
 
-## 3. [예약 취소] 버튼
+## 3. [취소] 버튼
 
 - 활성화 조건은 해당 예약이 진행 중이고 그 예약 내용에 대한 현재 수정 권한이 있는 경우다. 다른 사람이 만든 예약도 같은 기준을 적용한다.
-- [예약 취소] 버튼 : S16의 단순 확인창에서 해당 예약의 취소 여부를 확인한다. 현재 구성원 정보는 변경되지 않음을 안내한다.
+- [취소] 버튼 : S16의 단순 확인창에서 해당 예약의 취소 여부를 확인한다. 현재 구성원 정보는 변경되지 않음을 안내한다.
 
 | 구분 | 정의 |
 | --- | --- |
@@ -3107,26 +3107,26 @@ Web_dc_12_즉시_저장_및_예약_취소.md
 
 | 구분 | 정의 |
 | --- | --- |
-| Header | 즉시 저장 및 예약 취소 확인 제목을 표시한다. |
-| Body | &lt;ul&gt;&lt;li&gt;예약 취소 영향 안내&lt;/li&gt;&lt;li&gt;기존 예약자&lt;/li&gt;&lt;li&gt;1번 기존 예약과 지금 저장할 내용 비교&lt;/li&gt;&lt;li&gt;기존 예약 적용일을 읽기 전용으로 표시&lt;/li&gt;&lt;/ul&gt; |
-| Footer | &lt;ul&gt;&lt;li&gt;2번 [저장하지 않고 예약 유지] 버튼&lt;/li&gt;&lt;li&gt;3번 [지금 저장하고 예약 취소] 버튼&lt;/li&gt;&lt;/ul&gt; |
+| Header | 저장 여부를 확인하는 제목을 표시한다. |
+| Body | &lt;ul&gt;&lt;li&gt;기존 수정 예약이 있으며, 저장 시 구성원 정보가 즉시 수정되고 기존 예약은 취소됨을 안내&lt;/li&gt;&lt;li&gt;기존 예약자&lt;/li&gt;&lt;li&gt;1번 기존 예약과 저장할 내용 비교&lt;/li&gt;&lt;li&gt;기존 예약 적용일을 읽기 전용으로 표시&lt;/li&gt;&lt;/ul&gt; |
+| Footer | &lt;ul&gt;&lt;li&gt;2번 [취소] 버튼&lt;/li&gt;&lt;li&gt;3번 [저장] 버튼&lt;/li&gt;&lt;/ul&gt; |
 
-## 1. 기존 예약과 지금 저장할 내용 비교
+## 1. 기존 예약과 저장할 내용 비교
 
-- 정보·기존 예약·지금 저장할 내용 컬럼으로 해당 범위의 수정 정보를 비교한다.
-- 기존 예약은 예약 당시 수정 전 값과 목표값, 지금 저장할 내용은 실제 저장할 수정 전·후 값이다.
+- 정보·기존 예약·저장할 내용 컬럼으로 해당 범위의 수정 정보를 비교한다.
+- 기존 예약은 예약 당시 수정 전 값과 목표값, 저장할 내용은 실제 저장할 수정 전·후 값이다.
 - 한쪽에만 있는 정보는 반대쪽에 수정하지 않음, 실제 빈 값은 없음으로 표시한다.
 - 초기화에서는 지금 저장할 목표값을 없음으로 표시한다. 다른 범위의 예약은 영향을 받지 않는다.
 
-## 2. [저장하지 않고 예약 유지] 버튼
+## 2. [취소] 버튼
 
 - 즉시 저장하거나 예약을 취소하지 않고 이전 편집·초기화 화면으로 돌아간다.
 - 작성 중인 수정값과 선택값·날짜를 유지한다.
 
-## 3. [지금 저장하고 예약 취소] 버튼
+## 3. [저장] 버튼
 
 - 현재 수정값의 기존 입력 검증과 해당 예약·수정 정보에 대한 현재 수정 권한을 충족할 때 활성화한다.
-- [지금 저장하고 예약 취소] 버튼 : 기존 예약의 최신 상태를 재확인하고 즉시 저장과 해당 예약 취소를 함께 요청한다.
+- [저장] 버튼 : 기존 예약의 최신 상태를 재확인하고 즉시 저장과 해당 예약 취소를 함께 요청한다.
 - 두 작업이 모두 성공해야 한다. 실패 시 기존 예약을 유지하고 입력을 보존한다. 요청 중에는 중복 제출을 차단한다.
 - 성공 시 기존 편집 작업을 종료하고 원래 저장 성공 후 복귀 위치로 돌아간다. 기본 정보·그룹 및 권한은 편집을 열었던 목록 또는 상세, 근무지 수정·초기화는 구성원 상세의 근무 정보 화면으로 돌아간다.
 - 다른 사람이 만든 예약이라면 [즉시 저장에 따른 취소 알림](Email_dc_05_예약_취소_알림.md)의 E6을 발송한다.
