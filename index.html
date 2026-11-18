@@ -569,6 +569,17 @@ select.sf-Input { padding-right:var(--spacing08); }
 .reservation-meta{display:grid;grid-template-columns:110px 1fr;gap:12px;margin:20px 0}.reservation-meta dt{color:var(--gray600,#777)}.reservation-meta dd{margin:0}
 .review-error{margin:16px 0;padding:12px;border:1px solid #ddd;border-radius:8px}.reservation-empty{text-align:center;padding:36px 20px;color:#777}
 .email .failed-members p{margin:8px 0;overflow-wrap:anywhere}.email h2{word-break:keep-all;overflow-wrap:anywhere}.edit-footer,.sf-Modal .footer{flex-wrap:wrap}
+</style><style>
+.reservation-body-heading{margin:0 0 var(--spacing08);font-size:16px;font-weight:600;line-height:1.6;word-break:keep-all}
+.reservation-review .guide{margin:0 0 var(--spacing20);word-break:keep-all}
+.reservation-target>.section-label{margin-top:0}
+.reservation-small-meta{display:flex;align-items:baseline;gap:var(--spacing16);margin:var(--spacing16) 0 0;font-size:12px}
+.reservation-small-meta dt{color:var(--neutral500);flex:none}.reservation-small-meta dd{margin:0;color:var(--neutral700)}
+.reservation-review .creator-card{margin-top:var(--spacing20)}
+.reservation-review .section-label{margin-top:var(--spacing20);margin-bottom:var(--spacing08)}
+.reservation-review .creator-card>.section-label,.reservation-review .reservation-target>.section-label{margin-top:0;margin-bottom:var(--spacing12)}
+.reservation-date{margin-top:var(--spacing20)}.reservation-date>.section-label{margin-top:0}
+.reservation-date-value{padding:var(--spacing12) var(--spacing16);border:1px solid var(--neutral200);border-radius:var(--border-radius08);background:var(--neutral100);font-size:14px}
 </style></head>
 <body>
 <header class="wf-header"><div class="wf-brand">shopl<span>기획 · 와이어프레임</span></div><h1>구성원 정보 수정 예약</h1><span class="wf-ver">VC-1291 · 웹 S1~S17 / 이메일 E1~E6 · 독립 실행 와이어프레임</span><a href="https://github.com/shopl/shopl-pm/tree/main/%EA%B5%AC%EC%84%B1%EC%9B%90/26%EB%85%84-13%EC%B0%A8-%EA%B5%AC%EC%84%B1%EC%9B%90%EC%A0%95%EB%B3%B4%EC%88%98%EC%A0%95%EC%98%88%EC%95%BD" target="_blank" rel="noopener noreferrer">기획 텍스트 보기</a></header>
@@ -1120,7 +1131,7 @@ window.WF_DATA = {
       "subtitle": "생성 없이 전체 중단",
       "asIs": "01-member-list.png",
       "notes": [
-        "헤더에 제목과 X 버튼을 표시한다. 푸터와 하단 닫기 버튼은 제공하지 않는다. 바깥 영역 클릭으로 닫지 않는다.",
+        "헤더는 기존 예약 내역과 X 버튼으로 구성한다. 일괄 수정을 예약할 수 없습니다.는 본문 첫 안내로 표시한다. 푸터는 없고 바깥 영역 클릭으로 닫지 않는다.",
         "충돌한 구성원 × 정보 범위별로 한 행을 표시한다. 이번 수정과 겹치는 예약만 조회한다.",
         "컬럼은 구성원·정보 범위·예약 적용일·예약자·상세보기다. S15 공통 상세에서 단건 취소할 수 있다.",
         "충돌 시 새 예약을 생성하지 않는다. 목록의 예약을 취소하거나 구성원을 제외한 뒤 사용자가 다시 예약해야 한다. 취소 완료만으로 자동 등록하지 않는다.",
@@ -1152,7 +1163,7 @@ window.WF_DATA = {
       "subtitle": "선택 구성원 · 정보 범위별 예약 목록",
       "asIs": "01-member-list.png",
       "notes": [
-        "헤더에 예약 내역 제목과 X 버튼을 표시한다. 제목 아래에 선택한 구성원의 예약 목록이며 상세보기에서 조회·취소할 수 있음을 안내한다. 푸터는 제공하지 않는다.",
+        "헤더는 기존 예약 내역과 X 버튼으로 구성한다. 제목 아래에 기존 정보 수정 예약 목록이며 상세에서 확인·취소할 수 있음을 안내한다. 푸터는 제공하지 않는다.",
         "선택된 구성원과 이번 수정 범위의 예약을 한 행씩 표시한다. 상세보기에서 개별 조회와 같은 S15을 사용한다.",
         "예약 취소 후 원래 선택·파일·검증 결과를 유지하고 목록을 갱신한다. 저장이나 예약을 자동 진행하지 않는다.",
         "목록 정렬·대량 페이지·검색은 시안 검토 대상이다. 이 HTML은 가상 인물과 소수의 예약으로 흐름을 보여준다."
@@ -1165,6 +1176,7 @@ window.WF_DATA = {
       "subtitle": "개별·일괄 공통 상세",
       "asIs": "04-basic-info-edit.png",
       "notes": [
+        "모달 제목은 정보 수정 예약 내역이다. S10과 같은 헤더·본문·푸터 여백으로 대상·예약자·예약 내용·적용일을 순서대로 구분한다.",
         "같은 구성원·정보 범위의 예약 한 건을 조회한다. 수정 전·후 값은 예약 당시 값이다.",
         "닫기는 진입 화면 또는 목록으로 돌아가며 편집값을 유지한다. 예약 취소는 S16 확인으로 연결한다.",
         "추가 취소 확인창·실행 중 취소 제한은 시안 검토 대상이다. 우측에서 기존 통신·권한 오류 예시를 선택할 수 있다."
@@ -1177,6 +1189,7 @@ window.WF_DATA = {
       "subtitle": "해당 범위의 예약만 취소",
       "asIs": "04-basic-info-edit.png",
       "notes": [
+        "S10의 모달 여백·예약자 표시를 재사용한다. 안내 다음에 취소 대상·예약자·적용일을 구분하며 조회한 예약의 식별 정보는 유지한다.",
         "시안: 현재 구성원 정보는 수정하지 않고 해당 예약 한 건만 취소함을 확인한다. 다른 구성원·범위 예약은 유지한다.",
         "취소 후 상세를 닫고 진입한 화면 또는 목록을 갱신한다. 다른 사람이 취소했다면 E5를 발송한다.",
         "취소 확인창 사용 여부와 실행 중·완료된 예약의 안내 문구는 추가 검토한다."
@@ -1189,6 +1202,7 @@ window.WF_DATA = {
       "subtitle": "개별 저장·적용·초기화",
       "asIs": "04-basic-info-edit.png",
       "notes": [
+        "S10과 같은 헤더·본문·푸터 여백과 예약자 영역을 사용한다. 비교 표 다음에 기존 예약 적용일을 표시한다.",
         "기존 예약과 지금 저장할 내용을 비교한다. 지금 저장하고 예약 취소 또는 저장하지 않고 예약 유지를 선택한다.",
         "저장과 예약 취소는 함께 성공해야 한다. 실패 시 기존 예약·입력값을 유지한다. 다른 사람의 예약이면 성공 후 E6을 발송한다.",
         "초기화는 목표값 없음으로 표시한다. 실제 제품은 원래 저장 성공 후 위치로 복귀한다. HTML은 결과 확인용 목록으로 보여준다.",
@@ -1396,7 +1410,7 @@ const reservationSamples=[
  {id:'r-assigned',member:'김민지',employee:'A-1024',group:'강남1팀',scope:'assigned',creator:'박지훈',creatorGroup:'운영지원팀',date:'2026.11.20',rows:[['담당근무지','강남점, 역삼점','선릉점']]},
  {id:'r-other',member:'이서준',employee:'A-1025',group:'강남2팀',scope:'assigned',creator:'박지훈',creatorGroup:'운영지원팀',date:'2026.11.22',rows:[['담당근무지','강남점','역삼점']]}
 ];
-const manager={cancelled:new Set(),selected:'r-basic',origin:'S1',listOrigin:'S5',listScopes:Object.keys(scopeNames),reset:false,error:'',pending:'',busy:false};
+const manager={cancelled:new Set(),selected:'r-basic',origin:'S1',listOrigin:'S5',listFromUpload:true,listScopes:Object.keys(scopeNames),reset:false,error:'',pending:'',busy:false};
 state.cancelPreview='success';
 function activeReservation(scope){return reservationSamples.find(r=>r.member==='김민지'&&r.scope===scope&&!manager.cancelled.has(r.id));}
 function selectedReservation(){const r=reservationSamples.find(r=>r.id===manager.selected)||reservationSamples[0];return manager.reset&&state.resetExistingKind==='reset'?{...r,rows:r.rows.map(row=>[row[0],row[1],'없음'])}:r;}
@@ -1405,14 +1419,18 @@ function visibleReservations(){return reservationSamples.filter(r=>manager.listS
 function hasEntryReservation(scope,reset=false){return !!activeReservation(scope)&&(reset?state.resetExistingKind!=='none':state.individualCollision);}
 function reservationViewButton(scope,reset=false){return hasEntryReservation(scope,reset)?button('예약 내역 보기',`data-review="view-one" data-scope="${scope}" data-reset="${reset}"`):'';}
 function bulkViewButton(){return (state.bulkUsersSelected||state.bulkUploadReady)&&reservationSamples.some(r=>bulkScopes().includes(r.scope)&&!manager.cancelled.has(r.id))?button('예약 내역 보기','data-review="view-list"'):'';}
-function reservationMeta(r){return `<dl class="reservation-meta"><dt>대상 구성원</dt><dd>${userProfile(r.member,r.group)}</dd><dt>정보 범위</dt><dd>${h(scopeNames[r.scope])}</dd><dt>예약자</dt><dd>${userProfile(r.creator,r.creatorGroup)}</dd><dt>예약 등록일</dt><dd>2026.11.12</dd><dt>예약 적용일</dt><dd>${h(r.date)}</dd></dl>`;}
+function reservationMeta(r){return reservationTarget(r)+reservationCreator(r)+reservationReadOnlyDate(r);}
+function reservationTarget(r){return `<section class="reservation-target"><span class="section-label">대상 구성원</span>${userProfile(r.member,r.group)}<dl class="reservation-small-meta"><dt>예약한 정보</dt><dd>${h(scopeNames[r.scope])}</dd></dl></section>`;}
+function reservationCreator(r,label='예약자',withRegistered=true){return `<div class="creator-card"><span class="section-label">${h(label)}</span>${userProfile(r.creator,r.creatorGroup)}${withRegistered?'<dl class="reservation-small-meta"><dt>예약 등록일</dt><dd>2026.11.12</dd></dl>':''}</div>`;}
+function reservationReadOnlyDate(r,label='예약 적용일'){return `<div class="reservation-date"><span class="section-label">${h(label)}</span><div class="reservation-date-value">${h(r.date)}</div></div>`;}
+function reviewModal(markup){return markup.replace(/class="sf-Modal( wide)?"/,(_,wide)=>`class="sf-Modal${wide||''} reset-confirm reservation-review"`);}
 function managerError(){return manager.error?`<div class="status-toast preview-error-toast" role="alert">${h(manager.error)}</div>`:'';}
-function reservationListDialog(conflict=false){const rows=visibleReservations();const content=rows.length?`<div class="reservation-list table-wrap"><table class="sf-Table"><thead><tr><th>구성원</th><th>정보 범위</th><th>예약 적용일</th><th>예약자</th><th></th></tr></thead><tbody>${rows.map(r=>`<tr><td>${userProfile(r.member,r.group)}</td><td>${h(scopeNames[r.scope])}</td><td>${h(r.date)}</td><td>${userProfile(r.creator,r.creatorGroup)}</td><td>${button('상세보기',`data-review="view-detail" data-id="${r.id}"`)}</td></tr>`).join('')}</tbody></table></div>`:'<p class="reservation-empty">진행 중인 예약 내역이 없습니다.</p>';return modal(conflict?t('bulkConflictTitle'):'예약 내역',(conflict?`<p class="guide">${h(t('bulkConflictBody'))} ${h(t('bulkConflictGuide'))}</p>`:'<p class="guide reservation-list-guide">선택한 구성원의 수정 예약 내역입니다. 상세보기에서 예약 내용을 확인하거나 취소할 수 있습니다.</p>')+content,'',true,true).replace('data-action="cancel-dialog"','data-review="close-list"').replace('class="sf-Modal wide"','class="sf-Modal wide reservation-list-modal"');}
-function reservationDetailDialog(){const r=selectedReservation();return modal('예약 내역',reservationMeta(r)+`<span class="section-label">예약 내용</span>`+table(['정보','수정 전','수정 후'],r.rows),button('닫기','data-review="close-detail"')+button('예약 취소',`data-review="ask-cancel" ${manager.cancelled.has(r.id)?'disabled':''}`,true),false,false);}
-function cancellationConfirmDialog(){const r=selectedReservation();return modal('수정 예약을 취소하시겠습니까?',`<p class="guide">현재 구성원 정보는 변경되지 않습니다. 아래 예약만 취소됩니다.</p>${reservationMeta(r)}`,button('돌아가기','data-review="back-detail"')+button('예약 취소',`data-review="confirm-cancel" ${manager.busy?'disabled':''}`,true),false,false)+managerError();}
+function reservationListDialog(conflict=false){const rows=visibleReservations();const content=rows.length?`<div class="reservation-list table-wrap"><table class="sf-Table"><thead><tr><th>구성원</th><th>예약한 정보</th><th>예약 적용일</th><th>예약자</th><th></th></tr></thead><tbody>${rows.map(r=>`<tr><td>${userProfile(r.member,r.group)}</td><td>${h(scopeNames[r.scope])}</td><td>${h(r.date)}</td><td>${userProfile(r.creator,r.creatorGroup)}</td><td>${button('상세보기',`data-review="view-detail" data-id="${r.id}"`)}</td></tr>`).join('')}</tbody></table></div>`:'<p class="reservation-empty">진행 중인 예약 내역이 없습니다.</p>';return modal('기존 예약 내역',(conflict?`<p class="reservation-body-heading">${h(t('bulkConflictTitle'))}</p><p class="guide">${h(t('bulkConflictBody'))} ${h(t('bulkConflictGuide'))}</p>`:`<p class="guide reservation-list-guide">${manager.listFromUpload?'업로드한':'선택한'} 구성원에게 등록된 기존 정보 수정 예약 목록입니다. 상세보기에서 예약 내용을 확인한 뒤 취소할 수 있습니다.</p>`)+content,'',true,true).replace('data-action="cancel-dialog"','data-review="close-list"').replace('class="sf-Modal wide"','class="sf-Modal wide reservation-list-modal"');}
+function reservationDetailDialog(){const r=selectedReservation();return reviewModal(modal('정보 수정 예약 내역',reservationTarget(r)+reservationCreator(r)+`<span class="section-label">예약 내용</span>`+table(['정보','수정 전','수정 후'],r.rows)+reservationReadOnlyDate(r),button('닫기','data-review="close-detail"')+button('예약 취소',`data-review="ask-cancel" ${manager.cancelled.has(r.id)?'disabled':''}`,true),false,false));}
+function cancellationConfirmDialog(){const r=selectedReservation();return reviewModal(modal('수정 예약을 취소하시겠습니까?',`<p class="guide">현재 구성원 정보는 변경되지 않습니다.<br>아래 예약만 취소됩니다.</p>${reservationMeta(r)}`,button('돌아가기','data-review="back-detail"')+button('예약 취소',`data-review="confirm-cancel" ${manager.busy?'disabled':''}`,true),false,false))+managerError();}
 function comparisonRows(oldRows,newRows){return [...new Set([...oldRows,...newRows].map(r=>r[0]))].map(label=>{const old=oldRows.find(r=>r[0]===label),next=newRows.find(r=>r[0]===label);return [label,old?old[1]+' → '+old[2]:t('notModified'),next?next[1]+' → '+next[2]:t('notModified')];});}
 function immediateRows(){const r=selectedReservation();if(manager.reset){const before=r.scope==='fixed'?workplaceNames([entryOriginal.fixed]):workplaceNames(entryOriginal.assigned);return [[scopeNames[r.scope],before,'없음']];}return entryChanges(r.scope);}
-function immediateConfirmDialog(){const r=selectedReservation();return modal('지금 저장하고 예약을 취소하시겠습니까?',`<p class="guide">지금 저장하면 같은 정보 범위의 기존 예약이 취소됩니다.</p><div class="creator-card"><span class="section-label">기존 예약자</span>${userProfile(r.creator,r.creatorGroup)}</div><p class="guide">기존 예약 적용일 · ${h(r.date)}</p><span class="section-label">예약 내용</span>${table(['정보','기존 예약','지금 저장할 내용'],comparisonRows(r.rows,immediateRows()))}`,button('저장하지 않고 예약 유지','data-review="keep-reservation"')+button('지금 저장하고 예약 취소',`data-review="confirm-immediate" ${manager.busy?'disabled':''}`,true),true,false)+managerError();}
+function immediateConfirmDialog(){const r=selectedReservation();return reviewModal(modal('지금 저장하고 예약을 취소하시겠습니까?',`<p class="guide">지금 저장하면 아래 기존 예약이 취소됩니다.</p><dl class="reservation-small-meta"><dt>예약한 정보</dt><dd>${h(scopeNames[r.scope])}</dd></dl>${reservationCreator(r,'기존 예약자',false)}<span class="section-label">예약 내용</span><div class="replacement-comparison">${table(['정보','기존 예약','지금 저장할 내용'],comparisonRows(r.rows,immediateRows()))}</div>${reservationReadOnlyDate(r,'기존 예약 적용일')}`,button('저장하지 않고 예약 유지','data-review="keep-reservation"')+button('지금 저장하고 예약 취소',`data-review="confirm-immediate" ${manager.busy?'disabled':''}`,true),true,false))+managerError();}
 function cancellationEmail(immediate=false){const rows=immediate?comparisonRows([['직급','사원','대리']],[['직급','주임','과장'],['직무','매니저','점장']]):[['직급','사원','대리']];return emailFrame('구성원 정보 수정 예약이 취소되었습니다.',`<h2>${immediate?'다른 구성원이 수정 예약을 취소하고 구성원 정보를 수정했습니다.':'다른 구성원에 의해 수정 예약이 취소되었습니다.'}</h2><dl><dt>예약 취소자</dt><dd>김서연</dd><dt>예약 취소 일시</dt><dd>2026.11.18 14:30</dd></dl>${person('김샤플','1024')}<dl><dt>정보 범위</dt><dd>기본 정보</dd><dt>예약 적용일</dt><dd>2026.11.20</dd></dl><span class="section-label">예약 내용</span>${table(immediate?['정보','기존 예약','수정됨']:['정보','수정 전','수정 후'],rows)}`);}
 function beginImmediate(scope,reset=false){const r=activeReservation(scope);if(!r)return false;manager.selected=r.id;manager.origin=state.screen;manager.reset=reset;go('S17');return true;}
 function applyImmediateSample(){const scope=selectedReservation().scope;if(manager.reset){if(scope==='fixed')entryOriginal.fixed=entryDraft.fixed='';else entryOriginal.assigned=entryDraft.assigned=[];}else if(scope==='basic'){Object.keys(basicLabels).forEach(key=>{const value=normalizedBasicValue(key,state.form[key],original[key]);original[key]=state.form[key]=value;});}else if(scope==='group')Object.assign(entryOriginal.group,JSON.parse(JSON.stringify(entryDraft.group)));else if(scope==='fixed')entryOriginal.fixed=entryDraft.fixed;else entryOriginal.assigned=[...entryDraft.assigned];}
@@ -1420,7 +1438,7 @@ function finishCancellation(immediate){if(manager.busy)return;if(state.cancelPre
 document.addEventListener('click',e=>{
  const review=e.target.closest('[data-review]');if(review){if(review.disabled)return;e.preventDefault();e.stopImmediatePropagation();const action=review.dataset.review;
  if(action==='view-one'){const r=activeReservation(review.dataset.scope);if(!r)return;manager.origin=state.screen;manager.selected=r.id;manager.reset=review.dataset.reset==='true';go('S15');}
- else if(action==='view-list'){manager.listOrigin=state.screen;manager.listScopes=bulkScopes();go('S14');}
+ else if(action==='view-list'){manager.listOrigin=state.screen;manager.listFromUpload=state.bulkUploadReady;manager.listScopes=bulkScopes();go('S14');}
  else if(action==='view-detail'){manager.reset=false;manager.origin=state.screen;manager.selected=review.dataset.id;go('S15');}
  else if(action==='close-list')go(manager.listOrigin);
  else if(action==='close-detail')go(manager.origin);
@@ -1591,6 +1609,8 @@ Policy_01_용어_및_처리_단위.md
 - **같은 범위의 여러 정보를 함께 예약했다면:** 그 예약에 담긴 내용을 함께 처리한다. 하나라도 적용할 수 없으면 나머지만 따로 새로 수정하지 않는다. 자세한 결과 구분은 [예약 적용 및 실행 정책](Policy_04_예약_적용_및_실행.md)을 따른다.
 
 ## 4. 값 표시
+
+- 웹 예약 목록·상세·취소 확인에서 정보 범위의 사용자 표시명은 `예약한 정보`다. 정책의 기본 정보·그룹 및 권한·고정근무지·담당근무지 구분은 바꾸지 않는다.
 
 - 정보가 비어 있으면 ‘없음’으로 표시한다.
 - 기존 예약과 새 예약을 비교할 때, 한쪽 예약에 해당 정보가 들어 있지 않으면 ‘수정하지 않음’으로 표시한다. 새 예약에 닉네임 수정이 없다면 ‘없음’이 아니라 ‘수정하지 않음’이다.
@@ -2951,13 +2971,13 @@ Web_dc_08_정보_일괄_수정_예약.md
 
 | 구분 | 정의 |
 | --- | --- |
-| Header | &lt;ul&gt;&lt;li&gt;일괄 수정을 예약할 수 없음을 안내하는 제목을 표시한다.&lt;/li&gt;&lt;li&gt;2-2번 [X] 버튼을 표시한다.&lt;/li&gt;&lt;/ul&gt; |
-| Body | &lt;ul&gt;&lt;li&gt;충돌 구성원을 제외하거나 해당 예약을 상세 조회·단건 취소한 뒤 다시 시도하도록 안내한다.&lt;/li&gt;&lt;li&gt;2-1번 충돌 예약 Table을 표시한다.&lt;/li&gt;&lt;/ul&gt; |
+| Header | &lt;ul&gt;&lt;li&gt;기존 예약 내역 제목을 표시한다.&lt;/li&gt;&lt;li&gt;2-2번 [X] 버튼을 표시한다.&lt;/li&gt;&lt;/ul&gt; |
+| Body | &lt;ul&gt;&lt;li&gt;본문 첫 부분에서 일괄 수정을 예약할 수 없음을 안내한다.&lt;/li&gt;&lt;li&gt;충돌 구성원을 제외하거나 해당 예약을 상세 조회·단건 취소한 뒤 다시 시도하도록 안내한다.&lt;/li&gt;&lt;li&gt;2-1번 충돌 예약 Table을 표시한다.&lt;/li&gt;&lt;/ul&gt; |
 | Footer | 제공하지 않는다. |
 
 ### 2-1. 충돌 예약 Table
 
-- 컬럼은 이름·정보 범위·예약 적용일·예약자·상세보기다.
+- 컬럼은 이름·예약한 정보·예약 적용일·예약자·상세보기다.
 - 이름과 예약자는 아바타·이름·그룹으로 표시한다.
 - 충돌한 기존 예약 한 건당 한 행을 표시한다.
 - 같은 구성원의 서로 다른 예약이 여러 건 충돌하면 이름을 반복한다.
@@ -2989,14 +3009,14 @@ Web_dc_10_일괄_예약_내역.md
 
 | 구분 | 정의 |
 | --- | --- |
-| Header | &lt;ul&gt;&lt;li&gt;예약 내역 제목을 표시한다.&lt;/li&gt;&lt;li&gt;2번 [X] 버튼을 표시한다.&lt;/li&gt;&lt;/ul&gt; |
-| Body | &lt;ul&gt;&lt;li&gt;제목 아래에 선택한 구성원의 수정 예약 목록이며 상세보기에서 내용 확인·취소가 가능함을 안내한다.&lt;/li&gt;&lt;li&gt;1번 예약 목록을 표시한다.&lt;/li&gt;&lt;/ul&gt; |
+| Header | &lt;ul&gt;&lt;li&gt;기존 예약 내역 제목을 표시한다.&lt;/li&gt;&lt;li&gt;2번 [X] 버튼을 표시한다.&lt;/li&gt;&lt;/ul&gt; |
+| Body | &lt;ul&gt;&lt;li&gt;제목 아래에 “업로드한 구성원에게 등록된 기존 정보 수정 예약 목록입니다. 상세보기에서 예약 내용을 확인한 뒤 취소할 수 있습니다.”를 표시한다. 업로드 전 선택 구성원을 조회하는 시안에서는 “업로드한” 대신 “선택한”으로 표시한다.&lt;/li&gt;&lt;li&gt;1번 예약 목록을 표시한다.&lt;/li&gt;&lt;/ul&gt; |
 | Footer | 제공하지 않는다. |
 
 ## 1. 예약 목록
 
 - 구성원 × 정보 범위별 예약을 한 행씩 표시한다.
-- 컬럼은 구성원, 정보 범위, 예약 적용일, 예약자, [상세보기]다. 구성원·예약자는 기존 아바타·이름·그룹 표시를 따른다.
+- 컬럼은 구성원, 예약한 정보, 예약 적용일, 예약자, [상세보기]다. 구성원·예약자는 기존 아바타·이름·그룹 표시를 따른다.
 - [상세보기] 버튼 : 선택한 예약을 [Web_dc_11 예약 상세 및 취소](Web_dc_11_예약_상세_및_취소.md)의 S15으로 전달한다. 목록에서 즉시 취소하지 않는다.
 - 상세에서 돌아오면 최신 예약 목록을 표시하고 선택 구성원·업로드 내용·목록 위치를 유지한다.
 - 단건 취소 후 다른 구성원·범위의 예약은 목록에 남긴다. 마지막 예약을 취소했다면 진행 중 예약이 없는 빈 상태를 표시한다.
@@ -3030,8 +3050,8 @@ Web_dc_11_예약_상세_및_취소.md
 
 | 구분 | 정의 |
 | --- | --- |
-| Header | 예약 내역 제목을 표시한다. |
-| Body | &lt;ul&gt;&lt;li&gt;대상 구성원·정보 범위&lt;/li&gt;&lt;li&gt;예약자·예약 등록일·예약 적용일&lt;/li&gt;&lt;li&gt;1번 예약 내용&lt;/li&gt;&lt;/ul&gt; |
+| Header | 정보 수정 예약 내역 제목을 표시한다. |
+| Body | &lt;ul&gt;&lt;li&gt;대상 구성원·예약한 정보&lt;/li&gt;&lt;li&gt;예약자·예약 등록일&lt;/li&gt;&lt;li&gt;1번 예약 내용&lt;/li&gt;&lt;li&gt;예약 적용일을 읽기 전용으로 표시&lt;/li&gt;&lt;/ul&gt; |
 | Footer | &lt;ul&gt;&lt;li&gt;2번 [닫기] 버튼&lt;/li&gt;&lt;li&gt;3번 [예약 취소] 버튼&lt;/li&gt;&lt;/ul&gt; |
 
 ## 1. 예약 내용
@@ -3054,7 +3074,7 @@ Web_dc_11_예약_상세_및_취소.md
 | 구분 | 정의 |
 | --- | --- |
 | Header | 예약 취소 확인 제목을 표시한다. |
-| Body | 취소할 예약을 식별할 정보와 취소 영향을 표시한다. |
+| Body | 취소 영향 안내 다음에 대상 구성원·예약한 정보, 예약자·예약 등록일, 예약 적용일을 구분해서 표시한다. |
 | Footer | &lt;ul&gt;&lt;li&gt;[돌아가기]: 취소하지 않고 S15 상세로 돌아간다.&lt;/li&gt;&lt;li&gt;[예약 취소]: 현재 권한·예약 상태를 다시 확인하고 해당 예약 한 건의 취소를 요청한다.&lt;/li&gt;&lt;/ul&gt; |
 
 - 확인 Modal의 바깥 영역 클릭으로 취소·닫기를 수행하지 않는다.
@@ -3088,7 +3108,7 @@ Web_dc_12_즉시_저장_및_예약_취소.md
 | 구분 | 정의 |
 | --- | --- |
 | Header | 즉시 저장 및 예약 취소 확인 제목을 표시한다. |
-| Body | &lt;ul&gt;&lt;li&gt;예약 취소 영향 안내&lt;/li&gt;&lt;li&gt;기존 예약자·예약 적용일&lt;/li&gt;&lt;li&gt;1번 기존 예약과 지금 저장할 내용 비교&lt;/li&gt;&lt;/ul&gt; |
+| Body | &lt;ul&gt;&lt;li&gt;예약 취소 영향 안내&lt;/li&gt;&lt;li&gt;예약한 정보·기존 예약자&lt;/li&gt;&lt;li&gt;1번 기존 예약과 지금 저장할 내용 비교&lt;/li&gt;&lt;li&gt;기존 예약 적용일을 읽기 전용으로 표시&lt;/li&gt;&lt;/ul&gt; |
 | Footer | &lt;ul&gt;&lt;li&gt;2번 [저장하지 않고 예약 유지] 버튼&lt;/li&gt;&lt;li&gt;3번 [지금 저장하고 예약 취소] 버튼&lt;/li&gt;&lt;/ul&gt; |
 
 ## 1. 기존 예약과 지금 저장할 내용 비교
