@@ -550,7 +550,7 @@ select.sf-Input { padding-right:var(--spacing08); }
 .button-spinner { position:absolute; width:16px; height:16px; border:2px solid currentColor; border-right-color:transparent; border-radius:50%; animation:reservation-spin .8s linear infinite; }
 @keyframes reservation-spin { to { transform:rotate(360deg); } }
 
-/* S12–S11: existing service email footer reference */
+/* E1–S17: existing service email footer reference */
 .email-footer { border-top:1px solid var(--neutral200); margin-top:var(--spacing30); padding-top:var(--spacing30); color:var(--neutral400); text-align:right; font-size:11px; line-height:1.7; overflow-wrap:anywhere; }
 .email-footer .email-copyright { font-weight:700; margin-bottom:var(--spacing04); }
 .email-footer a { color:var(--primary300); text-decoration:underline; }
@@ -571,7 +571,7 @@ select.sf-Input { padding-right:var(--spacing08); }
 .email .failed-members p{margin:8px 0;overflow-wrap:anywhere}.email h2{word-break:keep-all;overflow-wrap:anywhere}.edit-footer,.sf-Modal .footer{flex-wrap:wrap}
 </style></head>
 <body>
-<header class="wf-header"><div class="wf-brand">shopl<span>기획 · 와이어프레임</span></div><h1>구성원 정보 수정 예약</h1><span class="wf-ver">VC-1291 · S1~S17 · 독립 실행 와이어프레임</span><a href="https://github.com/shopl/shopl-pm/tree/main/%EA%B5%AC%EC%84%B1%EC%9B%90/26%EB%85%84-13%EC%B0%A8-%EA%B5%AC%EC%84%B1%EC%9B%90%EC%A0%95%EB%B3%B4%EC%88%98%EC%A0%95%EC%98%88%EC%95%BD" target="_blank" rel="noopener noreferrer">기획 텍스트 보기</a></header>
+<header class="wf-header"><div class="wf-brand">shopl<span>기획 · 와이어프레임</span></div><h1>구성원 정보 수정 예약</h1><span class="wf-ver">VC-1291 · 웹 S1~S17 / 이메일 E1~E6 · 독립 실행 와이어프레임</span><a href="https://github.com/shopl/shopl-pm/tree/main/%EA%B5%AC%EC%84%B1%EC%9B%90/26%EB%85%84-13%EC%B0%A8-%EA%B5%AC%EC%84%B1%EC%9B%90%EC%A0%95%EB%B3%B4%EC%88%98%EC%A0%95%EC%98%88%EC%95%BD" target="_blank" rel="noopener noreferrer">기획 텍스트 보기</a></header>
 <div class="wf-workspace"><nav class="wf-tabs" role="tablist" aria-label="검토 화면" aria-orientation="vertical" id="screen-tabs"></nav><main id="screens"></main></div>
 <div id="live-status" class="visually-hidden" role="status" aria-live="polite"></div>
 <script>
@@ -918,71 +918,71 @@ window.WF_DATA = {
   },
   "screens": [
     {
-      "id": "S1-1",
+      "id": "S1",
       "title": "기본 정보 수정",
       "group": "기존 수정 화면",
       "subtitle": "저장 예약을 누르기 전의 기존 화면",
       "asIs": "04-basic-info-edit.png",
       "notes": [
         "이 화면이 저장 예약 버튼을 추가할 기존 입력·선택 화면이다. 우측 예시 데이터와 체크박스는 검토 도구이고 실제 제품 UI가 아니다.",
-        "원래 저장/적용 버튼 옆에 저장 예약을 추가한다. 예약 버튼은 기존 저장과 같은 권한·입력 검증을 충족하고, 최종 저장값 기준으로 실제 변경이 있을 때 활성화된다. 입력한 실제 수정값이 다음 S2/S3 표로 전달된다.",
-        "저장 예약은 기존 예약이 없으면 S2, 있으면 S3으로 진입한다. 예약 팝업에서 취소하면 입력·선택한 값을 유지하고 이 화면으로 돌아온다. 초기화 화면으로 연결하지 않는다.",
+        "원래 저장/적용 버튼 옆에 저장 예약을 추가한다. 예약 버튼은 기존 저장과 같은 권한·입력 검증을 충족하고, 최종 저장값 기준으로 실제 변경이 있을 때 활성화된다. 입력한 실제 수정값이 다음 S6/S7 표로 전달된다.",
+        "저장 예약은 기존 예약이 없으면 S6, 있으면 S7으로 진입한다. 예약 팝업에서 취소하면 입력·선택한 값을 유지하고 이 화면으로 돌아온다. 초기화 화면으로 연결하지 않는다.",
         "기본 정보 폼 배치를 유지한다. 이름·이메일·휴대폰 번호·직무/직급·입사일·사번과 저장 버튼 옆의 저장 예약을 확인한다. 닉네임 등 고객사별 옵션은 현행 조건을 따른다.",
         "실제 수정 정보는 화면 표시값이 아니라 즉시 저장 후 최종 반영될 값으로 판정한다. 문자열 앞뒤 공백, 휴대폰 숫자화, 이메일 소문자 저장, 입사일 형식 변환을 반영한 뒤 원래 값과 같으면 제외한다. 유효한 선택 항목 비우기는 변경이지만 이메일 빈 입력은 삭제 예약으로 해석하지 않는다.",
-        "기존 예약이 있으면 예약 내역 보기 버튼을 제공한다. 개별은 S9 상세, 일괄은 S8 목록에서 조회·단건 취소한다. 취소 후 편집·선택·파일 내용은 유지한다.",
-        "즉시 저장·적용도 같은 범위의 예약을 검사한다. 있으면 S11에서 지금 저장하고 예약 취소 또는 저장하지 않고 예약 유지를 선택한다."
+        "기존 예약이 있으면 예약 내역 보기 버튼을 제공한다. 개별은 S15 상세, 일괄은 S14 목록에서 조회·단건 취소한다. 취소 후 편집·선택·파일 내용은 유지한다.",
+        "즉시 저장·적용도 같은 범위의 예약을 검사한다. 있으면 S17에서 지금 저장하고 예약 취소 또는 저장하지 않고 예약 유지를 선택한다."
       ]
     },
     {
-      "id": "S1-2",
+      "id": "S2",
       "title": "그룹 및 권한 수정",
       "group": "기존 수정 화면",
       "subtitle": "저장 예약을 누르기 전의 기존 화면",
       "asIs": "02-group-permission-edit.png",
       "notes": [
         "이 화면이 저장 예약 버튼을 추가할 기존 입력·선택 화면이다. 우측 예시 데이터와 체크박스는 검토 도구이고 실제 제품 UI가 아니다.",
-        "원래 저장/적용 버튼 옆에 저장 예약을 추가한다. 두 버튼은 같은 권한·입력 유효성·실제 수정 여부 조건을 따른다. 입력한 실제 수정값이 다음 S2/S3 표로 전달된다.",
-        "저장 예약은 기존 예약이 없으면 S2, 있으면 S3으로 진입한다. 예약 팝업에서 취소하면 입력·선택한 값을 유지하고 이 화면으로 돌아온다. 초기화 화면으로 연결하지 않는다.",
+        "원래 저장/적용 버튼 옆에 저장 예약을 추가한다. 두 버튼은 같은 권한·입력 유효성·실제 수정 여부 조건을 따른다. 입력한 실제 수정값이 다음 S6/S7 표로 전달된다.",
+        "저장 예약은 기존 예약이 없으면 S6, 있으면 S7으로 진입한다. 예약 팝업에서 취소하면 입력·선택한 값을 유지하고 이 화면으로 돌아온다. 초기화 화면으로 연결하지 않는다.",
         "그룹 및 권한 As-Is 캡처와 EditGroupPermissionModal 구조를 기준으로 본인 출퇴근 이력 조회 스위치·소속 그룹·리더 권한·그룹별 승인 Y/N을 표시한다. 하단 저장 옆에 저장 예약을 둔다. 그룹 추가·해제·승인 전환의 예시 조작을 지원한다.",
         "소속 그룹 ID와 리더 그룹별 ID·승인 권한을 최종 저장값 기준으로 비교한다. 리더 그룹이 여러 개여도 별도 예약으로 나누지 않으며, 리더가 아니면 리더 그룹 목록은 빈 목록으로 처리한다.",
-        "기존 예약이 있으면 예약 내역 보기 버튼을 제공한다. 개별은 S9 상세, 일괄은 S8 목록에서 조회·단건 취소한다. 취소 후 편집·선택·파일 내용은 유지한다.",
-        "즉시 저장·적용도 같은 범위의 예약을 검사한다. 있으면 S11에서 지금 저장하고 예약 취소 또는 저장하지 않고 예약 유지를 선택한다."
+        "기존 예약이 있으면 예약 내역 보기 버튼을 제공한다. 개별은 S15 상세, 일괄은 S14 목록에서 조회·단건 취소한다. 취소 후 편집·선택·파일 내용은 유지한다.",
+        "즉시 저장·적용도 같은 범위의 예약을 검사한다. 있으면 S17에서 지금 저장하고 예약 취소 또는 저장하지 않고 예약 유지를 선택한다."
       ]
     },
     {
-      "id": "S1-3",
+      "id": "S3",
       "title": "고정근무지 선택",
       "group": "기존 수정 화면",
       "subtitle": "적용 예약을 누르기 전의 기존 화면",
       "asIs": "06-fixed-workplace-select.png",
       "notes": [
         "이 화면이 적용 예약 버튼을 추가할 기존 입력·선택 화면이다. 우측 예시 데이터와 체크박스는 검토 도구이고 실제 제품 UI가 아니다.",
-        "원래 저장/적용 버튼 옆에 적용 예약을 추가한다. 두 버튼은 같은 권한·입력 유효성·실제 수정 여부 조건을 따른다. 입력한 실제 수정값이 다음 S2/S3 표로 전달된다.",
-        "적용 예약은 기존 예약이 없으면 S2, 있으면 S3으로 진입한다. 예약 팝업에서 취소하면 입력·선택한 값을 유지하고 이 화면으로 돌아온다. 초기화 화면으로 연결하지 않는다.",
+        "원래 저장/적용 버튼 옆에 적용 예약을 추가한다. 두 버튼은 같은 권한·입력 유효성·실제 수정 여부 조건을 따른다. 입력한 실제 수정값이 다음 S6/S7 표로 전달된다.",
+        "적용 예약은 기존 예약이 없으면 S6, 있으면 S7으로 진입한다. 예약 팝업에서 취소하면 입력·선택한 값을 유지하고 이 화면으로 돌아온다. 초기화 화면으로 연결하지 않는다.",
         "사용자 제공 근무지 선택 캡처와 UserWorkInfoSection의 selectWorkplace 진입 기준이다. 검색·단일 선택·내 고정 근무지 표시와 취소/적용을 유지하고 적용 옆에 적용 예약을 둔다. 근무지명·코드·주소는 가상 예시로 대체했다.",
-        "고정근무지는 표시명이 아니라 근무지 ID로 변경 여부를 판정한다. Modal 바깥 영역 클릭으로 닫지 않으며, 같은 범위의 예약이 있으면 즉시 적용 전 S11에서 저장과 예약 취소를 함께 확인한다.",
-        "기존 예약이 있으면 예약 내역 보기 버튼을 제공한다. 개별은 S9 상세, 일괄은 S8 목록에서 조회·단건 취소한다. 취소 후 편집·선택·파일 내용은 유지한다.",
-        "즉시 저장·적용도 같은 범위의 예약을 검사한다. 있으면 S11에서 지금 저장하고 예약 취소 또는 저장하지 않고 예약 유지를 선택한다."
+        "고정근무지는 표시명이 아니라 근무지 ID로 변경 여부를 판정한다. Modal 바깥 영역 클릭으로 닫지 않으며, 같은 범위의 예약이 있으면 즉시 적용 전 S17에서 저장과 예약 취소를 함께 확인한다.",
+        "기존 예약이 있으면 예약 내역 보기 버튼을 제공한다. 개별은 S15 상세, 일괄은 S14 목록에서 조회·단건 취소한다. 취소 후 편집·선택·파일 내용은 유지한다.",
+        "즉시 저장·적용도 같은 범위의 예약을 검사한다. 있으면 S17에서 지금 저장하고 예약 취소 또는 저장하지 않고 예약 유지를 선택한다."
       ]
     },
     {
-      "id": "S1-4",
+      "id": "S4",
       "title": "담당근무지 선택",
       "group": "기존 수정 화면",
       "subtitle": "적용 예약을 누르기 전의 기존 화면",
       "asIs": "03-work-info-edit.png",
       "notes": [
         "이 화면이 적용 예약 버튼을 추가할 기존 입력·선택 화면이다. 우측 예시 데이터와 체크박스는 검토 도구이고 실제 제품 UI가 아니다.",
-        "원래 저장/적용 버튼 옆에 적용 예약을 추가한다. 두 버튼은 같은 권한·입력 유효성·실제 수정 여부 조건을 따른다. 입력한 실제 수정값이 다음 S2/S3 표로 전달된다.",
-        "적용 예약은 기존 예약이 없으면 S2, 있으면 S3으로 진입한다. 예약 팝업에서 취소하면 입력·선택한 값을 유지하고 이 화면으로 돌아온다. 초기화 화면으로 연결하지 않는다.",
+        "원래 저장/적용 버튼 옆에 적용 예약을 추가한다. 두 버튼은 같은 권한·입력 유효성·실제 수정 여부 조건을 따른다. 입력한 실제 수정값이 다음 S6/S7 표로 전달된다.",
+        "적용 예약은 기존 예약이 없으면 S6, 있으면 S7으로 진입한다. 예약 팝업에서 취소하면 입력·선택한 값을 유지하고 이 화면으로 돌아온다. 초기화 화면으로 연결하지 않는다.",
         "UserWorkInfoSection → WorkplaceSearchModal → WorkplaceTransferModal의 현재 코드 구조를 참고했다. 좌측 전체 목록과 우측 선택 목록·검색·다중 선택·해제·취소/적용을 표시하고 적용 예약을 추가한다. 해당 선택창 실화면 캡처는 아직 없으며 As-Is 이미지는 근무 정보 문맥이다. 고객사별 지역·등급 등 필터와 대량 페이징은 이 배치 목업에서 생략했다.",
-        "담당근무지는 근무지 ID 집합의 개수와 포함 여부로 비교하며 표시 순서만 달라진 경우는 변경이 아니다. Modal 바깥 영역 클릭으로 닫지 않으며, 같은 범위의 예약이 있으면 즉시 적용 전 S11에서 확인한다.",
-        "기존 예약이 있으면 예약 내역 보기 버튼을 제공한다. 개별은 S9 상세, 일괄은 S8 목록에서 조회·단건 취소한다. 취소 후 편집·선택·파일 내용은 유지한다.",
-        "즉시 저장·적용도 같은 범위의 예약을 검사한다. 있으면 S11에서 지금 저장하고 예약 취소 또는 저장하지 않고 예약 유지를 선택한다."
+        "담당근무지는 근무지 ID 집합의 개수와 포함 여부로 비교하며 표시 순서만 달라진 경우는 변경이 아니다. Modal 바깥 영역 클릭으로 닫지 않으며, 같은 범위의 예약이 있으면 즉시 적용 전 S17에서 확인한다.",
+        "기존 예약이 있으면 예약 내역 보기 버튼을 제공한다. 개별은 S15 상세, 일괄은 S14 목록에서 조회·단건 취소한다. 취소 후 편집·선택·파일 내용은 유지한다.",
+        "즉시 저장·적용도 같은 범위의 예약을 검사한다. 있으면 S17에서 지금 저장하고 예약 취소 또는 저장하지 않고 예약 유지를 선택한다."
       ]
     },
     {
-      "id": "S1-5",
+      "id": "S5",
       "title": "일괄 수정 페이지",
       "subtitle": "상단 저장 옆 저장 예약",
       "group": "기존 수정 화면",
@@ -991,16 +991,16 @@ window.WF_DATA = {
         "사용자 제공 일괄 담당근무지 수정 페이지를 기준으로 페이지 상단 저장 바로 옆에 저장 예약을 추가한다. 하단 저장 영역이나 별도 축약 페이지로 바꾸지 않는다.",
         "기본 정보·이메일 주소·담당근무지의 기존 일괄 수정 페이지에 같은 진입 방식을 적용한다. 오른쪽 페이지 선택은 검토 도구다.",
         "파일이 적용·검증되기 전에는 저장과 저장 예약이 함께 비활성화된다. 검증 완료 예시를 켜거나 찾아보기 → 적용의 샘플 동작으로 페이지의 버튼 배치를 확인한다. 실제 파일 업로드나 다운로드를 구현한 것은 아니다.",
-        "저장 예약을 누르면 실제 수정 여부를 확인하고 변경이 있을 때 S5 예약 팝업이 열린다. S5 취소 또는 S6 충돌 안내 확인은 파일·검증 결과를 유지한 채 이 페이지로 돌아온다.",
+        "저장 예약을 누르면 실제 수정 여부를 확인하고 변경이 있을 때 S11 예약 팝업이 열린다. S11 취소 또는 S12 충돌 안내 확인은 파일·검증 결과를 유지한 채 이 페이지로 돌아온다.",
         "캡처는 담당근무지 페이지다. 기본 정보·이메일 주소 페이지는 기존 공통 업로드 구조와 소스에 근거한 배치 초안이다. 표 데이터는 가상 예시이며 고객사별 전체 컬럼·검증 오류 상태는 추가 검토 대상이다.",
         "실제 변경 0건이라는 이유만으로 저장 예약 버튼을 비활성화하지 않는다. 클릭 시 구성원별 실제 수정 여부를 판정하고, 전체 변경이 0건이면 예약 팝업을 열거나 예약을 생성하지 않고 오류 토스트를 표시한 뒤 기존 일괄 수정 페이지에 머문다. 업로드 파일·입력·검증 결과는 유지한다. 예약이 생성되지 않으므로 결과 이메일도 발송하지 않는다. 오류 토스트 문구: 수정된 내용이 없어 예약을 진행할 수 없습니다. 오른쪽 변경 0건 예시는 판정 결과를 가정한 목업이며 실제 파일 비교 검증은 아니다.",
         "최대 대상 구성원 수는 기본 정보·이메일 주소 각 2,000명, 담당근무지 50명이다. 최종 저장값으로 다시 비교해 빈 셀에 따른 삭제, 권한만 변경, 담당근무지 삭제만 있는 변경도 포함하고 단순 표시 순서 변경은 제외한다.",
-        "기존 예약이 있으면 예약 내역 보기 버튼을 제공한다. 개별은 S9 상세, 일괄은 S8 목록에서 조회·단건 취소한다. 취소 후 편집·선택·파일 내용은 유지한다.",
+        "기존 예약이 있으면 예약 내역 보기 버튼을 제공한다. 개별은 S15 상세, 일괄은 S14 목록에서 조회·단건 취소한다. 취소 후 편집·선택·파일 내용은 유지한다.",
         "미확정: 일괄 즉시 저장 시 여러 예약의 취소 확인 방식. 이 조건은 목업에서 실행하지 않고 우측 검토 안내만 표시한다."
       ]
     },
     {
-      "id": "S2",
+      "id": "S6",
       "title": "수정 예약 · 기존 예약 없음",
       "group": "예약 화면",
       "subtitle": "공통 예약 팝업 · 신규 예약",
@@ -1009,20 +1009,20 @@ window.WF_DATA = {
         "오른쪽 진입한 기존 수정 화면에서 기본 정보·그룹 및 권한·고정근무지·담당근무지 4개 경로를 선택한다. 팝업 바깥의 진입 경로, 예약 표 내용, As-Is 참고 이미지가 함께 전환된다. 경로·예시 선택은 검토 도구이며 제품 UI가 아니다.",
         "기본 정보·그룹/권한·고정/담당근무지 수정에서 기존 예약이 없으면 이 공통 팝업을 사용한다. 오른쪽 수정 정보 선택은 표 내용 검토용이며 실제 제품 UI가 아니다.",
         "상단에는 적용일 오전 0시부터 순차 처리만 안내하며 시간대 보조 문구는 표시하지 않는다. 처리 기준은 고객사 시간대를 유지한다.",
-        "S1에서 확인한 대상 구성원은 이 팝업에 반복 표시하지 않는다. 제목은 정보 수정 예약, 미리보기 제목은 예약 내용으로 표시한다. 이메일의 대상 구성원·표 제목은 유지한다.",
+        "진입한 수정 화면에서 확인한 대상 구성원은 이 팝업에 반복 표시하지 않는다. 제목은 정보 수정 예약, 미리보기 제목은 예약 내용으로 표시한다. 이메일의 대상 구성원·표 제목은 유지한다.",
         "헤더 X 없이 하단 취소로 돌아간다. 진입 버튼은 저장 예약, 팝업의 실행 버튼은 예약으로 구분한다.",
         "적용일은 처음에는 미선택, 안내는 내일부터 30일 이내라는 고정 문구다. 실제 예시 선택 범위는 2026.11.13–2026.12.12이며 주말도 가능하다.",
         "취소해도 기존 수정 폼의 입력과 선택한 적용일을 같은 수정 작업 안에서 유지한다. 다시 열거나 등록할 때 날짜 범위를 재확인한다. 달력이 열린 상태의 Escape는 달력만 닫는다.",
         "입사일 입력과 같이 숫자 8자리를 YYYY.MM.DD로 자동 정리하고 달력 선택도 제공한다. 입력칸을 벗어날 때 형식·실제 날짜·예약 가능 범위를 확인하며, 빈 값이나 유효하지 않은 값으로는 예약할 수 없다.",
         "상단 기능·이메일 안내는 유지한다. 날짜 범위 안내는 입력칸 아래에 표시하며 오류 문구가 표시되는 동안에는 숨긴다. 오류 해제 시 안내를 다시 보여준다. 형식·존재하지 않는 날짜와 범위 밖 날짜의 오류 문구는 기존대로다.",
-        "그룹 및 권한 예시는 본인 출퇴근 이력 조회 권한·소속 그룹·리더 권한·승인 권한을 모두 수정한 상황이다. 실제로는 수정한 정보만 표시하며 네 항목은 같은 수정 범위로 관리한다. S2는 수정 전/후, S3는 기존/새 예약을 비교한다.",
-        "원래 수정·선택 화면의 저장 예약 버튼 위치는 S1-1 기본 정보/S1-2 그룹 및 권한/S1-3 고정근무지/S1-4 담당근무지에서 확인한다. 표는 그 화면에서 입력한 실제 변경값을 사용한다.",
+        "그룹 및 권한 예시는 본인 출퇴근 이력 조회 권한·소속 그룹·리더 권한·승인 권한을 모두 수정한 상황이다. 실제로는 수정한 정보만 표시하며 네 항목은 같은 수정 범위로 관리한다. S6는 수정 전/후, S7는 기존/새 예약을 비교한다.",
+        "원래 수정·선택 화면의 저장 예약 버튼 위치는 S1 기본 정보/S2 그룹 및 권한/S3 고정근무지/S4 담당근무지에서 확인한다. 표는 그 화면에서 입력한 실제 변경값을 사용한다.",
         "날짜 입력의 공통 레이블은 예약 적용일이다. 기존 예약 적용일·새 예약 적용일은 그대로 사용한다.",
-        "입력용 Modal은 바깥 영역 클릭으로 닫지 않는다. 최종 등록 직전에 기존 예약이 새로 발견되면 입력값과 날짜를 유지한 채 최신 기존 예약을 표시하는 S3 구성으로 전환한다."
+        "입력용 Modal은 바깥 영역 클릭으로 닫지 않는다. 최종 등록 직전에 기존 예약이 새로 발견되면 입력값과 날짜를 유지한 채 최신 기존 예약을 표시하는 S7 구성으로 전환한다."
       ]
     },
     {
-      "id": "S3",
+      "id": "S7",
       "title": "수정 예약 · 기존 예약 있음",
       "group": "예약 화면",
       "subtitle": "공통 예약 팝업 · 비교 후 새로 예약",
@@ -1031,42 +1031,42 @@ window.WF_DATA = {
         "오른쪽 진입한 기존 수정 화면에서 기본 정보·그룹 및 권한·고정근무지·담당근무지 4개 경로를 선택한다. 팝업 바깥의 진입 경로, 예약 표 내용, As-Is 참고 이미지가 함께 전환된다. 경로·예시 선택은 검토 도구이며 제품 UI가 아니다.",
         "기본 정보·그룹/권한·고정/담당근무지 수정 화면의 저장 예약에서 같은 범위의 기존 예약이 있으면 이 공통 팝업을 사용한다. 새로 하려는 작업은 정보 수정이다. 초기화 진입 화면이 아니다.",
         "노란색 기존 예약 경고를 먼저 표시하고, 그 아래에 공통 기능·이메일 안내를 표시한다. 대상 구성원은 반복하지 않고 기존 예약자는 아바타·이름·그룹으로 표시한다. 예약자 영역은 배경색 없이 옅은 테두리 박스로 구분한다. 헤더 X는 제거하고 푸터 취소·새로 예약을 유지한다.",
-        "표 제목은 S2와 같은 예약 내용이다. 새 예약 컬럼은 글자 굵기로만 강조한다. 별도 배경색·글자 색은 사용하지 않으며 없음·수정하지 않음의 회색 표시는 유지한다.",
+        "표 제목은 S6와 같은 예약 내용이다. 새 예약 컬럼은 글자 굵기로만 강조한다. 별도 배경색·글자 색은 사용하지 않으며 없음·수정하지 않음의 회색 표시는 유지한다.",
         "표 아래에는 적용일 레이블 → 기존 예약 적용일 레이블과 그 다음 줄의 날짜 → 새 예약 적용일 입력칸을 세로 배치한다. 범위 안내는 새 입력칸 아래에 표시하며 오류 표시 중에는 숨긴다. 기존 날짜는 바꿀 수 없다.",
-        "취소는 기존 예약을 유지하고 진입한 S1-1/2/3/4로 돌아간다. 같은 수정 작업의 입력 내용·적용일을 유지한다.",
+        "취소는 기존 예약을 유지하고 진입한 S1/2/3/4로 돌아간다. 같은 수정 작업의 입력 내용·적용일을 유지한다.",
         "수정하지 않음은 새 예약에 포함되지 않는다는 뜻이다. 함께 취소되는 기존 예약의 수정 내용 전체를 비교한다.",
         "푸터 새로 예약은 기존 예약 취소와 새 생성을 함께 처리한다. 권한·동시 변경·등록 실패 시 기존 예약을 유지한다.",
-        "그룹 및 권한 예시는 본인 출퇴근 이력 조회 권한·소속 그룹·리더 권한·승인 권한을 모두 수정한 상황이다. 실제로는 수정한 정보만 표시하며 네 항목은 같은 수정 범위로 관리한다. S2는 수정 전/후, S3는 기존/새 예약을 비교한다.",
-        "원래 수정·선택 화면의 저장 예약 버튼 위치는 S1-1 기본 정보/S1-2 그룹 및 권한/S1-3 고정근무지/S1-4 담당근무지에서 확인한다. 표는 그 화면에서 입력한 실제 변경값을 사용한다.",
+        "그룹 및 권한 예시는 본인 출퇴근 이력 조회 권한·소속 그룹·리더 권한·승인 권한을 모두 수정한 상황이다. 실제로는 수정한 정보만 표시하며 네 항목은 같은 수정 범위로 관리한다. S6는 수정 전/후, S7는 기존/새 예약을 비교한다.",
+        "원래 수정·선택 화면의 저장 예약 버튼 위치는 S1 기본 정보/S2 그룹 및 권한/S3 고정근무지/S4 담당근무지에서 확인한다. 표는 그 화면에서 입력한 실제 변경값을 사용한다.",
         "날짜 입력의 공통 레이블은 예약 적용일이다. 기존 예약 적용일·새 예약 적용일은 그대로 사용한다.",
         "기존 예약과 새 예약의 수정 내용·예약 적용일이 모두 같아도, 유효한 새 적용일을 입력하고 최종 버튼을 누르면 기존 예약 취소와 새 예약 등록을 함께 처리한다. 동일하다는 이유로 즉시 실행하거나 기존 예약 유지로 대체하지 않는다. 현재 권한·날짜·동시 변경 검증과 예약자 변경 알림은 기존 공통 규칙을 따른다.",
         "교체 시 기존 예약 전체와 새 예약 내용 모두에 대한 현재 수정 권한이 필요하며 부분 취소는 하지 않는다. 비교 중 기존 예약이 바뀌면 오래된 예약을 취소하지 않고 최신 예약을 자동 재조회한다. 예약자가 달라진 경우에만 기존 예약자에게 변경 알림을 발송한다."
       ]
     },
     {
-      "id": "S4-1",
+      "id": "S8",
       "title": "초기화 · 즉시",
       "group": "초기화 확인",
       "subtitle": "초기화 버튼 진입 · 기본 상태",
       "asIs": "05-fixed-workplace-reset-confirm.png",
       "notes": [
-        "현재 작업은 고정/담당근무지를 비우는 초기화다. 근무지를 다른 값으로 수정하는 새 예약은 S2/S3 공통 팝업을 사용한다.",
-        "제목 초기화하시겠습니까?·즉시/예약 토글·취소/확인 푸터를 유지한다. S4-1/2/3은 하나의 초기화 확인 팝업을 상태별로 나누어 검토하는 화면 번호다.",
+        "현재 작업은 고정/담당근무지를 비우는 초기화다. 근무지를 다른 값으로 수정하는 새 예약은 S6/S7 공통 팝업을 사용한다.",
+        "제목 초기화하시겠습니까?·즉시/예약 토글·취소/확인 푸터를 유지한다. S8·S9·S10은 하나의 초기화 확인 팝업을 상태별로 나누어 검토하는 화면 번호다.",
         "고정근무지 확인창은 사용자 제공 As-Is 기준이며 담당근무지는 같은 정책의 초안이다. 취소 시 실제 제품은 원래 상세로 돌아간다. 목업에서는 공통 S1 예시로 복귀를 대체한다.",
-        "예약 관련 안내·비교·날짜를 표시하지 않는다. 확인은 같은 범위의 기존 예약이 없으면 즉시 초기화하고, 있으면 S11 확인을 거친다. 예약 선택 시 기존 예약 유무에 따라 S4-2/3 상태가 된다.",
+        "예약 관련 안내·비교·날짜를 표시하지 않는다. 확인은 같은 범위의 기존 예약이 없으면 즉시 초기화하고, 있으면 S17 확인을 거친다. 예약 선택 시 기존 예약 유무에 따라 S9·S10 상태가 된다.",
         "초기화 확인 Modal은 바깥 영역 클릭으로 닫지 않는다. 취소하면 현재 근무지와 기존 예약을 유지하고 구성원 상세의 근무 정보 화면으로 돌아간다.",
         "예약은 정보 범위별로 독립 관리한다. 예약 내역 보기는 같은 근무지 범위만 조회하며 취소해도 직급 등 다른 범위의 예약은 유지한다."
       ]
     },
     {
-      "id": "S4-2",
+      "id": "S9",
       "title": "초기화 예약 · 기존 예약 없음",
       "group": "초기화 확인",
       "subtitle": "초기화 확인 · 예약 선택",
       "asIs": "05-fixed-workplace-reset-confirm.png",
       "notes": [
-        "현재 작업은 고정/담당근무지를 비우는 초기화다. 근무지를 다른 값으로 수정하는 새 예약은 S2/S3 공통 팝업을 사용한다.",
-        "제목 초기화하시겠습니까?·즉시/예약 토글·취소/확인 푸터를 유지한다. S4-1/2/3은 하나의 초기화 확인 팝업을 상태별로 나누어 검토하는 화면 번호다.",
+        "현재 작업은 고정/담당근무지를 비우는 초기화다. 근무지를 다른 값으로 수정하는 새 예약은 S6/S7 공통 팝업을 사용한다.",
+        "제목 초기화하시겠습니까?·즉시/예약 토글·취소/확인 푸터를 유지한다. S8·S9·S10은 하나의 초기화 확인 팝업을 상태별로 나누어 검토하는 화면 번호다.",
         "고정근무지 확인창은 사용자 제공 As-Is 기준이며 담당근무지는 같은 정책의 초안이다. 취소 시 실제 제품은 원래 상세로 돌아간다. 목업에서는 공통 S1 예시로 복귀를 대체한다.",
         "예약 선택 시 초기화 전용 안내와 적용일 입력을 표시한다. 확인하면 초기화 예약을 등록하고 현재 값은 비우지 않는다. 기존 예약 비교 표는 표시하지 않는다.",
         "적용일의 직접 입력·달력 선택, 내일부터 30일 이내, 안내/오류 교대 표시 규칙을 적용한다. 날짜는 즉시/예약 전환 시 같은 작업 안에서 유지한다.",
@@ -1076,17 +1076,17 @@ window.WF_DATA = {
       ]
     },
     {
-      "id": "S4-3",
+      "id": "S10",
       "title": "초기화 예약 · 기존 예약 있음",
       "group": "초기화 확인",
       "subtitle": "새 작업은 초기화 · 기존 예약과 비교",
       "asIs": "05-fixed-workplace-reset-confirm.png",
       "notes": [
-        "현재 작업은 고정/담당근무지를 비우는 초기화다. 근무지를 다른 값으로 수정하는 새 예약은 S2/S3 공통 팝업을 사용한다.",
-        "제목 초기화하시겠습니까?·즉시/예약 토글·취소/확인 푸터를 유지한다. S4-1/2/3은 하나의 초기화 확인 팝업을 상태별로 나누어 검토하는 화면 번호다.",
+        "현재 작업은 고정/담당근무지를 비우는 초기화다. 근무지를 다른 값으로 수정하는 새 예약은 S6/S7 공통 팝업을 사용한다.",
+        "제목 초기화하시겠습니까?·즉시/예약 토글·취소/확인 푸터를 유지한다. S8·S9·S10은 하나의 초기화 확인 팝업을 상태별로 나누어 검토하는 화면 번호다.",
         "고정근무지 확인창은 사용자 제공 As-Is 기준이며 담당근무지는 같은 정책의 초안이다. 취소 시 실제 제품은 원래 상세로 돌아간다. 목업에서는 공통 S1 예시로 복귀를 대체한다.",
         "예약 모드에서 같은 구성원·같은 근무지 범위의 기존 예약이 있으면 같은 초기화 팝업 안에 노란 주의·기존 예약자·비교 표·기존 적용일을 표시한다. 새 예약은 항상 초기화(목표값 없음)다.",
-        "오른쪽 기존 예약에 담긴 내용은 과거 예약의 비교 예시다. 근무지 초기화 또는 다른 근무지로 수정 중 선택해도 지금 하려는 작업이 수정으로 바뀌지 않는다. 새 근무지 수정 예약을 확인하려면 S2 또는 S3을 연다.",
+        "오른쪽 기존 예약에 담긴 내용은 과거 예약의 비교 예시다. 근무지 초기화 또는 다른 근무지로 수정 중 선택해도 지금 하려는 작업이 수정으로 바뀌지 않는다. 새 근무지 수정 예약을 확인하려면 S6 또는 S7을 연다.",
         "기존 예약도 초기화이면 양쪽 내용은 같은 값 → 없음이고 적용일을 비교한다. 확인은 기존 취소와 새 예약 등록을 함께 처리하며 즉시 초기화하지 않는다. 기존 내용·적용일까지 같아도 유효한 새 날짜 입력 후 확인하면 일반 재등록 규칙을 적용한다.",
         "권한·동시 변경·등록 실패 시 기존 예약과 입력값을 유지한다. 성공 토스트는 예약되었습니다.이다. 날짜 오류는 범위 안내 대신 표시한다.",
         "표시 순서는 즉시/예약 → 노란 기존 예약 주의 → 초기화 예약 안내 → 기존 예약자 → 예약 내용 → 적용일이다.",
@@ -1096,111 +1096,111 @@ window.WF_DATA = {
       ]
     },
     {
-      "id": "S5",
+      "id": "S11",
       "title": "일괄 수정 예약 팝업",
       "group": "일괄 예약",
       "subtitle": "일괄 수정 페이지의 저장 예약 클릭",
       "asIs": "07-bulk-assigned-workplace-edit.png",
       "notes": [
         "제목은 정보 일괄 수정 예약이며 헤더 X 없이 푸터에 취소·예약 버튼을 표시한다.",
-        "S5는 기존 일괄 수정 페이지의 상단 저장 옆 저장 예약을 눌렀을 때 뜨는 예약 팝업이다. 이 탭을 열면 팝업을 바로 보여주며 일괄 수정 페이지는 S1-5에서 확인한다.",
+        "S11는 기존 일괄 수정 페이지의 상단 저장 옆 저장 예약을 눌렀을 때 뜨는 예약 팝업이다. 이 탭을 열면 팝업을 바로 보여주며 일괄 수정 페이지는 S5에서 확인한다.",
         "파일 업로드·적용·검증은 기존 일괄 수정 페이지에서 먼저 수행한다. 이 팝업에서는 안내·대상 인원·적용일을 확인하고 예약을 등록한다.",
-        "취소 또는 닫기는 S1-5 일괄 수정 페이지로 돌아가며 파일·적용 결과·선택한 날짜를 유지한다. 재진입 시 날짜 범위를 다시 검증한다.",
-        "현재 가상 예시는 대상 3명이다. 오른쪽 충돌 예시를 켜고 날짜 선택 후 등록하면 S6로 이동한다. 신규 예약과 기존 예약은 그 단계에서 변경하지 않는다.",
+        "취소 또는 닫기는 S5 일괄 수정 페이지로 돌아가며 파일·적용 결과·선택한 날짜를 유지한다. 재진입 시 날짜 범위를 다시 검증한다.",
+        "현재 가상 예시는 대상 3명이다. 오른쪽 충돌 예시를 켜고 날짜 선택 후 등록하면 S12로 이동한다. 신규 예약과 기존 예약은 그 단계에서 변경하지 않는다.",
         "수정값의 실제 차이만 예약하고 개별과 일괄의 필드 구성을 강제로 통일하지 않는다. 기본 정보·이메일·담당근무지 기존 상한을 유지한다.",
         "날짜 입력의 공통 레이블은 예약 적용일이다. 기존 예약 적용일·새 예약 적용일은 그대로 사용한다.",
-        "실제 변경 0건이라는 이유만으로 저장 예약 버튼을 비활성화하지 않는다. 클릭 시 구성원별 실제 수정 여부를 판정하고, 전체 변경이 0건이면 예약 팝업을 열거나 예약을 생성하지 않고 오류 토스트를 표시한 뒤 기존 일괄 수정 페이지에 머문다. 업로드 파일·입력·검증 결과는 유지한다. 예약이 생성되지 않으므로 결과 이메일도 발송하지 않는다. 오류 토스트 문구: 수정된 내용이 없어 예약을 진행할 수 없습니다. S1-5 오른쪽의 변경 0건 예시는 판정 결과를 가정한 목업이며 실제 파일 비교 검증은 아니다.",
+        "실제 변경 0건이라는 이유만으로 저장 예약 버튼을 비활성화하지 않는다. 클릭 시 구성원별 실제 수정 여부를 판정하고, 전체 변경이 0건이면 예약 팝업을 열거나 예약을 생성하지 않고 오류 토스트를 표시한 뒤 기존 일괄 수정 페이지에 머문다. 업로드 파일·입력·검증 결과는 유지한다. 예약이 생성되지 않으므로 결과 이메일도 발송하지 않는다. 오류 토스트 문구: 수정된 내용이 없어 예약을 진행할 수 없습니다. S5 오른쪽의 변경 0건 예시는 판정 결과를 가정한 목업이며 실제 파일 비교 검증은 아니다.",
         "대상 인원은 업로드의 변경 행 표시 수가 아니라 최종 저장값이 실제로 달라지는 구성원 수다. Modal은 바깥 영역 클릭으로 닫지 않으며 파일 선택·업로드·검증 표를 안에 반복하지 않는다."
       ]
     },
     {
-      "id": "S6",
+      "id": "S12",
       "title": "일괄 충돌 안내",
       "group": "일괄 예약",
       "subtitle": "생성 없이 전체 중단",
       "asIs": "01-member-list.png",
       "notes": [
         "충돌한 구성원 × 정보 범위별로 한 행을 표시한다. 이번 수정과 겹치는 예약만 조회한다.",
-        "컬럼은 구성원·정보 범위·예약 적용일·예약자·상세보기다. S9 공통 상세에서 단건 취소할 수 있다.",
+        "컬럼은 구성원·정보 범위·예약 적용일·예약자·상세보기다. S15 공통 상세에서 단건 취소할 수 있다.",
         "충돌 시 새 예약을 생성하지 않는다. 목록의 예약을 취소하거나 구성원을 제외한 뒤 사용자가 다시 예약해야 한다. 취소 완료만으로 자동 등록하지 않는다.",
-        "마지막 충돌 예약을 취소하면 빈 상태를 표시한다. 닫으면 파일·검증 결과·날짜를 유지한 채 S1-5로 돌아간다."
+        "마지막 충돌 예약을 취소하면 빈 상태를 표시한다. 닫으면 파일·검증 결과·날짜를 유지한 채 S5로 돌아간다."
       ]
     },
     {
-      "id": "S7",
+      "id": "S13",
       "title": "등록 · 오류 상태",
       "group": "등록 상태",
       "subtitle": "각 예약 기능의 등록 중·성공·오류 예시",
       "asIs": "04-basic-info-edit.png",
       "notes": [
-        "S7은 별도 제품 화면이 아니라 각 예약 기능의 등록 상태를 모아 보는 예시다. 성공 후 복귀와 오류 처리는 Web_dc_06의 예약·새로 예약, Web_dc_07의 확인, Web_dc_08의 예약 버튼 설명에 각각 정의한다.",
+        "S13은 별도 제품 화면이 아니라 각 예약 기능의 등록 상태를 모아 보는 예시다. 성공 후 복귀와 오류 처리는 Web_dc_06의 예약·새로 예약, Web_dc_07의 확인, Web_dc_08의 예약 버튼 설명에 각각 정의한다.",
         "예약 등록 완료 후 기본/그룹은 편집을 열었던 목록·상세, 근무지 수정/초기화는 현재 구성원 상세의 근무 정보 화면, 일괄은 구성원 목록으로 이동한다. 현재 완료 목업은 목록 대표 예시다.",
         "등록 중에는 버튼 안에 스피너만 표시하며 등록 중 문구로 버튼을 바꾸지 않는다. 버튼 폭을 유지하고 중복 제출을 막는다. 접근성 레이블로만 등록 중 상태를 제공한다.",
         "통신·등록 오류는 에러가 발생하였습니다. 잠시 후 다시 시도해보세요., 수정 권한 없음은 구성원 정보 수정 권한이 없습니다. 토스트로 표시한다. 모달·입력값·기존 예약은 유지한다.",
         "현재 권한이 없으면 새 예약 생성과 기존 예약 취소를 수행하지 않는다. 토스트 표현으로 바꾸어도 권한 검증 규칙은 유지한다. 통신 오류의 재시도 예시는 선택한 날짜를 유지한다.",
-        "다른 사용자의 예약 변경은 S3/S4-3에서 기존 예약을 비교하는 사이 다른 사람이 그 예약을 교체해 비교 대상이 달라진 경우다. 오래된 예약 내용을 보고 새로운 예약을 취소하지 않도록 등록을 멈추고 최신 내용을 다시 확인한다. 모달 밖에 공통 에러 토스트를 표시하고 최신 예약을 자동 재조회한다. 작성한 새 예약 내용과 날짜를 유지하고 최신 기존 예약을 다시 비교한 뒤 사용자가 재확정한다. 정적 목업은 재조회 API를 호출하지 않으며 이 상태의 재제출을 성공 처리하지 않는다.",
+        "다른 사용자의 예약 변경은 S7/S10에서 기존 예약을 비교하는 사이 다른 사람이 그 예약을 교체해 비교 대상이 달라진 경우다. 오래된 예약 내용을 보고 새로운 예약을 취소하지 않도록 등록을 멈추고 최신 내용을 다시 확인한다. 모달 밖에 공통 에러 토스트를 표시하고 최신 예약을 자동 재조회한다. 작성한 새 예약 내용과 날짜를 유지하고 최신 기존 예약을 다시 비교한 뒤 사용자가 재확정한다. 정적 목업은 재조회 API를 호출하지 않으며 이 상태의 재제출을 성공 처리하지 않는다.",
         "날짜 경계 통과는 팝업을 자정 너머까지 열어두어 어제 기준의 내일이 오늘이 된 경우다. 입력/포커스 복귀/제출 시 최신 범위를 다시 검증하고 공통 날짜 필드 오류로 처리한다. 별도 날짜 오류 팝업이나 토스트를 추가하지 않는다. 서버에서도 최종 재검증하며 오류는 같은 필드에 연결한다.",
         "검토용 상태 선택은 각 결과의 정적 예시다. 실서버 통신·권한 변경·자정 경계 처리를 실행한 것은 아니다.",
         "통신·등록 오류는 다시 제출할 수 있게 하고, 권한 없음은 현재 조회 권한에 맞는 정보만 유지한다. 성공 시 진입 작업별 화면을 닫고 명세의 복귀 위치로 이동하며 미저장 경고는 표시하지 않는다."
       ]
     },
     {
-      "id": "S8",
+      "id": "S14",
       "title": "일괄 예약 내역",
       "group": "예약 조회·취소",
       "subtitle": "선택 구성원 · 정보 범위별 예약 목록",
       "asIs": "01-member-list.png",
       "notes": [
-        "선택된 구성원과 이번 수정 범위의 예약을 한 행씩 표시한다. 상세보기에서 개별 조회와 같은 S9을 사용한다.",
+        "선택된 구성원과 이번 수정 범위의 예약을 한 행씩 표시한다. 상세보기에서 개별 조회와 같은 S15을 사용한다.",
         "예약 취소 후 원래 선택·파일·검증 결과를 유지하고 목록을 갱신한다. 저장이나 예약을 자동 진행하지 않는다.",
         "목록 정렬·대량 페이지·검색은 시안 검토 대상이다. 이 HTML은 가상 인물과 소수의 예약으로 흐름을 보여준다."
       ]
     },
     {
-      "id": "S9",
+      "id": "S15",
       "title": "예약 상세",
       "group": "예약 조회·취소",
       "subtitle": "개별·일괄 공통 상세",
       "asIs": "04-basic-info-edit.png",
       "notes": [
         "같은 구성원·정보 범위의 예약 한 건을 조회한다. 수정 전·후 값은 예약 당시 값이다.",
-        "닫기는 진입 화면 또는 목록으로 돌아가며 편집값을 유지한다. 예약 취소는 S10 확인으로 연결한다.",
+        "닫기는 진입 화면 또는 목록으로 돌아가며 편집값을 유지한다. 예약 취소는 S16 확인으로 연결한다.",
         "추가 취소 확인창·실행 중 취소 제한은 시안 검토 대상이다. 우측에서 기존 통신·권한 오류 예시를 선택할 수 있다."
       ]
     },
     {
-      "id": "S10",
+      "id": "S16",
       "title": "예약 취소 확인",
       "group": "예약 조회·취소",
       "subtitle": "해당 범위의 예약만 취소",
       "asIs": "04-basic-info-edit.png",
       "notes": [
         "시안: 현재 구성원 정보는 수정하지 않고 해당 예약 한 건만 취소함을 확인한다. 다른 구성원·범위 예약은 유지한다.",
-        "취소 후 상세를 닫고 진입한 화면 또는 목록을 갱신한다. 다른 사람이 취소했다면 S16를 발송한다.",
+        "취소 후 상세를 닫고 진입한 화면 또는 목록을 갱신한다. 다른 사람이 취소했다면 E5를 발송한다.",
         "취소 확인창 사용 여부와 실행 중·완료된 예약의 안내 문구는 추가 검토한다."
       ]
     },
     {
-      "id": "S11",
+      "id": "S17",
       "title": "즉시 저장 · 예약 취소 확인",
       "group": "예약 조회·취소",
       "subtitle": "개별 저장·적용·초기화",
       "asIs": "04-basic-info-edit.png",
       "notes": [
         "기존 예약과 지금 저장할 내용을 비교한다. 지금 저장하고 예약 취소 또는 저장하지 않고 예약 유지를 선택한다.",
-        "저장과 예약 취소는 함께 성공해야 한다. 실패 시 기존 예약·입력값을 유지한다. 다른 사람의 예약이면 성공 후 S17을 발송한다.",
+        "저장과 예약 취소는 함께 성공해야 한다. 실패 시 기존 예약·입력값을 유지한다. 다른 사람의 예약이면 성공 후 E6을 발송한다.",
         "초기화는 목표값 없음으로 표시한다. 실제 제품은 원래 저장 성공 후 위치로 복귀한다. HTML은 결과 확인용 목록으로 보여준다.",
         "일괄 즉시 저장에서 여러 예약을 함께 취소하는 확인 방식은 아직 정하지 않았다. 이 화면을 일괄에 자동 적용하지 않는다."
       ]
     },
     {
-      "id": "S12",
+      "id": "E1",
       "title": "개별 결과 알림",
       "group": "이메일",
       "subtitle": "결과·실패 원인을 선택해 확인",
       "asIs": "04-basic-info-edit.png",
       "notes": [
-        "개별 결과 알림은 S12 한 화면에서 적용 완료·이미 적용됨·혼합 성공·적용 실패를 선택한다. 적용 실패를 선택하면 실패 원인 선택을 추가로 표시한다. 선택 도구는 검토용이며 실제 이메일에는 포함하지 않는다.",
+        "개별 결과 알림은 E1 한 화면에서 적용 완료·이미 적용됨·혼합 성공·적용 실패를 선택한다. 적용 실패를 선택하면 실패 원인 선택을 추가로 표시한다. 선택 도구는 검토용이며 실제 이메일에는 포함하지 않는다.",
         "적용 완료·이미 적용됨·혼합 성공은 같은 성공 제목과 상단 문장을 사용하고 처리 결과와 결과 설명으로 구분한다. 적용 실패는 실패 제목과 원인별 안내 문단 하나를 사용한다.",
         "공통 정보는 별도 예약 정보 제목이나 표 없이 예약자·예약 등록일·예약 적용일·처리 결과·처리 일시 순서로 표시한다. 고객사명·예약 유형·인사말은 넣지 않는다.",
         "대상 구성원은 결과 확정 시점의 실제 이름·사번을 14px 볼드로 표시한다. 예약 내용 표는 결과와 관계없이 예약 당시 수정 전 값과 목표값을 유지한다.",
@@ -1213,7 +1213,7 @@ window.WF_DATA = {
       ]
     },
     {
-      "id": "S13",
+      "id": "E2",
       "title": "일괄 처리 결과",
       "group": "이메일",
       "subtitle": "결과와 무관한 동일 제목",
@@ -1229,7 +1229,7 @@ window.WF_DATA = {
       ]
     },
     {
-      "id": "S14",
+      "id": "E3",
       "title": "예약 변경 알림",
       "group": "이메일",
       "subtitle": "기존 예약자에게 전달",
@@ -1244,14 +1244,14 @@ window.WF_DATA = {
       ]
     },
     {
-      "id": "S15",
+      "id": "E4",
       "title": "대체 수신 알림",
       "group": "이메일",
       "subtitle": "개별 / 일괄 동일 원칙",
       "asIs": "01-member-list.png",
       "notes": [
         "예약자가 수신할 수 없으면 성공·이미 적용됨·실패 등 모든 최종 결과를 해당 고객사의 활성 ADMIN 전체에게 대체 발송한다. 멀티관리자와 운영자는 제외한다.",
-        "개별은 S12~S11의 해당 결과, 일괄은 S13의 해당 결과와 같은 제목·본문을 사용한다. 푸터 마지막에 대체 수신 설명만 추가한다.",
+        "개별은 E1~S17의 해당 결과, 일괄은 E2의 해당 결과와 같은 제목·본문을 사용한다. 푸터 마지막에 대체 수신 설명만 추가한다.",
         "오른쪽에서 개별 4가지(적용 완료·이미 적용됨·혼합 성공·실패), 일괄 5가지(전원 적용 완료·전원 이미 적용됨·실패 없는 혼합·일부 실패·전원 실패) 예시를 확인한다.",
         "실패 없는 일괄 결과는 정상 처리이며 실패 구성원 명단은 표시하지 않는다. 실패가 있는 경우에만 기존 명단 표시 규칙을 적용한다.",
         "수신 가능한 활성 ADMIN이 없으면 사용자 이메일을 생략하고 감사 이력과 내부 운영 오류를 남긴다. 원래 일괄 대상 0명 시 결과 이메일 생략은 유지한다.",
@@ -1260,20 +1260,20 @@ window.WF_DATA = {
       ]
     },
     {
-      "id": "S16",
+      "id": "E5",
       "title": "취소 알림 · 단독 취소",
       "group": "이메일",
       "subtitle": "다른 구성원의 예약 취소",
       "asIs": "04-basic-info-edit.png",
       "notes": [
-        "제목은 S14·S17과 동일하다. 단독 취소 상단 안내와 예약 취소자·예약 취소 일시를 표시한다.",
+        "제목은 E3·E6과 동일하다. 단독 취소 상단 안내와 예약 취소자·예약 취소 일시를 표시한다.",
         "예약 내용 표는 정보·수정 전·수정 후이며 예약 당시 값을 유지한다. 현재 정보는 변경하지 않는다.",
         "본인 취소에는 발송하지 않는다. 비활성·관리 권한 상실 시 관리자 대체 없이 이력만 남긴다.",
         "취소 완료 시점 이름·사번과 고객사 시간대의 취소 일시를 사용한다. 신규 문구의 다국어 키는 문구 검토 후 연결한다."
       ]
     },
     {
-      "id": "S17",
+      "id": "E6",
       "title": "취소 알림 · 즉시 수정",
       "group": "이메일",
       "subtitle": "기존 예약과 실제 수정 내용 비교",
@@ -1294,7 +1294,7 @@ window.WF_DATA = {
 const entryDraft={fixed:'samsung',assigned:['gangnam','samsung'],group:{history:true,group:'강남2팀',leader:true,leaders:[{name:'강남2팀',approval:true}]}};
 const entryOriginal={fixed:'gangnam',assigned:['gangnam','yeoksam'],group:{history:false,group:'강남1팀',leader:false,leaders:[]}};
 const workplaceSamples=[{id:'gangnam',name:'강남점',code:'W-001',address:'서울 강남구 강남대로 111'},{id:'yeoksam',name:'역삼점',code:'W-002',address:'서울 강남구 테헤란로 222'},{id:'samsung',name:'삼성점',code:'W-003',address:'서울 강남구 영동대로 333'},{id:'seolleung',name:'선릉점',code:'W-004',address:'서울 강남구 선릉로 444'},{id:'seocho',name:'서초점',code:'W-005',address:'서울 서초구 서초대로 555'}];
-const entryIds={basic:'S1-1',group:'S1-2',fixed:'S1-3',assigned:'S1-4'};
+const entryIds={basic:'S1',group:'S2',fixed:'S3',assigned:'S4'};
 function workplaceNames(ids){return workplaceSamples.filter(w=>ids.includes(w.id)).map(w=>w.name).join(', ')||'없음';}
 function groupChanges(){const value=entryDraft.group,old=entryOriginal.group;const rows=[];if(value.history!==old.history)rows.push(['본인 출퇴근 이력 조회 권한',old.history?'조회 가능':'조회 불가',value.history?'조회 가능':'조회 불가']);if(value.group!==old.group)rows.push(['소속 그룹',old.group,value.group||'없음']);if(value.leader!==old.leader||JSON.stringify(value.leaders)!==JSON.stringify(old.leaders)){rows.push(['리더 권한','없음',value.leader?value.leaders.map(g=>g.name).join(', ')||'없음':'없음']);const approved=value.leader?value.leaders.filter(g=>g.approval).map(g=>g.name).join(', '):'';if(approved)rows.push(['승인 권한','없음',approved]);}return rows;}
 function entryChanges(scope=state.reservationScope){if(scope==='basic')return changes();if(scope==='group')return groupChanges();if(scope==='fixed')return entryDraft.fixed===entryOriginal.fixed?[]:[['고정근무지',workplaceNames([entryOriginal.fixed]),workplaceNames([entryDraft.fixed])]];return JSON.stringify([...entryDraft.assigned].sort())===JSON.stringify([...entryOriginal.assigned].sort())?[]:[['담당근무지',workplaceNames(entryOriginal.assigned),workplaceNames(entryDraft.assigned)]];}
@@ -1321,7 +1321,7 @@ const DATA=window.WF_DATA;
 const escapeHTML=(value)=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const t=(symbol,...args)=>DATA.copy[symbol].ko.replace(/\{(\d+)\}/g,(_,n)=>args[n]??'{'+n+'}');
 const h=escapeHTML;
-const state={screen:'S1-1',date:{},dateInput:{},dateErrors:{},month:{},resetMode:'immediate',resetScope:'fixed',resetExistingKind:'none',status:'complete',individualResult:'applied',failure:'conflict',bulk:'partial',fallback:'individual',bulkPageKind:'assigned',bulkUploadReady:false,bulkNoChanges:false,bulkFileSelected:false,bulkUsersSelected:false,bulkCollision:false,individualCollision:false,reservationScope:'basic',replacementOrigin:'S1',requestError:'',busy:false,toast:'',form:{name:'김민지',nickname:'민지',email:'minji@example.com',phone:'01055550001',job:'점장',grade:'사원',hire:'2024.03.04',id:'A-1024'}};
+const state={screen:'S1',date:{},dateInput:{},dateErrors:{},month:{},resetMode:'immediate',resetScope:'fixed',resetExistingKind:'none',status:'complete',individualResult:'applied',failure:'conflict',bulk:'partial',fallback:'individual',bulkPageKind:'assigned',bulkUploadReady:false,bulkNoChanges:false,bulkFileSelected:false,bulkUsersSelected:false,bulkCollision:false,individualCollision:false,reservationScope:'basic',replacementOrigin:'S1',requestError:'',busy:false,toast:'',form:{name:'김민지',nickname:'민지',email:'minji@example.com',phone:'01055550001',job:'점장',grade:'사원',hire:'2024.03.04',id:'A-1024'}};
 const original={...state.form,job:'매장직'};
 const MIN='2026-11-13',MAX='2026-12-12';
 const weekdays=['일','월','화','수','목','금','토'];
@@ -1345,7 +1345,7 @@ function formField(key,label,type='text'){return `<div class="form-row"><label f
 function editScreen(disabled=false){disabled=disabled||!entryValid('basic');return `<div class="edit-shell"><div class="edit-heading">구성원 편집<button class="close-button" data-action="close-edit" aria-label="닫기">×</button></div><div class="edit-main"><div class="edit-card"><h3>기본 정보</h3>${formField('name','이름')}${formField('nickname','닉네임')}${formField('email','이메일','email')}${formField('phone','휴대폰 번호','tel')}<div class="form-row"><label for="field-job">직무/직급</label><div class="dual"><select id="field-job" data-field="job" class="sf-Input" aria-label="직무"><option value="" ${state.form.job===''?'selected':''}>없음</option>${['매장직','점장','매니저'].map(x=>`<option ${state.form.job===x?'selected':''}>${x}</option>`).join('')}</select><select data-field="grade" class="sf-Input" aria-label="직급"><option value="" ${state.form.grade===''?'selected':''}>없음</option>${['사원','주임','대리'].map(x=>`<option ${state.form.grade===x?'selected':''}>${x}</option>`).join('')}</select></div></div>${formField('hire','입사일')}${formField('id','사번')}</div></div><div class="edit-footer">${reservationViewButton('basic')}${button(t('scheduleSave'),`id="open-schedule" data-action="open-schedule" ${disabled||!changes().length?'disabled':''}`)}${button('저장',`data-action="save-now" ${disabled||!basicRawChanged()?'disabled':''}`,true)}</div></div>${state.toast?`<div class="status-toast" role="status"><span class="success-check">✓</span>${h(state.toast)}</div>`:''}`;}
 function formattedDateInput(raw){const digits=raw.replace(/\D/g,'').slice(0,8);return digits.slice(0,4)+(digits.length>4?'.'+digits.slice(4,6):'')+(digits.length>6?'.'+digits.slice(6,8):'');}
 function checkDateInput(raw){if(!raw)return {iso:'',error:''};if(!/^\d{4}\.\d{2}\.\d{2}$/.test(raw))return {iso:'',error:t('dateFormatError')};const [y,m,d]=raw.split('.').map(Number);const date=new Date(0);date.setUTCFullYear(y,m-1,d);date.setUTCHours(0,0,0,0);if(y<1||date.getUTCFullYear()!==y||date.getUTCMonth()!==m-1||date.getUTCDate()!==d)return {iso:'',error:t('dateFormatError')};const iso=raw.replaceAll('.','-');if(iso<MIN||iso>MAX)return {iso:'',error:t('dateInvalid')};return {iso,error:''};}
-function updateDateInput(key,raw,showError=false){state.dateInput[key]=raw;const checked=checkDateInput(raw);state.date[key]=checked.iso;state.dateErrors[key]=showError?checked.error:'';if(checked.iso)state.month[key]=Number(checked.iso.slice(5,7))-1;const input=document.getElementById('date-input-'+key);if(input)input.setAttribute('aria-invalid',String(!!state.dateErrors[key]));const error=document.getElementById('date-error-'+key);if(error){error.textContent=state.dateErrors[key];error.hidden=!state.dateErrors[key];}const help=document.getElementById('date-help-'+key);if(help?.dataset.errorExclusive==='true')help.hidden=!!state.dateErrors[key];const submit=document.querySelector('[data-action="submit"][data-key="'+key+'"]');if(submit)submit.disabled=!checked.iso||state.busy||(key==='individual'&&!reservationChanges().length)||(state.screen==='S7'&&state.status==='permission');const reset=document.querySelector('[data-action="submit-reset"]');if(reset&&key==='reset')reset.disabled=!checked.iso;const cal=document.getElementById('calendar-'+key);if(cal)cal.innerHTML=calendar(key);}
+function updateDateInput(key,raw,showError=false){state.dateInput[key]=raw;const checked=checkDateInput(raw);state.date[key]=checked.iso;state.dateErrors[key]=showError?checked.error:'';if(checked.iso)state.month[key]=Number(checked.iso.slice(5,7))-1;const input=document.getElementById('date-input-'+key);if(input)input.setAttribute('aria-invalid',String(!!state.dateErrors[key]));const error=document.getElementById('date-error-'+key);if(error){error.textContent=state.dateErrors[key];error.hidden=!state.dateErrors[key];}const help=document.getElementById('date-help-'+key);if(help?.dataset.errorExclusive==='true')help.hidden=!!state.dateErrors[key];const submit=document.querySelector('[data-action="submit"][data-key="'+key+'"]');if(submit)submit.disabled=!checked.iso||state.busy||(key==='individual'&&!reservationChanges().length)||(state.screen==='S13'&&state.status==='permission');const reset=document.querySelector('[data-action="submit-reset"]');if(reset&&key==='reset')reset.disabled=!checked.iso;const cal=document.getElementById('calendar-'+key);if(cal)cal.innerHTML=calendar(key);}
 function datePicker(key,existingDate=null){const value=state.dateInput[key]??fmt(state.date[key]);const error=state.dateErrors[key]||'';const hintBelow=['individual','replacement','status','reset','bulk'].includes(key);const hint=`<div class="sf-HelperText ${hintBelow?'date-hint-below':''}" id="date-help-${key}" data-error-exclusive="${hintBelow}" ${hintBelow&&error?'hidden':''}>${h(t('dateRange'))}</div>`;return `<div class="date-select" data-date-key="${key}">${existingDate?`<span class="field-label">${h(t('dateLabel'))}</span>`:`<label class="field-label" id="date-label-${key}" for="date-input-${key}">${h(t('dateLabel'))}</label>`}${hintBelow?'':hint}${existingDate?`<div class="old-apply-date"><span>${h(t('oldApplyDate'))}</span><span>${h(fmt(existingDate))}</span></div><label class="new-apply-label" for="date-input-${key}">${h(t('newApplyDate'))}</label>`:''}<div class="date-input-row"><input id="date-input-${key}" class="sf-Input date-text-input" data-date-input="${key}" value="${h(value)}" placeholder="${h(t('inputDate'))}" inputmode="numeric" autocomplete="off" aria-invalid="${!!error}" aria-describedby="date-help-${key} date-error-${key}"><button class="date-button" data-action="toggle-calendar" data-key="${key}" aria-label="${h(t('dateLabel'))} 달력 열기" aria-controls="calendar-${key}" aria-expanded="false"><span class="calendar-symbol" aria-hidden="true">▦</span></button><div class="calendar" id="calendar-${key}" aria-label="${h(t('dateLabel'))} 달력">${calendar(key)}</div></div>${hintBelow?hint:''}<p class="form-error" id="date-error-${key}" role="alert" ${error?'':'hidden'}>${h(error)}</p></div>`;}
 function calendar(key){const month=state.month[key]??10;const first=new Date(Date.UTC(2026,month,1));const end=new Date(Date.UTC(2026,month+1,0)).getUTCDate();let days='<span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>';days+='<i></i>'.repeat(first.getUTCDay());for(let d=1;d<=end;d++){const iso=`2026-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;days+=`<button data-action="pick-date" data-key="${key}" data-date="${iso}" aria-label="${fmt(iso)}" ${iso<MIN||iso>MAX?'disabled':''} class="${state.date[key]===iso?'selected':''}">${d}</button>`;}return `<div class="calendar-top"><button data-action="month-prev" data-key="${key}" aria-label="이전 달" ${month===10?'disabled':''}>‹</button><span>2026.${String(month+1).padStart(2,'0')}</span><button data-action="month-next" data-key="${key}" aria-label="다음 달" ${month===11?'disabled':''}>›</button></div><div class="calendar-grid">${days}</div>`;}
 function modal(title,body,footer,wide=false,showClose=true){return `<div class="mock-backdrop"><div class="sf-Modal${wide?' wide':''}" role="dialog" aria-label="${h(title)}"><div class="header"><span>${h(title)}</span>${showClose?closeButton():''}</div><div class="body">${body}</div>${footer?`<div class="footer">${footer}</div>`:''}</div></div>`;}
@@ -1383,7 +1383,7 @@ const result=t(sample.failed===sample.total?'allFailed':sample.failed+sample.par
 let body=`<h2>구성원 정보 수정 예약의 처리 결과를 안내드립니다.</h2>`+commonInfo(result)+`<h3 class="summary-title">${h(t('summary'))}</h3><div class="summary-rows"><div class="total"><span>${h(t('member'))}</span><span>${sample.total}명</span></div>${['applied','already','partial','failed'].map(k=>`<div><span>${h(t(k))}</span><span>${sample[k]}명</span></div>`).join('')}</div>${sample.already?`<p class="detail">${h(t('alreadyNote'))}</p>`:''}${sample.failed+sample.partial?`<section class="failed-members"><h3>${h(t('failedMembers'))}</h3>${sample.names.map(([name,scopes])=>`<p>${h(name)} — ${h(scopes.map(scope=>scopeNames[scope]).join(', '))} 적용 실패</p>`).join('')}</section>`:''}`;
 return emailFrame(t('bulkSubject'),body,fallback);}
 function replacementEmail(){return emailFrame(t('replacementSubject'),`<h2>${h(t('replacementHeading'))}</h2><dl><dt>${h(t('newCreator'))}</dt><dd>김서연</dd><dt>${h(t('newCreatedDate'))}</dt><dd>2026.11.12</dd></dl><p class="recipient-context">${h(t('replacementDetail'))}</p>${person()}<span class="section-label">${h(t('reservedChanges'))}</span>${table([t('information'),t('oldReservation'),t('newReservation')],[[t('dateLabel'),'2026.11.18','2026.11.20'],['직무','매장직 → 매니저','매장직 → 점장'],['직급','사원 → 주임',state.form.grade===original.grade?t('notModified'):'사원 → '+state.form.grade]])}`);}
-function controls(id){if(['S9','S10','S11'].includes(id))return selectControl('cancelPreview','검토할 요청 상태',[['success','정상 처리'],['network','통신 오류'],['permission','현재 권한 없음']]);if(['S16','S17'].includes(id))return '<p>메일 표시 문구·레이블을 확인하는 시안입니다.</p>';if(id==='S1-5')return selectControl('bulkPageKind','기존 일괄 수정 페이지',bulkPageKinds)+`<label><input type="checkbox" data-control="bulkUploadReady" ${state.bulkUploadReady?'checked':''}> 파일 적용·검증 완료 예시</label><label><input type="checkbox" data-control="bulkNoChanges" ${state.bulkNoChanges?'checked':''}> 실제 변경 0건 예시</label>`;if(id.startsWith('S1-'))return `<label><input type="checkbox" data-control="individualCollision" ${state.individualCollision?'checked':''}> 같은 범위에 기존 예약이 있는 예시</label>`;if(id==='S2'||id==='S3')return selectControl('reservationScope','진입한 기존 수정 화면',scopeOptions);if(id.startsWith('S4-'))return selectControl('resetScope','초기화할 정보',[['fixed','고정근무지'],['assigned','담당근무지']])+(id.startsWith('S4-')?selectControl('resetExistingKind','기존 예약에 담긴 내용 (비교 대상)',[['none','기존 예약 없음'],['reset','근무지 초기화'],['change','다른 근무지로 수정']]):'');if(id==='S5')return `<label><input type="checkbox" data-control="bulkCollision" ${state.bulkCollision?'checked':''}> 기존 예약 충돌 예시로 등록</label>`;if(id==='S7')return selectControl('status','검토할 상태',[['complete','예약 등록 완료'],['loading','예약 등록 중'],['network','통신 오류'],['permission','현재 권한 없음'],['race','비교 중인 기존 예약이 교체됨']]);if(id==='S12')return selectControl('individualResult','검토할 결과',[['applied','적용 완료'],['already','이미 적용됨'],['mixed','혼합 성공'],['failed','적용 실패']])+(state.individualResult==='failed'?selectControl('failure','검토할 실패 원인',[['conflict','예약 대상 값 충돌'],['inactive','구성원 상태'],['duplicate','이메일·휴대폰 번호·사번 등 중복'],['target','그룹·근무지 사용 불가'],['settings','관련 고객사 설정'],['system','최종 시스템 오류']]):'');if(id==='S13')return selectControl('bulk','검토할 결과',[['partial','일부 실패 포함 · 10명'],['success','전원 적용 완료 · 10명'],['already','전원 이미 적용됨 · 10명'],['mixed','정상 처리 · 적용 완료 + 이미 적용됨 · 10명'],['failed','전원 실패 · 3명']]);if(id==='S15')return selectControl('fallback','대체 수신 이메일',[['individualApplied','개별 적용 완료'],['individualAlready','개별 이미 적용됨'],['individualMixed','개별 혼합 성공'],['individual','개별 실패 결과'],['bulkSuccess','일괄 전원 적용 완료'],['bulkAlready','일괄 전원 이미 적용됨'],['bulkMixed','일괄 정상 처리 · 적용 완료 + 이미 적용됨'],['bulk','일괄 일부 실패 결과'],['bulkFailed','일괄 전원 실패 결과']]);return '';}
+function controls(id){if(['S15','S16','S17'].includes(id))return selectControl('cancelPreview','검토할 요청 상태',[['success','정상 처리'],['network','통신 오류'],['permission','현재 권한 없음']]);if(['E5','E6'].includes(id))return '<p>메일 표시 문구·레이블을 확인하는 시안입니다.</p>';if(id==='S5')return selectControl('bulkPageKind','기존 일괄 수정 페이지',bulkPageKinds)+`<label><input type="checkbox" data-control="bulkUploadReady" ${state.bulkUploadReady?'checked':''}> 파일 적용·검증 완료 예시</label><label><input type="checkbox" data-control="bulkNoChanges" ${state.bulkNoChanges?'checked':''}> 실제 변경 0건 예시</label>`;if(['S1','S2','S3','S4'].includes(id))return `<label><input type="checkbox" data-control="individualCollision" ${state.individualCollision?'checked':''}> 같은 범위에 기존 예약이 있는 예시</label>`;if(id==='S6'||id==='S7')return selectControl('reservationScope','진입한 기존 수정 화면',scopeOptions);if(['S8','S9','S10'].includes(id))return selectControl('resetScope','초기화할 정보',[['fixed','고정근무지'],['assigned','담당근무지']])+(['S8','S9','S10'].includes(id)?selectControl('resetExistingKind','기존 예약에 담긴 내용 (비교 대상)',[['none','기존 예약 없음'],['reset','근무지 초기화'],['change','다른 근무지로 수정']]):'');if(id==='S11')return `<label><input type="checkbox" data-control="bulkCollision" ${state.bulkCollision?'checked':''}> 기존 예약 충돌 예시로 등록</label>`;if(id==='S13')return selectControl('status','검토할 상태',[['complete','예약 등록 완료'],['loading','예약 등록 중'],['network','통신 오류'],['permission','현재 권한 없음'],['race','비교 중인 기존 예약이 교체됨']]);if(id==='E1')return selectControl('individualResult','검토할 결과',[['applied','적용 완료'],['already','이미 적용됨'],['mixed','혼합 성공'],['failed','적용 실패']])+(state.individualResult==='failed'?selectControl('failure','검토할 실패 원인',[['conflict','예약 대상 값 충돌'],['inactive','구성원 상태'],['duplicate','이메일·휴대폰 번호·사번 등 중복'],['target','그룹·근무지 사용 불가'],['settings','관련 고객사 설정'],['system','최종 시스템 오류']]):'');if(id==='E2')return selectControl('bulk','검토할 결과',[['partial','일부 실패 포함 · 10명'],['success','전원 적용 완료 · 10명'],['already','전원 이미 적용됨 · 10명'],['mixed','정상 처리 · 적용 완료 + 이미 적용됨 · 10명'],['failed','전원 실패 · 3명']]);if(id==='E4')return selectControl('fallback','대체 수신 이메일',[['individualApplied','개별 적용 완료'],['individualAlready','개별 이미 적용됨'],['individualMixed','개별 혼합 성공'],['individual','개별 실패 결과'],['bulkSuccess','일괄 전원 적용 완료'],['bulkAlready','일괄 전원 이미 적용됨'],['bulkMixed','일괄 정상 처리 · 적용 완료 + 이미 적용됨'],['bulk','일괄 일부 실패 결과'],['bulkFailed','일괄 전원 실패 결과']]);return '';}
 function selectControl(key,label,options){return `<label for="control-${key}">${h(label)}</label><select id="control-${key}" data-control="${key}">${options.map(([value,text])=>`<option value="${value}" ${state[key]===value?'selected':''}>${h(text)}</option>`).join('')}</select>`;}
 /* Review-only reservation model. No service requests or persistence. */
 const scopeNames={basic:'기본 정보',group:'그룹 및 권한',fixed:'고정근무지',assigned:'담당근무지'};
@@ -1394,7 +1394,7 @@ const reservationSamples=[
  {id:'r-assigned',member:'김민지',employee:'A-1024',group:'강남1팀',scope:'assigned',creator:'박지훈',creatorGroup:'운영지원팀',date:'2026.11.20',rows:[['담당근무지','강남점, 역삼점','선릉점']]},
  {id:'r-other',member:'이서준',employee:'A-1025',group:'강남2팀',scope:'assigned',creator:'박지훈',creatorGroup:'운영지원팀',date:'2026.11.22',rows:[['담당근무지','강남점','역삼점']]}
 ];
-const manager={cancelled:new Set(),selected:'r-basic',origin:'S1-1',listOrigin:'S1-5',listScopes:Object.keys(scopeNames),reset:false,error:'',pending:'',busy:false};
+const manager={cancelled:new Set(),selected:'r-basic',origin:'S1',listOrigin:'S5',listScopes:Object.keys(scopeNames),reset:false,error:'',pending:'',busy:false};
 state.cancelPreview='success';
 function activeReservation(scope){return reservationSamples.find(r=>r.member==='김민지'&&r.scope===scope&&!manager.cancelled.has(r.id));}
 function selectedReservation(){const r=reservationSamples.find(r=>r.id===manager.selected)||reservationSamples[0];return manager.reset&&state.resetExistingKind==='reset'?{...r,rows:r.rows.map(row=>[row[0],row[1],'없음'])}:r;}
@@ -1412,69 +1412,69 @@ function comparisonRows(oldRows,newRows){return [...new Set([...oldRows,...newRo
 function immediateRows(){const r=selectedReservation();if(manager.reset){const before=r.scope==='fixed'?workplaceNames([entryOriginal.fixed]):workplaceNames(entryOriginal.assigned);return [[scopeNames[r.scope],before,'없음']];}return entryChanges(r.scope);}
 function immediateConfirmDialog(){const r=selectedReservation();return modal('지금 저장하고 예약을 취소하시겠습니까?',`<p class="guide">지금 저장하면 같은 정보 범위의 기존 예약이 취소됩니다.</p><div class="creator-card"><span class="section-label">기존 예약자</span>${userProfile(r.creator,r.creatorGroup)}</div><p class="guide">기존 예약 적용일 · ${h(r.date)}</p><span class="section-label">예약 내용</span>${table(['정보','기존 예약','지금 저장할 내용'],comparisonRows(r.rows,immediateRows()))}`,button('저장하지 않고 예약 유지','data-review="keep-reservation"')+button('지금 저장하고 예약 취소',`data-review="confirm-immediate" ${manager.busy?'disabled':''}`,true),true,false)+managerError();}
 function cancellationEmail(immediate=false){const rows=immediate?comparisonRows([['직급','사원','대리']],[['직급','주임','과장'],['직무','매니저','점장']]):[['직급','사원','대리']];return emailFrame('구성원 정보 수정 예약이 취소되었습니다.',`<h2>${immediate?'다른 구성원이 수정 예약을 취소하고 구성원 정보를 수정했습니다.':'다른 구성원에 의해 수정 예약이 취소되었습니다.'}</h2><dl><dt>예약 취소자</dt><dd>김서연</dd><dt>예약 취소 일시</dt><dd>2026.11.18 14:30</dd></dl>${person('김샤플','1024')}<dl><dt>정보 범위</dt><dd>기본 정보</dd><dt>예약 적용일</dt><dd>2026.11.20</dd></dl><span class="section-label">예약 내용</span>${table(immediate?['정보','기존 예약','수정됨']:['정보','수정 전','수정 후'],rows)}`);}
-function beginImmediate(scope,reset=false){const r=activeReservation(scope);if(!r)return false;manager.selected=r.id;manager.origin=state.screen;manager.reset=reset;go('S11');return true;}
+function beginImmediate(scope,reset=false){const r=activeReservation(scope);if(!r)return false;manager.selected=r.id;manager.origin=state.screen;manager.reset=reset;go('S17');return true;}
 function applyImmediateSample(){const scope=selectedReservation().scope;if(manager.reset){if(scope==='fixed')entryOriginal.fixed=entryDraft.fixed='';else entryOriginal.assigned=entryDraft.assigned=[];}else if(scope==='basic'){Object.keys(basicLabels).forEach(key=>{const value=normalizedBasicValue(key,state.form[key],original[key]);original[key]=state.form[key]=value;});}else if(scope==='group')Object.assign(entryOriginal.group,JSON.parse(JSON.stringify(entryDraft.group)));else if(scope==='fixed')entryOriginal.fixed=entryDraft.fixed;else entryOriginal.assigned=[...entryDraft.assigned];}
-function finishCancellation(immediate){if(manager.busy)return;if(state.cancelPreview==='network'||state.cancelPreview==='permission'){manager.error=t(state.cancelPreview==='network'?'registerError':'permissionError');render();return;}manager.busy=true;const r=selectedReservation();manager.cancelled.add(r.id);if(r.member==='김민지'){state.individualCollision=false;if(r.scope===state.resetScope)state.resetExistingKind='none';}if(immediate)applyImmediateSample();manager.busy=false;if(immediate){const destination=r.scope==='basic'||r.scope==='group'?'구성원 목록 / 상세':'구성원 상세 · 근무 정보';go(manager.origin);document.querySelector('.product-preview').innerHTML=`<div class="edit-shell"><div class="edit-heading">${h(destination)}</div><div class="edit-main">${table(['대상 구성원','수정 정보 범위','처리'],[[r.member,scopeNames[r.scope],'즉시 수정 완료 · 예약 취소 완료']])}<p class="guide">기존 저장 성공 후 복귀 위치의 예시입니다.</p></div></div>`;}else{const origin=manager.origin;if(origin==='S4-3')go('S4-2');else go(origin);}}
+function finishCancellation(immediate){if(manager.busy)return;if(state.cancelPreview==='network'||state.cancelPreview==='permission'){manager.error=t(state.cancelPreview==='network'?'registerError':'permissionError');render();return;}manager.busy=true;const r=selectedReservation();manager.cancelled.add(r.id);if(r.member==='김민지'){state.individualCollision=false;if(r.scope===state.resetScope)state.resetExistingKind='none';}if(immediate)applyImmediateSample();manager.busy=false;if(immediate){const destination=r.scope==='basic'||r.scope==='group'?'구성원 목록 / 상세':'구성원 상세 · 근무 정보';go(manager.origin);document.querySelector('.product-preview').innerHTML=`<div class="edit-shell"><div class="edit-heading">${h(destination)}</div><div class="edit-main">${table(['대상 구성원','수정 정보 범위','처리'],[[r.member,scopeNames[r.scope],'즉시 수정 완료 · 예약 취소 완료']])}<p class="guide">기존 저장 성공 후 복귀 위치의 예시입니다.</p></div></div>`;}else{const origin=manager.origin;if(origin==='S10')go('S9');else go(origin);}}
 document.addEventListener('click',e=>{
  const review=e.target.closest('[data-review]');if(review){if(review.disabled)return;e.preventDefault();e.stopImmediatePropagation();const action=review.dataset.review;
- if(action==='view-one'){const r=activeReservation(review.dataset.scope);if(!r)return;manager.origin=state.screen;manager.selected=r.id;manager.reset=review.dataset.reset==='true';go('S9');}
- else if(action==='view-list'){manager.listOrigin=state.screen;manager.listScopes=bulkScopes();go('S8');}
- else if(action==='view-detail'){manager.reset=false;manager.origin=state.screen;manager.selected=review.dataset.id;go('S9');}
+ if(action==='view-one'){const r=activeReservation(review.dataset.scope);if(!r)return;manager.origin=state.screen;manager.selected=r.id;manager.reset=review.dataset.reset==='true';go('S15');}
+ else if(action==='view-list'){manager.listOrigin=state.screen;manager.listScopes=bulkScopes();go('S14');}
+ else if(action==='view-detail'){manager.reset=false;manager.origin=state.screen;manager.selected=review.dataset.id;go('S15');}
  else if(action==='close-list')go(manager.listOrigin);
  else if(action==='close-detail')go(manager.origin);
- else if(action==='ask-cancel')go('S10');
- else if(action==='back-detail')go('S9');
+ else if(action==='ask-cancel')go('S16');
+ else if(action==='back-detail')go('S15');
  else if(action==='keep-reservation')go(manager.origin);
  else if(action==='confirm-cancel')finishCancellation(false);
  else if(action==='confirm-immediate')finishCancellation(true);
  return;}
  const node=e.target.closest('[data-action]');if(!node||node.disabled)return;const action=node.dataset.action;
  if(action==='save-entry-now'||action==='save-now'){
-  if(state.screen==='S1-5'){const overlap=(state.bulkUsersSelected||state.bulkUploadReady)&&reservationSamples.some(r=>bulkScopes().includes(r.scope)&&!manager.cancelled.has(r.id));if(overlap){e.stopImmediatePropagation();manager.pending='미확정: 일괄 즉시 저장의 여러 예약 취소 확인 방식입니다. 지금은 예약 내역 조회·단건 취소를 먼저 검토해 주세요.';render();}return;}
+  if(state.screen==='S5'){const overlap=(state.bulkUsersSelected||state.bulkUploadReady)&&reservationSamples.some(r=>bulkScopes().includes(r.scope)&&!manager.cancelled.has(r.id));if(overlap){e.stopImmediatePropagation();manager.pending='미확정: 일괄 즉시 저장의 여러 예약 취소 확인 방식입니다. 지금은 예약 내역 조회·단건 취소를 먼저 검토해 주세요.';render();}return;}
   const scope=node.dataset.entry||'basic';if(hasEntryReservation(scope)){e.stopImmediatePropagation();beginImmediate(scope);}
  }else if(action==='submit-reset'&&state.resetMode==='immediate'&&hasEntryReservation(state.resetScope,true)){e.stopImmediatePropagation();beginImmediate(state.resetScope,true);}
- else if(action==='submit'&&node.dataset.key==='bulk'&&state.bulkCollision){manager.listOrigin='S1-5';manager.listScopes=bulkScopes();if(!visibleReservations().length)state.bulkCollision=false;}
+ else if(action==='submit'&&node.dataset.key==='bulk'&&state.bulkCollision){manager.listOrigin='S5';manager.listScopes=bulkScopes();if(!visibleReservations().length)state.bulkCollision=false;}
  else if(action==='open-entry-reservation'||action==='open-schedule'){const scope=node.dataset.entry||'basic';if(!activeReservation(scope))state.individualCollision=false;}
 },true);
 document.addEventListener('change',e=>{if(e.target.dataset.control==='individualCollision'&&e.target.checked){const r=reservationSamples.find(r=>r.member==='김민지'&&r.scope===state.reservationScope);if(r)manager.cancelled.delete(r.id);}if(e.target.dataset.control==='resetExistingKind'&&e.target.value!=='none'){const r=reservationSamples.find(r=>r.scope===state.resetScope&&r.member==='김민지');if(r)manager.cancelled.delete(r.id);}if(e.target.dataset.control==='cancelPreview')manager.error='';},true);
-document.addEventListener('click',e=>{if(!e.target.classList?.contains('mock-backdrop'))return;if(state.screen==='S9')go(manager.origin);else if(state.screen==='S8')go(manager.listOrigin);});
+document.addEventListener('click',e=>{if(!e.target.classList?.contains('mock-backdrop'))return;if(state.screen==='S15')go(manager.origin);else if(state.screen==='S14')go(manager.listOrigin);});
 
 const specReferences={
- 'S8':'Web_dc_10 일괄 예약 내역 · Policy_03',
- 'S9':'Web_dc_11 예약 상세 및 취소 · Policy_03',
- 'S10':'Web_dc_11 예약 상세 및 취소 · Policy_03',
- 'S11':'Web_dc_12 즉시 저장 및 예약 취소 · Policy_03',
- 'S16':'Email_dc_05 예약 취소 알림 · Policy_05',
- 'S17':'Email_dc_05 예약 취소 알림 · Policy_05',
-  'S1-1':'Web_dc_01 기본 정보 수정 · Policy_01/02',
-  'S1-2':'Web_dc_02 그룹 및 권한 수정 · Policy_01/03',
-  'S1-3':'Web_dc_03 고정근무지 선택 · Policy_01/03',
-  'S1-4':'Web_dc_04 담당근무지 선택 · Policy_01/03',
-  'S1-5':'Web_dc_05 정보 일괄 수정 · Policy_01/02',
-  'S2':'Web_dc_06 정보 수정 예약 · Policy_02/03',
-  'S3':'Web_dc_06 정보 수정 예약 · Policy_02/03',
-  'S4-1':'Web_dc_07 근무지 초기화 · Policy_02/03',
-  'S4-2':'Web_dc_07 근무지 초기화 · Policy_02/03',
-  'S4-3':'Web_dc_07 근무지 초기화 · Policy_02/03',
-  'S5':'Web_dc_08 정보 일괄 수정 예약 · Policy_02/03',
-  'S6':'Web_dc_08 정보 일괄 수정 예약 · Policy_03',
-  'S7':'Web_dc_06 정보 수정 예약 / Web_dc_07 근무지 초기화 / Web_dc_08 정보 일괄 수정 예약 · Policy_02/03',
-  'S12':'Email_dc_01 개별 처리 결과 · Policy_04/05',
-  'S13':'Email_dc_02 일괄 처리 결과 · Policy_04/05',
-  'S14':'Email_dc_03 예약 변경 알림 · Policy_03/05',
-  'S15':'Email_dc_04 관리자 대체 수신 · Policy_05'
+ 'S14':'Web_dc_10 일괄 예약 내역 · Policy_03',
+ 'S15':'Web_dc_11 예약 상세 및 취소 · Policy_03',
+ 'S16':'Web_dc_11 예약 상세 및 취소 · Policy_03',
+ 'S17':'Web_dc_12 즉시 저장 및 예약 취소 · Policy_03',
+ 'E5':'Email_dc_05 예약 취소 알림 · Policy_05',
+ 'E6':'Email_dc_05 예약 취소 알림 · Policy_05',
+  'S1':'Web_dc_01 기본 정보 수정 · Policy_01/02',
+  'S2':'Web_dc_02 그룹 및 권한 수정 · Policy_01/03',
+  'S3':'Web_dc_03 고정근무지 선택 · Policy_01/03',
+  'S4':'Web_dc_04 담당근무지 선택 · Policy_01/03',
+  'S5':'Web_dc_05 정보 일괄 수정 · Policy_01/02',
+  'S6':'Web_dc_06 정보 수정 예약 · Policy_02/03',
+  'S7':'Web_dc_06 정보 수정 예약 · Policy_02/03',
+  'S8':'Web_dc_07 근무지 초기화 · Policy_02/03',
+  'S9':'Web_dc_07 근무지 초기화 · Policy_02/03',
+  'S10':'Web_dc_07 근무지 초기화 · Policy_02/03',
+  'S11':'Web_dc_08 정보 일괄 수정 예약 · Policy_02/03',
+  'S12':'Web_dc_08 정보 일괄 수정 예약 · Policy_03',
+  'S13':'Web_dc_06 정보 수정 예약 / Web_dc_07 근무지 초기화 / Web_dc_08 정보 일괄 수정 예약 · Policy_02/03',
+  'E1':'Email_dc_01 개별 처리 결과 · Policy_04/05',
+  'E2':'Email_dc_02 일괄 처리 결과 · Policy_04/05',
+  'E3':'Email_dc_03 예약 변경 알림 · Policy_03/05',
+  'E4':'Email_dc_04 관리자 대체 수신 · Policy_05'
 };
-function product(id){switch(id){case'S8':return reservationListDialog();case'S9':return reservationDetailDialog();case'S10':return cancellationConfirmDialog();case'S11':return immediateConfirmDialog();case'S16':return cancellationEmail(false);case'S17':return cancellationEmail(true);case'S1-1':return editScreen();case'S1-2':return groupEditScreen();case'S1-3':return workplaceEditScreen('fixed');case'S1-4':return workplaceEditScreen('assigned');case'S1-5':return bulkEntryPage();case'S2':return scheduleDialog();case'S3':return replacementDialog();case'S4-1':case'S4-2':case'S4-3':return resetDialog();case'S5':return scheduleDialog('bulk');case'S6':return bulkConflict();case'S7':return statusScreen();case'S12':return individualEmail(state.individualResult);case'S13':return bulkEmail();case'S14':return replacementEmail();case'S15':return state.fallback.startsWith('bulk')?bulkEmail(true):individualEmail(({individualApplied:'applied',individualAlready:'already',individualMixed:'mixed',individual:'failed'}[state.fallback]||'failed'),true);}}
-function render(){let group='';document.getElementById('screen-tabs').innerHTML=DATA.screens.map(s=>{let title='';if(s.group!==group){group=s.group;title=`<div class="group">${h(group)}</div>`;}return title+`<button id="tab-${s.id}" class="wf-tab" role="tab" aria-controls="${s.id}" aria-selected="${state.screen===s.id}" data-target="${s.id}" tabindex="${state.screen===s.id?0:-1}"><span class="num">${s.id}</span><span class="wf-tab-label">${h(s.title)}</span></button>`;}).join('');let screen=DATA.screens.find(x=>x.id===state.screen);const isReservation=['S2','S3'].includes(screen.id);if(isReservation)screen={...screen,asIs:state.reservationScope==='group'?'02-group-permission-edit.png':state.reservationScope==='basic'?'04-basic-info-edit.png':'03-work-info-edit.png'};const index=DATA.screens.findIndex(x=>x.id===screen.id);document.getElementById('screens').innerHTML=`<section class="wf-screen active" id="${screen.id}" role="tabpanel" aria-labelledby="tab-${screen.id}"><div class="wf-stage"><div class="wf-caption"><h2>${screen.id}. ${h(screen.title)}</h2><span>${h(screen.subtitle)}</span></div>${isReservation?`<p class="wf-route">진입 경로 · ${h(reservationPaths[state.reservationScope])}</p>`:''}<div class="product-preview">${product(screen.id)}</div></div><aside class="wf-notes"><h3>${screen.id}. ${h(screen.title)}</h3>${manager.pending?'<p class="notes-change">'+h(manager.pending)+'</p>':''}${controls(screen.id)}${screen.notes.map((note,i)=>`<p><span class="note-number">${i+1}.</span>${h(note)}</p>`).join('')}<div class="notes-change">관련 명세: ${h(specReferences[screen.id])}</div><div class="notes-ref">As-Is 참고 · 클릭하여 원본 보기<a href="${window.WF_EMBEDDED_IMAGES[screen.asIs]}" target="_blank"><img src="${window.WF_EMBEDDED_IMAGES[screen.asIs]}" alt="현재 ${screen.asIs.includes('04')?'기본 정보 편집':screen.asIs.includes('02')?'그룹 및 권한':screen.asIs.includes('03')?'근무 정보':'구성원 관리'} 화면"></a></div>${index<DATA.screens.length-1?`<button class="sf-Button wf-next" data-target="${DATA.screens[index+1].id}">다음 · ${h(DATA.screens[index+1].title)}</button>`:''}</aside></section>`;}
-function configureScreen(id){if(id==='S5'||id==='S6'){state.bulkUploadReady=true;state.bulkFileSelected=true;}const scope=Object.keys(entryIds).find(key=>entryIds[key]===id);if(scope)state.reservationScope=scope;if(id==='S2')state.individualCollision=false;if(id==='S3')state.individualCollision=true;if(id==='S4-1')state.resetMode='immediate';if(id==='S4-2'){state.resetMode='scheduled';state.resetExistingKind='none';}if(id==='S4-3'){state.resetMode='scheduled';if(state.resetExistingKind==='none')state.resetExistingKind='reset';}}
-function go(id){manager.pending='';manager.error='';if(id==='S1')id='S1-1';if(!DATA.screens.some(x=>x.id===id))return;configureScreen(id);state.screen=id;state.requestError='';state.toast='';location.hash=id;render();document.getElementById('live-status').textContent=DATA.screens.find(s=>s.id===id).title;}
-function complete(){state.toast=t('registered');state.screen='S7';state.status='complete';state.requestError='';location.hash='S7';render();}
-document.addEventListener('click',e=>{const tab=e.target.closest('[data-target]');if(tab){go(tab.dataset.target);return;}const node=e.target.closest('[data-action]');if(!node||node.disabled)return;const action=node.dataset.action,key=node.dataset.key;if(action==='open-entry-reservation'||action==='open-schedule'){const scope=node.dataset.entry||'basic';if(!entryValid(scope)||!entryChanges(scope).length)return;state.reservationScope=scope;state.replacementOrigin=entryIds[scope];go(state.individualCollision?'S3':'S2');}else if(action==='save-entry-now'){state.toast='구성원 정보가 수정되었습니다.';render();}else if(action==='close-entry'){go('S1-1');}else if(action==='toggle-calendar'){const cal=document.getElementById('calendar-'+key);const open=!cal.classList.contains('open');document.querySelectorAll('.calendar.open').forEach(x=>x.classList.remove('open'));cal.classList.toggle('open',open);node.setAttribute('aria-expanded',String(open));}else if(action==='month-prev'||action==='month-next'){state.month[key]=(state.month[key]??10)+(action==='month-next'?1:-1);document.getElementById('calendar-'+key).innerHTML=calendar(key);}else if(action==='pick-date'){if(node.dataset.date<MIN||node.dataset.date>MAX)return;state.date[key]=node.dataset.date;state.dateInput[key]=fmt(node.dataset.date);state.dateErrors[key]='';render();}else if(action==='reset-mode'){go(node.dataset.mode==='immediate'?'S4-1':state.resetExistingKind==='none'?'S4-2':'S4-3');}else if(action==='cancel-dialog'){if(state.screen==='S2'||state.screen==='S3'){go(entryIds[state.reservationScope]);return;}if(state.screen==='S7'&&state.status==='race'){state.date.individual=state.date.status;state.dateInput.individual=fmt(state.date.status);go('S1');return;}if(state.screen==='S5'){go('S1-5');}else go('S1');}else if(action==='close-edit'){go('S1');}else if(action==='save-now'){state.toast='구성원 정보가 수정되었습니다.';render();}else if(action==='open-bulk'){if(state.bulkNoChanges){state.toast=t('noBulkChanges');render();}else go('S5');}else if(action==='bulk-demo-file'){state.bulkFileSelected=true;render();}else if(action==='bulk-demo-users'){state.bulkUsersSelected=true;render();}else if(action==='bulk-demo-apply'){state.bulkUploadReady=true;render();}else if(action==='close-bulk-conflict'){go('S1-5');}else if(action==='submit-reset'){if(state.resetMode==='scheduled'&&!state.date.reset)return;if(state.resetMode==='scheduled'){complete();}else{go('S1');state.toast=state.resetScope==='assigned'?'담당근무지가 초기화되었습니다.':'고정근무지가 초기화되었습니다.';render();}}else if(action==='submit'){if(state.screen==='S7'&&(state.status==='permission'||state.status==='race'))return;if(!state.date[key])return;if(state.screen==='S7'&&state.status==='network'){state.requestError='';complete();return;}if(key==='individual'&&state.individualCollision){prepareReplacement(state.date.individual);go('S3');return;}if(key==='bulk'&&state.bulkCollision){go('S6');return;}complete();}});
-document.addEventListener('input',e=>{if(e.target.dataset.dateInput){const key=e.target.dataset.dateInput;const value=formattedDateInput(e.target.value);e.target.value=value;updateDateInput(key,value);return;}if(!e.target.dataset.field)return;state.form[e.target.dataset.field]=e.target.value;const schedule=document.getElementById('open-schedule');if(schedule)schedule.disabled=!changes().length;const save=document.querySelector('.edit-footer [data-action=save-now]');if(save&&schedule)save.disabled=schedule.disabled;if(state.screen==='S1-1')syncBasicEntryButtons();});
+function product(id){switch(id){case'S14':return reservationListDialog();case'S15':return reservationDetailDialog();case'S16':return cancellationConfirmDialog();case'S17':return immediateConfirmDialog();case'E5':return cancellationEmail(false);case'E6':return cancellationEmail(true);case'S1':return editScreen();case'S2':return groupEditScreen();case'S3':return workplaceEditScreen('fixed');case'S4':return workplaceEditScreen('assigned');case'S5':return bulkEntryPage();case'S6':return scheduleDialog();case'S7':return replacementDialog();case'S8':case'S9':case'S10':return resetDialog();case'S11':return scheduleDialog('bulk');case'S12':return bulkConflict();case'S13':return statusScreen();case'E1':return individualEmail(state.individualResult);case'E2':return bulkEmail();case'E3':return replacementEmail();case'E4':return state.fallback.startsWith('bulk')?bulkEmail(true):individualEmail(({individualApplied:'applied',individualAlready:'already',individualMixed:'mixed',individual:'failed'}[state.fallback]||'failed'),true);}}
+function render(){let group='';document.getElementById('screen-tabs').innerHTML=DATA.screens.map(s=>{let title='';if(s.group!==group){group=s.group;title=`<div class="group">${h(group)}</div>`;}return title+`<button id="tab-${s.id}" class="wf-tab" role="tab" aria-controls="${s.id}" aria-selected="${state.screen===s.id}" data-target="${s.id}" tabindex="${state.screen===s.id?0:-1}"><span class="num">${s.id}</span><span class="wf-tab-label">${h(s.title)}</span></button>`;}).join('');let screen=DATA.screens.find(x=>x.id===state.screen);const isReservation=['S6','S7'].includes(screen.id);if(isReservation)screen={...screen,asIs:state.reservationScope==='group'?'02-group-permission-edit.png':state.reservationScope==='basic'?'04-basic-info-edit.png':'03-work-info-edit.png'};const index=DATA.screens.findIndex(x=>x.id===screen.id);document.getElementById('screens').innerHTML=`<section class="wf-screen active" id="${screen.id}" role="tabpanel" aria-labelledby="tab-${screen.id}"><div class="wf-stage"><div class="wf-caption"><h2>${screen.id}. ${h(screen.title)}</h2><span>${h(screen.subtitle)}</span></div>${isReservation?`<p class="wf-route">진입 경로 · ${h(reservationPaths[state.reservationScope])}</p>`:''}<div class="product-preview">${product(screen.id)}</div></div><aside class="wf-notes"><h3>${screen.id}. ${h(screen.title)}</h3>${manager.pending?'<p class="notes-change">'+h(manager.pending)+'</p>':''}${controls(screen.id)}${screen.notes.map((note,i)=>`<p><span class="note-number">${i+1}.</span>${h(note)}</p>`).join('')}<div class="notes-change">관련 명세: ${h(specReferences[screen.id])}</div><div class="notes-ref">As-Is 참고 · 클릭하여 원본 보기<a href="${window.WF_EMBEDDED_IMAGES[screen.asIs]}" target="_blank"><img src="${window.WF_EMBEDDED_IMAGES[screen.asIs]}" alt="현재 ${screen.asIs.includes('04')?'기본 정보 편집':screen.asIs.includes('02')?'그룹 및 권한':screen.asIs.includes('03')?'근무 정보':'구성원 관리'} 화면"></a></div>${index<DATA.screens.length-1?`<button class="sf-Button wf-next" data-target="${DATA.screens[index+1].id}">다음 · ${h(DATA.screens[index+1].title)}</button>`:''}</aside></section>`;}
+function configureScreen(id){if(id==='S11'||id==='S12'){state.bulkUploadReady=true;state.bulkFileSelected=true;}const scope=Object.keys(entryIds).find(key=>entryIds[key]===id);if(scope)state.reservationScope=scope;if(id==='S6')state.individualCollision=false;if(id==='S7')state.individualCollision=true;if(id==='S8')state.resetMode='immediate';if(id==='S9'){state.resetMode='scheduled';state.resetExistingKind='none';}if(id==='S10'){state.resetMode='scheduled';if(state.resetExistingKind==='none')state.resetExistingKind='reset';}}
+function go(id){manager.pending='';manager.error='';if(!DATA.screens.some(x=>x.id===id))return;configureScreen(id);state.screen=id;state.requestError='';state.toast='';location.hash=id;render();document.getElementById('live-status').textContent=DATA.screens.find(s=>s.id===id).title;}
+function complete(){state.toast=t('registered');state.screen='S13';state.status='complete';state.requestError='';location.hash='S13';render();}
+document.addEventListener('click',e=>{const tab=e.target.closest('[data-target]');if(tab){go(tab.dataset.target);return;}const node=e.target.closest('[data-action]');if(!node||node.disabled)return;const action=node.dataset.action,key=node.dataset.key;if(action==='open-entry-reservation'||action==='open-schedule'){const scope=node.dataset.entry||'basic';if(!entryValid(scope)||!entryChanges(scope).length)return;state.reservationScope=scope;state.replacementOrigin=entryIds[scope];go(state.individualCollision?'S7':'S6');}else if(action==='save-entry-now'){state.toast='구성원 정보가 수정되었습니다.';render();}else if(action==='close-entry'){go('S1');}else if(action==='toggle-calendar'){const cal=document.getElementById('calendar-'+key);const open=!cal.classList.contains('open');document.querySelectorAll('.calendar.open').forEach(x=>x.classList.remove('open'));cal.classList.toggle('open',open);node.setAttribute('aria-expanded',String(open));}else if(action==='month-prev'||action==='month-next'){state.month[key]=(state.month[key]??10)+(action==='month-next'?1:-1);document.getElementById('calendar-'+key).innerHTML=calendar(key);}else if(action==='pick-date'){if(node.dataset.date<MIN||node.dataset.date>MAX)return;state.date[key]=node.dataset.date;state.dateInput[key]=fmt(node.dataset.date);state.dateErrors[key]='';render();}else if(action==='reset-mode'){go(node.dataset.mode==='immediate'?'S8':state.resetExistingKind==='none'?'S9':'S10');}else if(action==='cancel-dialog'){if(state.screen==='S6'||state.screen==='S7'){go(entryIds[state.reservationScope]);return;}if(state.screen==='S13'&&state.status==='race'){state.date.individual=state.date.status;state.dateInput.individual=fmt(state.date.status);go('S1');return;}if(state.screen==='S11'){go('S5');}else go('S1');}else if(action==='close-edit'){go('S1');}else if(action==='save-now'){state.toast='구성원 정보가 수정되었습니다.';render();}else if(action==='open-bulk'){if(state.bulkNoChanges){state.toast=t('noBulkChanges');render();}else go('S11');}else if(action==='bulk-demo-file'){state.bulkFileSelected=true;render();}else if(action==='bulk-demo-users'){state.bulkUsersSelected=true;render();}else if(action==='bulk-demo-apply'){state.bulkUploadReady=true;render();}else if(action==='close-bulk-conflict'){go('S5');}else if(action==='submit-reset'){if(state.resetMode==='scheduled'&&!state.date.reset)return;if(state.resetMode==='scheduled'){complete();}else{go('S1');state.toast=state.resetScope==='assigned'?'담당근무지가 초기화되었습니다.':'고정근무지가 초기화되었습니다.';render();}}else if(action==='submit'){if(state.screen==='S13'&&(state.status==='permission'||state.status==='race'))return;if(!state.date[key])return;if(state.screen==='S13'&&state.status==='network'){state.requestError='';complete();return;}if(key==='individual'&&state.individualCollision){prepareReplacement(state.date.individual);go('S7');return;}if(key==='bulk'&&state.bulkCollision){go('S12');return;}complete();}});
+document.addEventListener('input',e=>{if(e.target.dataset.dateInput){const key=e.target.dataset.dateInput;const value=formattedDateInput(e.target.value);e.target.value=value;updateDateInput(key,value);return;}if(!e.target.dataset.field)return;state.form[e.target.dataset.field]=e.target.value;const schedule=document.getElementById('open-schedule');if(schedule)schedule.disabled=!changes().length;const save=document.querySelector('.edit-footer [data-action=save-now]');if(save&&schedule)save.disabled=schedule.disabled;if(state.screen==='S1')syncBasicEntryButtons();});
 document.addEventListener('focusout',e=>{const key=e.target.dataset.dateInput;if(key)updateDateInput(key,e.target.value,true);});
 document.addEventListener('change',e=>{const key=e.target.dataset.control;if(key){state[key]=e.target.type==='checkbox'?e.target.checked:e.target.value;if(key==='individualResult'){render();return;}render();}});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.querySelectorAll('.calendar.open').forEach(x=>x.classList.remove('open'));document.querySelectorAll('[data-action="toggle-calendar"]').forEach(x=>x.setAttribute('aria-expanded','false'));}const tab=e.target.closest('.wf-tab');if(tab&&['ArrowDown','ArrowUp','Home','End'].includes(e.key)){e.preventDefault();let index=DATA.screens.findIndex(x=>x.id===tab.dataset.target);index=e.key==='Home'?0:e.key==='End'?DATA.screens.length-1:(index+(e.key==='ArrowDown'?1:-1)+DATA.screens.length)%DATA.screens.length;go(DATA.screens[index].id);document.getElementById('tab-'+DATA.screens[index].id).focus();}});
-function readPreviewHash(){let id=location.hash.slice(1).toUpperCase();if(id==='S1')id='S1-1';const route=id.match(/^(S[23])-(BASIC|GROUP|FIXED|ASSIGNED)$/);if(route){state.reservationScope=route[2].toLowerCase();id=route[1];}if(id==='S2-EXISTING')id='S3';if(id==='S4')id='S4-1';if(id==='S4-EXISTING'||id==='S4-EXISTING-RESET'){state.resetExistingKind=id==='S4-EXISTING-RESET'?'reset':'change';id='S4-3';}if(DATA.screens.some(x=>x.id===id)){configureScreen(id);state.screen=id;}render();}
+function readPreviewHash(){let id=location.hash.slice(1).toUpperCase();const route=id.match(/^(S[67])-(BASIC|GROUP|FIXED|ASSIGNED)$/);if(route){state.reservationScope=route[2].toLowerCase();id=route[1];}if(DATA.screens.some(x=>x.id===id)){configureScreen(id);state.screen=id;}render();}
 window.addEventListener('hashchange',()=>{if(location.hash.slice(1).toUpperCase()!==state.screen)readPreviewHash();});
 readPreviewHash();
 
@@ -1485,7 +1485,7 @@ readPreviewHash();
 
 정리일: 2026-11-18
 
-화면 순서: S1~S7 수정·예약 → S8~S11 예약 조회·취소·즉시 저장 → S12 개별 결과·S13~S15 결과 및 변경 이메일 → S16~S17 취소 이메일
+화면 순서: 웹 S1~S17 → 이메일 E1~E6
 
 확정 정책과 시각 검토용 초안을 구분한다. 일괄 즉시 저장의 여러 예약 취소 확인 방식은 미확정이다. 샘플 날짜·인물·파일은 화면 설명용 예시다.
 
@@ -1506,24 +1506,34 @@ Policy_00_인덱스.md
 
 ## 화면 연결
 
-- 탐색 순서는 기존 수정·예약 화면 → 예약 조회·취소 → 이메일이다. 화면 번호도 이 순서에 따라 부여한다. 기존 수정 화면의 S1 하위 번호와 초기화 상태의 S4 하위 번호는 유지한다.
-- 개별 결과는 S12에서 선택한다.
+- 탐색 순서는 기존 수정·예약 화면 → 예약 조회·취소 → 이메일이다. 화면 번호도 이 순서에 따라 부여한다. 웹은 메뉴에 보이는 각 항목에 연속 번호를 부여하고 이메일은 E 번호로 구분한다.
+- 개별 결과는 E1에서 선택한다.
 
 | 화면 | 명세 |
 | --- | --- |
-| S1~S7 | 기존 Web_dc_01~08, 각 수정·예약·등록 상태 |
-| S8 | [일괄 예약 내역](../description/Web_dc_10_일괄_예약_내역.md) |
-| S9·S10 | [예약 상세 및 취소](../description/Web_dc_11_예약_상세_및_취소.md) |
-| S11 | [즉시 저장 및 예약 취소](../description/Web_dc_12_즉시_저장_및_예약_취소.md) |
-| S12 | [개별 처리 결과](../description/Email_dc_01_개별_처리_결과.md) · 화면 내 결과 선택 |
-| S13~S15 | 기존 Email_dc_02~04, 일괄 결과·예약 변경·관리자 대체 |
-| S16·S17 | [예약 취소 알림](../description/Email_dc_05_예약_취소_알림.md) |
+| S1 | Web_dc_01 기본 정보 수정 |
+| S2 | Web_dc_02 그룹 및 권한 수정 |
+| S3 | Web_dc_03 고정근무지 선택 |
+| S4 | Web_dc_04 담당근무지 선택 |
+| S5 | Web_dc_05 정보 일괄 수정 |
+| S6·S7 | Web_dc_06 정보 수정 예약 |
+| S8~S10 | Web_dc_07 근무지 초기화 |
+| S11·S12 | Web_dc_08 정보 일괄 수정 예약 |
+| S13 | Web_dc_06~08 등록 상태 예시 |
+| S14 | Web_dc_10 일괄 예약 내역 |
+| S15·S16 | Web_dc_11 예약 상세 및 취소 |
+| S17 | Web_dc_12 즉시 저장 및 예약 취소 |
+| E1 | Email_dc_01 개별 처리 결과 · 화면 내 결과 선택 |
+| E2 | Email_dc_02 일괄 처리 결과 |
+| E3 | Email_dc_03 예약 변경 알림 |
+| E4 | Email_dc_04 관리자 대체 수신 |
+| E5·E6 | Email_dc_05 예약 취소 알림 |
 
 ## 이번 시안에서 남은 검토
 
 - 일괄 즉시 저장의 여러 예약 취소 확인 방식과 취소 이메일 묶음 단위.
 - 조회 목록 정렬·검색·페이지 크기, 취소 확인창, 실행 중 취소 가능 시점·최신 상태 오류 안내.
-- S13 상단 안내 시안, S17 수정됨 레이블, 신규 문구의 다국어 키.
+- E2 상단 안내 시안, E6 수정됨 레이블, 신규 문구의 다국어 키.
 - 취소 알림의 주소 없음·유효하지 않음 처리.
 - 확정된 정책과 구분한 화면 시안이며, 실제 서비스 구현·DB 작업은 이 범위에 포함하지 않는다.
 
@@ -1935,8 +1945,8 @@ Policy_05_이메일_알림.md
 ## 4. 대상 구성원과 예약 내용
 
 - 대상 구성원은 `이름 (사번값)` 형식으로 표시한다. 사번이 없으면 이름만 표시한다.
-- 결과 이메일에는 해당 구성원의 처리가 끝난 시점의 이름·사번을 표시한다. 일괄 결과의 구성원별 확정 시점은 그 구성원의 남은 모든 범위 결과가 확정된 시점이다. 성공했다면 수정된 정보, 이미 적용돼 있었다면 현재 정보, 실패했다면 실제로 남아 있는 정보를 보여준다. 관리자에게 대신 보내는 S15도 같다.
-- S14 예약 변경 알림은 기존 예약 취소·새 예약 등록이 완료된 시점의 이름·사번을 보여준다. 단독 취소 알림은 취소 완료 시점, 즉시 저장에 따른 취소 알림은 저장·취소 완료 시점의 이름·사번을 보여준다.
+- 결과 이메일에는 해당 구성원의 처리가 끝난 시점의 이름·사번을 표시한다. 일괄 결과의 구성원별 확정 시점은 그 구성원의 남은 모든 범위 결과가 확정된 시점이다. 성공했다면 수정된 정보, 이미 적용돼 있었다면 현재 정보, 실패했다면 실제로 남아 있는 정보를 보여준다. 관리자에게 대신 보내는 E4도 같다.
+- E3 예약 변경 알림은 기존 예약 취소·새 예약 등록이 완료된 시점의 이름·사번을 보여준다. 단독 취소 알림은 취소 완료 시점, 즉시 저장에 따른 취소 알림은 저장·취소 완료 시점의 이름·사번을 보여준다.
 - 개별 이메일의 대상 이름·사번은 14px 볼드로 표시한다.
 - 예약 내용 표는 실제 예약한 정보만 `정보 / 수정 전 / 수정 후`로 표시한다.
 - ‘예약 내용’ 표는 이름·사번 표시 기준과 다르다. 성공·실패 여부와 관계없이 예약할 당시의 ‘수정 전 정보’와 ‘바꾸려던 정보’를 그대로 보여준다.
@@ -1994,7 +2004,7 @@ Policy_05_이메일_알림.md
 
 - 단독 취소와 즉시 저장에 따른 취소 모두 기존 예약자와 취소자가 다를 때만 기존 예약자에게 발송한다. 본인이 취소하면 발송하지 않는다.
 - 취소 성공 후 발송한다. 즉시 저장과 함께 취소하는 경우 두 작업이 모두 성공한 뒤 발송하며, 저장 실패 때 취소 알림을 보내지 않는다.
-- S14 예약 교체와 S16·S17 취소 알림은 제목을 `구성원 정보 수정 예약이 취소되었습니다.`로 통일한다. 본문에서 새 예약 등록·단독 취소·즉시 수정을 구분한다.
+- E3 예약 교체와 E5·E6 취소 알림은 제목을 `구성원 정보 수정 예약이 취소되었습니다.`로 통일한다. 본문에서 새 예약 등록·단독 취소·즉시 수정을 구분한다.
 - 단독 취소 상단 안내는 `다른 구성원에 의해 수정 예약이 취소되었습니다.`다.
 - 즉시 저장에 따른 취소 상단 안내는 `다른 구성원이 수정 예약을 취소하고 구성원 정보를 수정했습니다.`다.
 - 예약 취소자, 예약 취소 일시, 대상 구성원, 정보 범위, 기존 예약 적용일, 예약 내용을 표시한다.
@@ -2014,7 +2024,7 @@ Email_dc_01_개별_처리_결과.md
 
 ---
 
-- 와이어프레임 S12에 해당한다. 결과 선택에서 적용 완료·이미 적용됨·혼합 성공·적용 실패를 전환하고, 적용 실패에서는 원인을 추가로 선택한다. 선택 도구는 검토용이며 실제 이메일 구성에 포함하지 않는다.
+- 와이어프레임 E1에 해당한다. 결과 선택에서 적용 완료·이미 적용됨·혼합 성공·적용 실패를 전환하고, 적용 실패에서는 원인을 추가로 선택한다. 선택 도구는 검토용이며 실제 이메일 구성에 포함하지 않는다.
 - 개별 예약의 최종 처리 결과와 예약 내용을 안내하는 이메일이다.
 
 ## 발송 조건 및 수신자
@@ -2118,7 +2128,7 @@ Email_dc_02_일괄_처리_결과.md
 
 ---
 
-- 와이어프레임 S13에 해당한다.
+- 와이어프레임 E2에 해당한다.
 - 일괄 예약의 최종 처리 결과와 대상 인원별 집계를 안내하는 이메일이다.
 
 ## 발송 조건 및 수신자
@@ -2213,7 +2223,7 @@ Email_dc_03_예약_변경_알림.md
 
 ---
 
-- 와이어프레임 S14에 해당한다.
+- 와이어프레임 E3에 해당한다.
 - 기존 예약이 취소되고 다른 예약자의 새 예약으로 바뀐 사실과 변경 내용을 안내하는 이메일이다.
 
 ## 발송 조건 및 수신자
@@ -2269,7 +2279,7 @@ Email_dc_03_예약_변경_알림.md
 - 실제 빈 값은 `없음`으로 표시해 `수정하지 않음`과 구분한다.
 - 양쪽 예약에 모두 포함되지 않은 정보는 표시하지 않는다.
 - 여러 값은 전체를 콤마로 구분해 표시하고 셀 안에서 자동 줄바꿈한다.
-- 화면 S3의 기존·새 예약 적용일 Input 배치를 이메일에 그대로 적용하지 않는다.
+- 화면 S7의 기존·새 예약 적용일 Input 배치를 이메일에 그대로 적용하지 않는다.
 
 ## 5. 공통 푸터
 
@@ -2288,7 +2298,7 @@ Email_dc_04_관리자_대체_수신.md
 
 ---
 
-- 와이어프레임 S15에 해당한다.
+- 와이어프레임 E4에 해당한다.
 - 예약자에게 전달할 수 없는 최종 처리 결과를 관리자에게 대신 안내하는 이메일이다.
 
 ## 발송 조건 및 수신자
@@ -2319,10 +2329,10 @@ Email_dc_04_관리자_대체_수신.md
 
 | 케이스 | 조건 | 명세 |
 | --- | --- | --- |
-| Case 1 | 개별 적용 완료 | [개별 처리 결과 이메일](Email_dc_01_개별_처리_결과.md)의 S12 적용 완료 제목·본문·처리 결과를 그대로 사용한다. |
-| Case 2 | 개별 이미 적용됨 | [개별 처리 결과 이메일](Email_dc_01_개별_처리_결과.md)의 S12 이미 적용됨 제목·본문·결과 설명을 그대로 사용한다. |
-| Case 3 | 개별 혼합 성공 | [개별 처리 결과 이메일](Email_dc_01_개별_처리_결과.md)의 S12 혼합 성공 제목·본문·결과 설명을 그대로 사용한다. |
-| Case 4 | 개별 적용 실패 | [개별 처리 결과 이메일](Email_dc_01_개별_처리_결과.md)의 S12 적용 실패 제목·본문과 해당 실패 원인 문구를 그대로 사용한다. |
+| Case 1 | 개별 적용 완료 | [개별 처리 결과 이메일](Email_dc_01_개별_처리_결과.md)의 E1 적용 완료 제목·본문·처리 결과를 그대로 사용한다. |
+| Case 2 | 개별 이미 적용됨 | [개별 처리 결과 이메일](Email_dc_01_개별_처리_결과.md)의 E1 이미 적용됨 제목·본문·결과 설명을 그대로 사용한다. |
+| Case 3 | 개별 혼합 성공 | [개별 처리 결과 이메일](Email_dc_01_개별_처리_결과.md)의 E1 혼합 성공 제목·본문·결과 설명을 그대로 사용한다. |
+| Case 4 | 개별 적용 실패 | [개별 처리 결과 이메일](Email_dc_01_개별_처리_결과.md)의 E1 적용 실패 제목·본문과 해당 실패 원인 문구를 그대로 사용한다. |
 | Case 5 | 일괄 정상 처리·일부 실패·전체 실패 | [일괄 처리 결과 이메일](Email_dc_02_일괄_처리_결과.md)의 제목·본문·집계·실패 구성원 표시를 그대로 사용한다. 구성원별 실패 원인을 추가하지 않는다. |
 
 ## 2. 대체 수신 설명
@@ -2343,14 +2353,14 @@ Email_dc_05_예약_취소_알림.md
 
 ---
 
-- 와이어프레임 S16 단독 취소·S17 즉시 저장에 따른 취소에 해당한다.
+- 와이어프레임 E5 단독 취소·E6 즉시 저장에 따른 취소에 해당한다.
 - 기존 예약자에게 예약이 취소되었음을 알리고, 즉시 저장이 있었다면 실제 수정 내용도 함께 안내한다.
 
 ## 발송 조건 및 수신자
 
 - 예약자와 취소자가 다를 때 기존 예약자에게 발송한다. 본인 취소에는 발송하지 않는다.
-- 취소 성공 후 발송한다. S17은 즉시 저장과 예약 취소가 모두 성공한 뒤에만 발송한다.
-- 새 예약으로 교체했다면 S14 예약 변경 알림만 발송하며 이 취소 알림을 중복 발송하지 않는다.
+- 취소 성공 후 발송한다. E6은 즉시 저장과 예약 취소가 모두 성공한 뒤에만 발송한다.
+- 새 예약으로 교체했다면 E3 예약 변경 알림만 발송하며 이 취소 알림을 중복 발송하지 않는다.
 - 발송 시점의 최신 계정 이메일을 사용한다. 기존 예약자가 비활성 상태이거나 해당 고객사의 관리 권한을 잃었다면 사용자 이메일을 생략하고 이력을 남긴다.
 - 변경·취소 알림은 관리자 대체 발송을 하지 않는다. 관리자 대체 발송은 실행 결과 이메일에만 적용한다.
 - 이메일 전송 실패는 별도 기록하며 취소·즉시 저장 결과를 되돌리지 않는다.
@@ -2361,29 +2371,29 @@ Email_dc_05_예약_취소_알림.md
 
 ## 1. 제목 및 상단 안내
 
-- 제목은 S14과 같은 `구성원 정보 수정 예약이 취소되었습니다.`다. [Shopl] 접두사는 붙이지 않는다.
+- 제목은 E3과 같은 `구성원 정보 수정 예약이 취소되었습니다.`다. [Shopl] 접두사는 붙이지 않는다.
 
 | 케이스 | 조건 | 명세 |
 | --- | --- | --- |
-| Case 1-1 | S16 단독 취소 | 상단 안내는 `다른 구성원에 의해 수정 예약이 취소되었습니다.`다. |
-| Case 1-2 | S17 즉시 저장과 함께 취소 | 상단 안내는 `다른 구성원이 수정 예약을 취소하고 구성원 정보를 수정했습니다.`다. |
+| Case 1-1 | E5 단독 취소 | 상단 안내는 `다른 구성원에 의해 수정 예약이 취소되었습니다.`다. |
+| Case 1-2 | E6 즉시 저장과 함께 취소 | 상단 안내는 `다른 구성원이 수정 예약을 취소하고 구성원 정보를 수정했습니다.`다. |
 
 ## 2. 취소 정보
 
 - 상단 안내 아래에 예약 취소자 → 예약 취소 일시를 표시한다.
 - 예약 취소 일시는 작업이 성공한 시각을 고객사 시간대 기준 분 단위까지 표시한다.
-- 대상 구성원은 이름 (사번값) 형식이며 사번이 없으면 이름만 표시한다. 단독 취소는 취소 완료 시점, S17은 즉시 저장·취소 완료 시점의 값을 사용한다.
+- 대상 구성원은 이름 (사번값) 형식이며 사번이 없으면 이름만 표시한다. 단독 취소는 취소 완료 시점, E6은 즉시 저장·취소 완료 시점의 값을 사용한다.
 - 대상 구성원 다음에 정보 범위와 취소된 예약의 예약 적용일을 표시한다.
 
 ## 3. 예약 내용
 
 | 케이스 | 조건 | 명세 |
 | --- | --- | --- |
-| Case 3-1 | S16 단독 취소 | &lt;ul&gt;&lt;li&gt;예약 내용 제목 아래 정보·수정 전·수정 후 표를 표시한다.&lt;/li&gt;&lt;li&gt;예약 당시 수정 전 값과 목표값을 유지한다. 현재 정보 전체를 보여주지 않는다.&lt;/li&gt;&lt;/ul&gt; |
-| Case 3-2 | S17 즉시 저장과 함께 취소 | &lt;ul&gt;&lt;li&gt;예약 내용 제목 아래 정보·기존 예약·수정됨으로 비교한다.&lt;/li&gt;&lt;li&gt;기존 예약은 예약 당시 수정 전 → 목표값이다.&lt;/li&gt;&lt;li&gt;수정됨은 실제 저장 직전 → 저장 직후 값이다.&lt;/li&gt;&lt;li&gt;같은 정보 범위의 실제 변경 항목만 표시한다.&lt;/li&gt;&lt;/ul&gt; |
+| Case 3-1 | E5 단독 취소 | &lt;ul&gt;&lt;li&gt;예약 내용 제목 아래 정보·수정 전·수정 후 표를 표시한다.&lt;/li&gt;&lt;li&gt;예약 당시 수정 전 값과 목표값을 유지한다. 현재 정보 전체를 보여주지 않는다.&lt;/li&gt;&lt;/ul&gt; |
+| Case 3-2 | E6 즉시 저장과 함께 취소 | &lt;ul&gt;&lt;li&gt;예약 내용 제목 아래 정보·기존 예약·수정됨으로 비교한다.&lt;/li&gt;&lt;li&gt;기존 예약은 예약 당시 수정 전 → 목표값이다.&lt;/li&gt;&lt;li&gt;수정됨은 실제 저장 직전 → 저장 직후 값이다.&lt;/li&gt;&lt;li&gt;같은 정보 범위의 실제 변경 항목만 표시한다.&lt;/li&gt;&lt;/ul&gt; |
 
 - 한쪽에 없는 항목은 수정하지 않음, 실제 빈 값은 없음으로 표시한다. 여러 값은 콤마로 구분해 모두 표시한다.
-- S17에는 새 예약 적용일이 없다. 실제 수정 시각은 예약 취소 일시와 함께 완료된 작업의 시각이다.
+- E6에는 새 예약 적용일이 없다. 실제 수정 시각은 예약 취소 일시와 함께 완료된 작업의 시각이다.
 
 ## 4. 공통 푸터
 
@@ -2391,7 +2401,7 @@ Email_dc_05_예약_취소_알림.md
 
 ---
 💬 확인 필요 항목
-- `수정됨` 레이블은 사용자 제안대로 시각 검토용으로 반영했다. 신규 메일 문구·레이블의 다국어 키와 기존 S14 제목 키의 변경은 문구 확정 후 연결하며 임의 키를 만들지 않는다.
+- `수정됨` 레이블은 사용자 제안대로 시각 검토용으로 반영했다. 신규 메일 문구·레이블의 다국어 키와 기존 E3 제목 키의 변경은 문구 확정 후 연결하며 임의 키를 만들지 않는다.
 - 주소가 없거나 유효하지 않은 경우의 취소 알림 처리, 일괄 즉시 저장의 여러 취소 알림을 묶어 보낼지는 추가 확정한다.
 
 ────────────────────────────────────────
@@ -2405,7 +2415,7 @@ Web_dc_01_기본_정보_수정.md
 
 ---
 
-- 와이어프레임 S1-1에 해당한다.
+- 와이어프레임 S1에 해당한다.
 - 구성원의 기본 정보를 수정하는 화면이다. 변경한 내용을 즉시 저장하거나, 적용할 날짜를 지정해 저장을 예약할 수 있다.
 
 ## 1. 기본 정보 입력 영역
@@ -2445,12 +2455,12 @@ Web_dc_01_기본_정보_수정.md
 | 케이스 | 조건 | 명세 |
 | --- | --- | --- |
 | Case 3-1 | 같은 범위의 진행 중 예약 없음 | 기존 즉시 저장 동작을 수행한다. |
-| Case 3-2 | 같은 범위의 진행 중 예약 있음 | &lt;ul&gt;&lt;li&gt;[즉시 저장 및 예약 취소 확인](Web_dc_12_즉시_저장_및_예약_취소.md)의 S11을 연다.&lt;/li&gt;&lt;li&gt;기존 예약과 지금 저장할 내용을 전달하고, 현재 입력·선택값을 유지한다.&lt;/li&gt;&lt;/ul&gt; |
+| Case 3-2 | 같은 범위의 진행 중 예약 있음 | &lt;ul&gt;&lt;li&gt;[즉시 저장 및 예약 취소 확인](Web_dc_12_즉시_저장_및_예약_취소.md)의 S17을 연다.&lt;/li&gt;&lt;li&gt;기존 예약과 지금 저장할 내용을 전달하고, 현재 입력·선택값을 유지한다.&lt;/li&gt;&lt;/ul&gt; |
 
 ## 4. [예약 내역 보기] 버튼
 
 - 해당 구성원·기본 정보 범위에 진행 중 예약이 있으면 표시한다. 편집값의 변경 여부와 무관하게 조회할 수 있다.
-- [예약 내역 보기] 버튼 : [예약 상세](Web_dc_11_예약_상세_및_취소.md)의 S9을 연다.
+- [예약 내역 보기] 버튼 : [예약 상세](Web_dc_11_예약_상세_및_취소.md)의 S15을 연다.
 - 조회·취소 후 이 화면의 입력·선택값을 유지하고 예약 유무를 갱신한다. 다른 범위의 예약은 취소하지 않는다.
 
 ────────────────────────────────────────
@@ -2464,7 +2474,7 @@ Web_dc_02_그룹_및_권한_수정.md
 
 ---
 
-- 와이어프레임 S1-2에 해당한다.
+- 와이어프레임 S2에 해당한다.
 - 구성원의 그룹과 권한을 수정하는 화면이다. 변경한 내용을 즉시 저장하거나, 적용할 날짜를 지정해 저장을 예약할 수 있다.
 
 ## 1. 그룹 및 권한 입력 영역
@@ -2504,12 +2514,12 @@ Web_dc_02_그룹_및_권한_수정.md
 | 케이스 | 조건 | 명세 |
 | --- | --- | --- |
 | Case 3-1 | 같은 범위의 진행 중 예약 없음 | 기존 즉시 저장 동작을 수행한다. |
-| Case 3-2 | 같은 범위의 진행 중 예약 있음 | &lt;ul&gt;&lt;li&gt;[즉시 저장 및 예약 취소 확인](Web_dc_12_즉시_저장_및_예약_취소.md)의 S11을 연다.&lt;/li&gt;&lt;li&gt;기존 예약과 지금 저장할 내용을 전달하고, 현재 입력·선택값을 유지한다.&lt;/li&gt;&lt;/ul&gt; |
+| Case 3-2 | 같은 범위의 진행 중 예약 있음 | &lt;ul&gt;&lt;li&gt;[즉시 저장 및 예약 취소 확인](Web_dc_12_즉시_저장_및_예약_취소.md)의 S17을 연다.&lt;/li&gt;&lt;li&gt;기존 예약과 지금 저장할 내용을 전달하고, 현재 입력·선택값을 유지한다.&lt;/li&gt;&lt;/ul&gt; |
 
 ## 4. [예약 내역 보기] 버튼
 
 - 해당 구성원·그룹 및 권한 범위에 진행 중 예약이 있으면 표시한다. 편집값의 변경 여부와 무관하게 조회할 수 있다.
-- [예약 내역 보기] 버튼 : [예약 상세](Web_dc_11_예약_상세_및_취소.md)의 S9을 연다.
+- [예약 내역 보기] 버튼 : [예약 상세](Web_dc_11_예약_상세_및_취소.md)의 S15을 연다.
 - 조회·취소 후 이 화면의 입력·선택값을 유지하고 예약 유무를 갱신한다. 다른 범위의 예약은 취소하지 않는다.
 
 ────────────────────────────────────────
@@ -2523,7 +2533,7 @@ Web_dc_03_고정근무지_선택.md
 
 ---
 
-- 와이어프레임 S1-3에 해당한다.
+- 와이어프레임 S3에 해당한다.
 - 구성원의 고정근무지를 선택하는 Modal이다. 선택한 근무지를 즉시 적용하거나, 적용할 날짜를 지정해 예약할 수 있다.
 - 근무지를 비우는 초기화는 [Web_dc_07 근무지 초기화](Web_dc_07_근무지_초기화.md)를 사용한다.
 - Modal 바깥 영역 클릭 시 아무 동작도 하지 않고 현재 선택 상태를 유지한다.
@@ -2559,12 +2569,12 @@ Web_dc_03_고정근무지_선택.md
 | 케이스 | 조건 | 명세 |
 | --- | --- | --- |
 | Case 3-1 | 같은 범위의 진행 중 예약 없음 | 기존 즉시 적용 동작을 수행한다. |
-| Case 3-2 | 같은 범위의 진행 중 예약 있음 | &lt;ul&gt;&lt;li&gt;[즉시 저장 및 예약 취소 확인](Web_dc_12_즉시_저장_및_예약_취소.md)의 S11을 연다.&lt;/li&gt;&lt;li&gt;기존 예약과 지금 저장할 내용을 전달하고, 현재 입력·선택값을 유지한다.&lt;/li&gt;&lt;/ul&gt; |
+| Case 3-2 | 같은 범위의 진행 중 예약 있음 | &lt;ul&gt;&lt;li&gt;[즉시 저장 및 예약 취소 확인](Web_dc_12_즉시_저장_및_예약_취소.md)의 S17을 연다.&lt;/li&gt;&lt;li&gt;기존 예약과 지금 저장할 내용을 전달하고, 현재 입력·선택값을 유지한다.&lt;/li&gt;&lt;/ul&gt; |
 
 ## 4. [예약 내역 보기] 버튼
 
 - 해당 구성원·고정근무지 범위에 진행 중 예약이 있으면 표시한다. 편집값의 변경 여부와 무관하게 조회할 수 있다.
-- [예약 내역 보기] 버튼 : [예약 상세](Web_dc_11_예약_상세_및_취소.md)의 S9을 연다.
+- [예약 내역 보기] 버튼 : [예약 상세](Web_dc_11_예약_상세_및_취소.md)의 S15을 연다.
 - 조회·취소 후 이 화면의 입력·선택값을 유지하고 예약 유무를 갱신한다. 다른 범위의 예약은 취소하지 않는다.
 
 ────────────────────────────────────────
@@ -2578,7 +2588,7 @@ Web_dc_04_담당근무지_선택.md
 
 ---
 
-- 와이어프레임 S1-4에 해당한다.
+- 와이어프레임 S4에 해당한다.
 - 구성원의 담당근무지를 선택하는 Modal이다. 선택한 근무지를 즉시 적용하거나, 적용할 날짜를 지정해 예약할 수 있다.
 - 근무지를 모두 비우는 초기화는 [Web_dc_07 근무지 초기화](Web_dc_07_근무지_초기화.md)를 사용한다.
 - Modal 바깥 영역 클릭 시 아무 동작도 하지 않고 현재 선택 상태를 유지한다.
@@ -2615,12 +2625,12 @@ Web_dc_04_담당근무지_선택.md
 | 케이스 | 조건 | 명세 |
 | --- | --- | --- |
 | Case 3-1 | 같은 범위의 진행 중 예약 없음 | 기존 즉시 적용 동작을 수행한다. |
-| Case 3-2 | 같은 범위의 진행 중 예약 있음 | &lt;ul&gt;&lt;li&gt;[즉시 저장 및 예약 취소 확인](Web_dc_12_즉시_저장_및_예약_취소.md)의 S11을 연다.&lt;/li&gt;&lt;li&gt;기존 예약과 지금 저장할 내용을 전달하고, 현재 입력·선택값을 유지한다.&lt;/li&gt;&lt;/ul&gt; |
+| Case 3-2 | 같은 범위의 진행 중 예약 있음 | &lt;ul&gt;&lt;li&gt;[즉시 저장 및 예약 취소 확인](Web_dc_12_즉시_저장_및_예약_취소.md)의 S17을 연다.&lt;/li&gt;&lt;li&gt;기존 예약과 지금 저장할 내용을 전달하고, 현재 입력·선택값을 유지한다.&lt;/li&gt;&lt;/ul&gt; |
 
 ## 4. [예약 내역 보기] 버튼
 
 - 해당 구성원·담당근무지 범위에 진행 중 예약이 있으면 표시한다. 편집값의 변경 여부와 무관하게 조회할 수 있다.
-- [예약 내역 보기] 버튼 : [예약 상세](Web_dc_11_예약_상세_및_취소.md)의 S9을 연다.
+- [예약 내역 보기] 버튼 : [예약 상세](Web_dc_11_예약_상세_및_취소.md)의 S15을 연다.
 - 조회·취소 후 이 화면의 입력·선택값을 유지하고 예약 유무를 갱신한다. 다른 범위의 예약은 취소하지 않는다.
 
 ────────────────────────────────────────
@@ -2636,7 +2646,7 @@ Web_dc_05_정보_일괄_수정.md
 
 ---
 
-- 와이어프레임 S1-5에 해당한다.
+- 와이어프레임 S5에 해당한다.
 - 파일을 업로드해 여러 구성원의 정보를 한 번에 수정하는 화면이다. 수정한 내용을 즉시 저장하거나, 적용할 날짜를 지정해 저장을 예약할 수 있다.
 - 기존 제목, 파일 업로드 STEP 1·STEP 2와 상단 버튼 구성을 유지한다.
 
@@ -2673,7 +2683,7 @@ Web_dc_05_정보_일괄_수정.md
 ## 4. [예약 내역 보기] 버튼
 
 - 선택된 구성원과 이번 수정 범위에 진행 중 예약이 있으면 표시한다.
-- [예약 내역 보기] 버튼 : [일괄 예약 내역](Web_dc_10_일괄_예약_내역.md)의 S8를 연다.
+- [예약 내역 보기] 버튼 : [일괄 예약 내역](Web_dc_10_일괄_예약_내역.md)의 S14를 연다.
 - 목록에서 상세 조회·단건 취소 후에도 선택 구성원과 업로드 파일·검증 결과를 유지한다. 저장은 자동 실행하지 않는다.
 - 조회 대상은 선택된 구성원이며, 실제 저장·예약 충돌 검사는 최종 변경이 있는 구성원·정보 범위로 한정한다.
 
@@ -2691,15 +2701,15 @@ Web_dc_06_정보_수정_예약.md
 
 ---
 
-- 와이어프레임 S2·S3에 해당한다. 등록 중·성공·오류의 표시 예시는 S7에서 확인한다.
+- 와이어프레임 S6·S7에 해당한다. 등록 중·성공·오류의 표시 예시는 S13에서 확인한다.
 - 수정할 내용을 확인하고 적용할 날짜를 입력하는 Modal이다. 기본 정보, 그룹 및 권한, 고정근무지, 담당근무지 수정에서 공통으로 사용한다.
 - 입력용 Modal이며 바깥 영역 클릭 시 아무 동작도 하지 않는다.
 - 대상 구성원을 Modal 안에 반복 표시하지 않고 Header의 [X]를 제공하지 않는다.
 
 | 케이스 | 조건 | 명세 |
 | --- | --- | --- |
-| Case 1 | 같은 구성원·수정 범위의 진행 중 예약 없음 | &lt;ul&gt;&lt;li&gt;S2 구성을 표시한다.&lt;/li&gt;&lt;li&gt;Header, 예약 안내, 예약 내용, 예약 적용일, Footer 순서로 구성한다.&lt;/li&gt;&lt;li&gt;Footer에 [취소]·[예약] 버튼을 표시한다.&lt;/li&gt;&lt;/ul&gt; |
-| Case 2 | 같은 구성원·수정 범위의 진행 중 예약 있음 | &lt;ul&gt;&lt;li&gt;S3 구성을 표시한다.&lt;/li&gt;&lt;li&gt;Header, 기존 예약 주의, 예약 안내, 기존 예약자, 예약 내용 비교, 예약 적용일, Footer 순서로 구성한다.&lt;/li&gt;&lt;li&gt;Footer에 [취소]·[새로 예약] 버튼을 표시한다.&lt;/li&gt;&lt;/ul&gt; |
+| Case 1 | 같은 구성원·수정 범위의 진행 중 예약 없음 | &lt;ul&gt;&lt;li&gt;S6 구성을 표시한다.&lt;/li&gt;&lt;li&gt;Header, 예약 안내, 예약 내용, 예약 적용일, Footer 순서로 구성한다.&lt;/li&gt;&lt;li&gt;Footer에 [취소]·[예약] 버튼을 표시한다.&lt;/li&gt;&lt;/ul&gt; |
+| Case 2 | 같은 구성원·수정 범위의 진행 중 예약 있음 | &lt;ul&gt;&lt;li&gt;S7 구성을 표시한다.&lt;/li&gt;&lt;li&gt;Header, 기존 예약 주의, 예약 안내, 기존 예약자, 예약 내용 비교, 예약 적용일, Footer 순서로 구성한다.&lt;/li&gt;&lt;li&gt;Footer에 [취소]·[새로 예약] 버튼을 표시한다.&lt;/li&gt;&lt;/ul&gt; |
 
 ## 1. 예약 내용
 
@@ -2800,7 +2810,7 @@ Web_dc_07_근무지_초기화.md
 
 ---
 
-- 와이어프레임 S4-1·S4-2·S4-3에 해당한다. 예약 등록 중·성공·오류의 표시 예시는 S7에서 확인한다.
+- 와이어프레임 S8·S9·S10에 해당한다. 예약 등록 중·성공·오류의 표시 예시는 S13에서 확인한다.
 - 구성원의 고정근무지 또는 담당근무지를 비우기 전에 처리 방식을 선택하는 Modal이다. 즉시 초기화하거나, 초기화할 날짜를 지정해 예약할 수 있다.
 - 작업 확정 Modal이므로 바깥 영역 클릭으로 닫지 않는다.
 - Header [X]와 대상 구성원을 추가하지 않는다.
@@ -2819,9 +2829,9 @@ Web_dc_07_근무지_초기화.md
 
 | 케이스 | 조건 | 명세 |
 | --- | --- | --- |
-| Case 1-1 | 즉시 선택 | &lt;ul&gt;&lt;li&gt;S4-1 구성을 표시한다.&lt;/li&gt;&lt;li&gt;예약 안내·기존 예약 비교·예약 적용일을 숨긴다.&lt;/li&gt;&lt;/ul&gt; |
-| Case 1-2 | 예약 선택 + 같은 근무지 범위의 진행 중 예약 없음 | &lt;ul&gt;&lt;li&gt;S4-2 구성을 표시한다.&lt;/li&gt;&lt;li&gt;초기화 예약 안내와 예약 적용일 Input을 표시한다.&lt;/li&gt;&lt;/ul&gt; |
-| Case 1-3 | 예약 선택 + 같은 근무지 범위의 진행 중 예약 있음 | &lt;ul&gt;&lt;li&gt;S4-3 구성을 표시한다.&lt;/li&gt;&lt;li&gt;기존 예약 주의, 초기화 예약 안내, 기존 예약자, 예약 내용 비교, 기존·새 예약 적용일을 표시한다.&lt;/li&gt;&lt;li&gt;다른 정보 수정 예약 Modal로 이동하지 않는다.&lt;/li&gt;&lt;/ul&gt; |
+| Case 1-1 | 즉시 선택 | &lt;ul&gt;&lt;li&gt;S8 구성을 표시한다.&lt;/li&gt;&lt;li&gt;예약 안내·기존 예약 비교·예약 적용일을 숨긴다.&lt;/li&gt;&lt;/ul&gt; |
+| Case 1-2 | 예약 선택 + 같은 근무지 범위의 진행 중 예약 없음 | &lt;ul&gt;&lt;li&gt;S9 구성을 표시한다.&lt;/li&gt;&lt;li&gt;초기화 예약 안내와 예약 적용일 Input을 표시한다.&lt;/li&gt;&lt;/ul&gt; |
+| Case 1-3 | 예약 선택 + 같은 근무지 범위의 진행 중 예약 있음 | &lt;ul&gt;&lt;li&gt;S10 구성을 표시한다.&lt;/li&gt;&lt;li&gt;기존 예약 주의, 초기화 예약 안내, 기존 예약자, 예약 내용 비교, 기존·새 예약 적용일을 표시한다.&lt;/li&gt;&lt;li&gt;다른 정보 수정 예약 Modal로 이동하지 않는다.&lt;/li&gt;&lt;/ul&gt; |
 
 ## 2. [취소] 버튼
 
@@ -2836,7 +2846,7 @@ Web_dc_07_근무지_초기화.md
 
 | 케이스 | 조건 | 명세 |
 | --- | --- | --- |
-| Case 3-1 | 즉시 선택 | &lt;ul&gt;&lt;li&gt;같은 범위의 기존 예약을 먼저 확인한다. 없으면 기존 초기화 API를 호출한다.&lt;/li&gt;&lt;li&gt;같은 근무지 범위의 기존 예약이 있으면 S11에서 즉시 초기화와 예약 취소를 함께 확인한다. 확인 전에는 초기화 API를 호출하지 않는다.&lt;/li&gt;&lt;li&gt;성공 시 Modal을 닫고 현재 구성원 상세의 근무 정보 화면을 갱신한다.&lt;/li&gt;&lt;li&gt;실패 처리는 기존 초기화 규칙을 따른다.&lt;/li&gt;&lt;/ul&gt; |
+| Case 3-1 | 즉시 선택 | &lt;ul&gt;&lt;li&gt;같은 범위의 기존 예약을 먼저 확인한다. 없으면 기존 초기화 API를 호출한다.&lt;/li&gt;&lt;li&gt;같은 근무지 범위의 기존 예약이 있으면 S17에서 즉시 초기화와 예약 취소를 함께 확인한다. 확인 전에는 초기화 API를 호출하지 않는다.&lt;/li&gt;&lt;li&gt;성공 시 Modal을 닫고 현재 구성원 상세의 근무 정보 화면을 갱신한다.&lt;/li&gt;&lt;li&gt;실패 처리는 기존 초기화 규칙을 따른다.&lt;/li&gt;&lt;/ul&gt; |
 | Case 3-2 | 예약 선택 + 유효한 적용일 + 진행 중 예약 없음 | &lt;ul&gt;&lt;li&gt;목표값 없음의 예약 생성 API를 호출한다.&lt;/li&gt;&lt;li&gt;현재 근무지는 변경하지 않는다.&lt;/li&gt;&lt;li&gt;요청 결과는 아래 예약 등록 결과 케이스를 따른다.&lt;/li&gt;&lt;/ul&gt; |
 | Case 3-3 | 예약 선택 + 유효한 적용일 + 진행 중 예약 있음 | &lt;ul&gt;&lt;li&gt;기존 예약 전체와 새 초기화 예약에 대한 현재 권한을 다시 검사한다.&lt;/li&gt;&lt;li&gt;기존 예약 취소와 새 예약 생성을 하나의 작업으로 요청한다.&lt;/li&gt;&lt;li&gt;실패 시 기존 예약과 입력값을 유지한다.&lt;/li&gt;&lt;li&gt;요청 결과는 아래 예약 등록 결과 케이스를 따른다.&lt;/li&gt;&lt;/ul&gt; |
 
@@ -2852,7 +2862,7 @@ Web_dc_07_근무지_초기화.md
 | Case 3-6 | 현재 수정 권한 없음 | &lt;ul&gt;&lt;li&gt;초기화 확인 Modal·입력값·날짜·기존 예약을 유지한다.&lt;/li&gt;&lt;li&gt;정보 노출은 현재 조회 권한을 따른다.&lt;/li&gt;&lt;li&gt;실패 Toast 노출 (구성원 정보 수정 권한이 없습니다. / cm_deniedmember)&lt;/li&gt;&lt;/ul&gt; |
 | Case 3-7 | 비교 중인 기존 예약이 다른 사용자에 의해 변경됨 | &lt;ul&gt;&lt;li&gt;오래된 비교 내용으로 기존 예약 취소·새 예약 생성을 실행하지 않는다.&lt;/li&gt;&lt;li&gt;최신 기존 예약을 자동 재조회한다.&lt;/li&gt;&lt;li&gt;새 초기화 예약 내용과 날짜를 유지하고 사용자가 같은 Modal에서 다시 비교·확정하게 한다.&lt;/li&gt;&lt;li&gt;실패 Toast 노출 (에러가 발생하였습니다. 잠시 후 다시 시도해보세요. / cm_error_tryagain)&lt;/li&gt;&lt;/ul&gt; |
 | Case 3-8 | 자정 경과 등으로 날짜 범위 변경 | &lt;ul&gt;&lt;li&gt;기존 예약을 유지한다.&lt;/li&gt;&lt;li&gt;별도 결과 화면 없이 5번 예약 적용일 Input의 범위 오류로 처리한다.&lt;/li&gt;&lt;li&gt;입력값을 유지하고 정상 날짜로 수정할 수 있게 한다.&lt;/li&gt;&lt;/ul&gt; |
-| Case 3-9 | 최종 검사에서 같은 근무지 범위의 진행 중 예약 발견 | &lt;ul&gt;&lt;li&gt;초기화 내용과 입력한 날짜를 유지한다.&lt;/li&gt;&lt;li&gt;같은 Modal을 기존 예약 비교 화면(S4-3, Case 1-3)으로 전환하고 최신 기존 예약을 표시한다.&lt;/li&gt;&lt;li&gt;사용자가 기존 예약과 새 초기화 예약을 비교한 뒤 다시 확정하도록 한다.&lt;/li&gt;&lt;/ul&gt; |
+| Case 3-9 | 최종 검사에서 같은 근무지 범위의 진행 중 예약 발견 | &lt;ul&gt;&lt;li&gt;초기화 내용과 입력한 날짜를 유지한다.&lt;/li&gt;&lt;li&gt;같은 Modal을 기존 예약 비교 화면(S10, Case 1-3)으로 전환하고 최신 기존 예약을 표시한다.&lt;/li&gt;&lt;li&gt;사용자가 기존 예약과 새 초기화 예약을 비교한 뒤 다시 확정하도록 한다.&lt;/li&gt;&lt;/ul&gt; |
 
 ## 4. 예약 내용 비교
 
@@ -2873,7 +2883,7 @@ Web_dc_07_근무지_초기화.md
 ## 6. [예약 내역 보기] 버튼
 
 - 선택한 고정근무지 또는 담당근무지 범위에 진행 중 예약이 있으면 즉시·예약 모드와 관계없이 표시한다.
-- [예약 내역 보기] 버튼 : [예약 상세](Web_dc_11_예약_상세_및_취소.md)의 S9을 연다.
+- [예약 내역 보기] 버튼 : [예약 상세](Web_dc_11_예약_상세_및_취소.md)의 S15을 연다.
 - 상세에서 취소해도 현재 근무지는 초기화하지 않는다. 기존 처리 방식·날짜를 유지하고 예약 유무를 갱신한다.
 
 ────────────────────────────────────────
@@ -2889,15 +2899,15 @@ Web_dc_08_정보_일괄_수정_예약.md
 
 ---
 
-- 와이어프레임 S5·S6에 해당한다. 등록 중·성공·오류의 표시 예시는 S7에서 확인한다.
+- 와이어프레임 S11·S12에 해당한다. 등록 중·성공·오류의 표시 예시는 S13에서 확인한다.
 - 일괄 수정할 대상 인원을 확인하고 적용할 날짜를 입력하는 Modal이다. 일괄 수정 페이지에서 파일 적용·검증이 완료되고 실제 수정 정보가 있는 구성원이 1명 이상일 때 진입한다.
 - 입력용 예약 Modal과 충돌 안내 Modal을 상태에 따라 구분한다.
 - 파일 선택·업로드·검증 표를 예약 Modal 안에 반복하지 않는다.
 
 | 케이스 | 조건 | 명세 |
 | --- | --- | --- |
-| Case 1 | 일괄 예약 적용일 입력 단계 | &lt;ul&gt;&lt;li&gt;S5 예약 Modal을 표시한다.&lt;/li&gt;&lt;li&gt;Header, 예약 안내, 대상 인원, 예약 적용일, Footer로 구성한다.&lt;/li&gt;&lt;/ul&gt; |
-| Case 2 | 최종 등록 검사에서 진행 중 예약 충돌 발견 | &lt;ul&gt;&lt;li&gt;S6 충돌 안내 Modal을 표시한다.&lt;/li&gt;&lt;/ul&gt; |
+| Case 1 | 일괄 예약 적용일 입력 단계 | &lt;ul&gt;&lt;li&gt;S11 예약 Modal을 표시한다.&lt;/li&gt;&lt;li&gt;Header, 예약 안내, 대상 인원, 예약 적용일, Footer로 구성한다.&lt;/li&gt;&lt;/ul&gt; |
+| Case 2 | 최종 등록 검사에서 진행 중 예약 충돌 발견 | &lt;ul&gt;&lt;li&gt;S12 충돌 안내 Modal을 표시한다.&lt;/li&gt;&lt;/ul&gt; |
 
 ## 1. 예약 Modal
 
@@ -2949,7 +2959,7 @@ Web_dc_08_정보_일괄_수정_예약.md
 - 이름과 예약자는 아바타·이름·그룹으로 표시한다.
 - 충돌한 기존 예약 한 건당 한 행을 표시한다.
 - 같은 구성원의 서로 다른 예약이 여러 건 충돌하면 이름을 반복한다.
-- 예약 한 건은 한 구성원·한 정보 범위다. [상세보기]에서 공통 S9을 열고 단건 취소할 수 있다.
+- 예약 한 건은 한 구성원·한 정보 범위다. [상세보기]에서 공통 S15을 열고 단건 취소할 수 있다.
 - 이번 요청과 충돌하지 않는 범위의 예약은 표시하지 않는다.
 - 충돌 결과가 있을 때 진입한다. 상세에서 마지막 충돌 예약을 취소하면 예약이 없음을 표시하며, 자동 등록하지 않는다.
 
@@ -2971,7 +2981,7 @@ Web_dc_10_일괄_예약_내역.md
 
 ---
 
-- 와이어프레임 S8에 해당한다. 충돌 안내의 목록은 S6에서 확인한다.
+- 와이어프레임 S14에 해당한다. 충돌 안내의 목록은 S12에서 확인한다.
 - 선택한 구성원과 이번 수정 범위에 해당하는 진행 중 예약을 조회하는 Modal이다. 독립된 예약 관리 메뉴가 아니다.
 - 목록의 정렬·표시량은 시안이다. 현재 예시는 구성원 이름 순, 같은 구성원은 기본 정보 → 그룹 및 권한 → 고정근무지 → 담당근무지 순이다. 대량 목록의 페이지 크기·검색 제공 여부는 추가 검토한다.
 
@@ -2985,7 +2995,7 @@ Web_dc_10_일괄_예약_내역.md
 
 - 구성원 × 정보 범위별 예약을 한 행씩 표시한다.
 - 컬럼은 구성원, 정보 범위, 예약 적용일, 예약자, [상세보기]다. 구성원·예약자는 기존 아바타·이름·그룹 표시를 따른다.
-- [상세보기] 버튼 : 선택한 예약을 [Web_dc_11 예약 상세 및 취소](Web_dc_11_예약_상세_및_취소.md)의 S9으로 전달한다. 목록에서 즉시 취소하지 않는다.
+- [상세보기] 버튼 : 선택한 예약을 [Web_dc_11 예약 상세 및 취소](Web_dc_11_예약_상세_및_취소.md)의 S15으로 전달한다. 목록에서 즉시 취소하지 않는다.
 - 상세에서 돌아오면 최신 예약 목록을 표시하고 선택 구성원·업로드 내용·목록 위치를 유지한다.
 - 단건 취소 후 다른 구성원·범위의 예약은 목록에 남긴다. 마지막 예약을 취소했다면 진행 중 예약이 없는 빈 상태를 표시한다.
 - 조회 중에는 중복 요청을 차단한다. 조회 실패 시 기존 목록을 유지하고 실패 Toast를 표시한다(에러가 발생하였습니다. 잠시 후 다시 시도해보세요. / cm_error_tryagain).
@@ -3012,7 +3022,7 @@ Web_dc_11_예약_상세_및_취소.md
 
 ---
 
-- 와이어프레임 S9 상세·S10 취소 확인에 해당한다.
+- 와이어프레임 S15 상세·S16 취소 확인에 해당한다.
 - 개별·일괄 등록 경로와 관계없이 동일한 구성원·정보 범위별 예약 상세를 표시한다.
 - 예약 내용은 읽기 전용이다. 이 화면에서 내용·적용일을 수정하거나 현재 구성원 정보를 저장하지 않는다.
 
@@ -3037,13 +3047,13 @@ Web_dc_11_예약_상세_및_취소.md
 ## 3. [예약 취소] 버튼
 
 - 활성화 조건은 해당 예약이 진행 중이고 그 예약 내용에 대한 현재 수정 권한이 있는 경우다. 다른 사람이 만든 예약도 같은 기준을 적용한다.
-- [예약 취소] 버튼 : S10에서 취소할 대상 구성원·정보 범위·적용일과 현재 구성원 정보는 변경되지 않음을 확인한다. 추가 확인창은 시안이며 직접 검토 후 확정한다.
+- [예약 취소] 버튼 : S16에서 취소할 대상 구성원·정보 범위·적용일과 현재 구성원 정보는 변경되지 않음을 확인한다. 추가 확인창은 시안이며 직접 검토 후 확정한다.
 
 | 구분 | 정의 |
 | --- | --- |
 | Header | 예약 취소 확인 제목을 표시한다. |
 | Body | 취소할 예약을 식별할 정보와 취소 영향을 표시한다. |
-| Footer | &lt;ul&gt;&lt;li&gt;[돌아가기]: 취소하지 않고 S9 상세로 돌아간다.&lt;/li&gt;&lt;li&gt;[예약 취소]: 현재 권한·예약 상태를 다시 확인하고 해당 예약 한 건의 취소를 요청한다.&lt;/li&gt;&lt;/ul&gt; |
+| Footer | &lt;ul&gt;&lt;li&gt;[돌아가기]: 취소하지 않고 S15 상세로 돌아간다.&lt;/li&gt;&lt;li&gt;[예약 취소]: 현재 권한·예약 상태를 다시 확인하고 해당 예약 한 건의 취소를 요청한다.&lt;/li&gt;&lt;/ul&gt; |
 
 - 확인 Modal의 바깥 영역 클릭으로 취소·닫기를 수행하지 않는다.
 - 요청 중에는 중복 제출을 차단한다.
@@ -3068,7 +3078,7 @@ Web_dc_12_즉시_저장_및_예약_취소.md
 
 ---
 
-- 와이어프레임 S11에 해당한다.
+- 와이어프레임 S17에 해당한다.
 - 지금 수정하려는 정보와 같은 범위의 예약이 있을 때, 즉시 저장과 예약 취소를 함께 확인하는 Modal이다.
 - 일괄 즉시 저장의 여러 예약 확인 방식은 아직 미확정이며 이 화면으로 대체하지 않는다.
 - 작업 확정 Modal로 바깥 영역 클릭으로 닫지 않고 [X]를 제공하지 않는다.
@@ -3097,7 +3107,7 @@ Web_dc_12_즉시_저장_및_예약_취소.md
 - [지금 저장하고 예약 취소] 버튼 : 기존 예약의 최신 상태를 재확인하고 즉시 저장과 해당 예약 취소를 함께 요청한다.
 - 두 작업이 모두 성공해야 한다. 실패 시 기존 예약을 유지하고 입력을 보존한다. 요청 중에는 중복 제출을 차단한다.
 - 성공 시 기존 편집 작업을 종료하고 원래 저장 성공 후 복귀 위치로 돌아간다. 기본 정보·그룹 및 권한은 편집을 열었던 목록 또는 상세, 근무지 수정·초기화는 구성원 상세의 근무 정보 화면으로 돌아간다.
-- 다른 사람이 만든 예약이라면 [즉시 저장에 따른 취소 알림](Email_dc_05_예약_취소_알림.md)의 S17을 발송한다.
+- 다른 사람이 만든 예약이라면 [즉시 저장에 따른 취소 알림](Email_dc_05_예약_취소_알림.md)의 E6을 발송한다.
 - 통신 오류는 실패 Toast(에러가 발생하였습니다. 잠시 후 다시 시도해보세요. / cm_error_tryagain), 권한 오류는 실패 Toast(구성원 정보 수정 권한이 없습니다. / cm_deniedmember)로 안내하며 입력값을 유지한다.
 - 기존 예약이 바뀌었다면 최신 예약을 다시 보여주고 재확정하게 한다. 확인하지 않은 새 예약을 자동 취소하지 않는다.</pre></dialog>
 <script>
