@@ -1236,7 +1236,7 @@ window.WF_DATA = {
         "취소한 범위는 집계에서 제외한다. 모든 범위가 취소된 사람만 대상 인원에서 제외하고, 남은 예약이 없으면 결과 이메일을 보내지 않는다.",
         "이름·사번은 해당 구성원의 남은 범위 결과가 모두 확정된 시점 기준이다. 전체 일괄 결과·이메일 발송 시점에 다시 조회하지 않는다.",
         "재시도 중인 예약이 있으면 모두 확정될 때까지 결과 이메일을 보류한다.",
-        "상단 처리 결과 항목은 생략한다. 실패 구성원 목록에는 범위 뒤에 수정 실패를 표시한다."
+        "상단 처리 결과 항목은 생략한다. 실패 구성원 목록은 이름 아래 수정 완료·수정 실패 범위를 구분한다. 성공 범위가 없으면 수정 실패만 표시한다."
       ]
     },
     {
@@ -1277,13 +1277,13 @@ window.WF_DATA = {
       "asIs": "01-member-list.png",
       "notes": [
         "예약자가 수신할 수 없으면 성공·실패 등 모든 최종 결과를 해당 고객사의 활성 ADMIN 전체에게 대체 발송한다. 멀티관리자와 운영자는 제외한다.",
-        "제목과 상단 타이틀을 제외한 본문은 개별 E1·일괄 E2의 해당 결과를 따른다. 푸터 마지막에 대체 수신 설명을 추가한다.",
+        "제목을 제외한 본문은 개별 E1·일괄 E2의 해당 결과를 따른다. 푸터 마지막에 대체 수신 설명을 추가한다.",
         "오른쪽에서 개별 적용 완료·적용 실패, 일괄 정상 처리·일부 실패·전체 실패 예시를 확인한다.",
         "실패 없는 일괄 결과는 정상 처리이며 실패 구성원 명단은 표시하지 않는다. 실패가 있는 경우에만 기존 명단 표시 규칙을 적용한다.",
         "수신 가능한 활성 ADMIN이 없으면 사용자 이메일을 생략하고 감사 이력과 내부 운영 오류를 남긴다. 원래 일괄 대상 0명 시 결과 이메일 생략은 유지한다.",
         "일반 발송 목적 문장은 생략하고 대체 수신 사유만 푸터 마지막에 유지한다.",
         "발송 시점에 예약자가 비활성 상태이거나 관리 권한을 잃었거나 이메일이 없거나 유효하지 않을 때 대체 수신을 적용한다. 같은 고객사의 활성 ADMIN 전체에게 발송하고 멀티관리자·운영자는 제외한다.",
-        "모든 케이스의 이메일 제목과 본문 상단 타이틀은 구성원 정보 수정 예약의 처리 결과를 안내드립니다.로 통일한다."
+        "이메일 제목만 구성원 정보 수정 예약의 처리 결과를 안내드립니다.로 통일한다. 본문 상단은 E1·E2의 각 결과 문구를 사용한다."
       ]
     }
   ]
@@ -1372,15 +1372,15 @@ return modal(t('resetTitle'),body,reservationViewButton(state.resetScope,true)+b
 function bulkConflict(){return bulkSaveDialog(true);}
 function statusScreen(){if(state.status==='complete')return `<div class="edit-shell"><div class="edit-heading">구성원 관리</div><div class="edit-main"><div class="sf-Card">${table(['이름','사번','직무'],[['김민지','A-1024','매장직']])}</div><div class="status-toast" role="status"><span class="success-check">✓</span>${h(t('registered'))}</div></div></div>`;const old=state.requestError;const toast=state.status==='network'?t('registerError'):state.status==='permission'?t('permissionError'):state.status==='race'?t('raceError'):'';state.requestError='';const busy=state.busy;state.busy=state.status==='loading';if(!state.date.status&&!state.dateInput.status)state.date.status='2026-11-20';let result=scheduleDialog('status',state.status==='race');if(state.status==='permission')result=result.replace('data-action="submit"','disabled data-action="submit"');if(toast)result=result.replace('class="mock-backdrop"','class="mock-backdrop has-status-toast"').replace(/<\/div>$/,`<div class="status-toast preview-error-toast" role="alert"><span class="error-mark" aria-hidden="true">!</span>${h(toast)}</div></div>`);state.requestError=old;state.busy=busy;return result;}
 function emailFooter(fallback=false){return `<footer class="email-footer"><div class="email-copyright">Copyright © 2025. Shopl &amp; Company, Inc. All rights reserved.</div><div>샤플앤컴퍼니 <a href="mailto:support@shoplworks.com">support@shoplworks.com</a></div><div>서울특별시 강남구 도곡로 111 미진빌딩 8층</div>${fallback?`<p class="fallback-footer">${h(t('fallbackDetail'))}</p>`:''}</footer>`;}
-function emailFrame(subject,body,fallback=false){if(fallback){subject='구성원 정보 수정 예약의 처리 결과를 안내드립니다.';body=body.replace(/<h2>[\s\S]*?<\/h2>/,'<h2>'+subject+'</h2>');}return `<div class="mail-client"><div class="mail-subject">${h(subject)}</div><div class="mail-pad"><article class="email"><div class="email-brand">shopl</div>${body}${emailFooter(fallback)}</article></div></div>`;}
+function emailFrame(subject,body,fallback=false){if(fallback){subject='구성원 정보 수정 예약의 처리 결과를 안내드립니다.';}return `<div class="mail-client"><div class="mail-subject">${h(subject)}</div><div class="mail-pad"><article class="email"><div class="email-brand">shopl</div>${body}${emailFooter(fallback)}</article></div></div>`;}
 function commonInfo(result,bulk=false){const entries=[[t('creator'),'김서연'],[t('createdDate'),'2026.11.12'],[t('dateLabel'),'2026.11.20'],[t('result'),result],[t('processedAt'),'2026.11.20 00:03']];return `<dl>${entries.filter(([k])=>!bulk||k!==t('result')).map(([k,v])=>`<dt>${h(k)}</dt><dd${k===t('result')?' class="result-emphasis"':''}>${h(v)}</dd>`).join('')}</dl>`;}
 function modificationTable(rows){return `<span class="section-label">${h(t('reservedChanges'))}</span>${table([t('information'),t('before'),t('after')],rows)}`;}
 function individualEmail(kind='applied',fallback=false){const fail=kind==='failed';const result=t(fail?'failed':'applied');const rows=fail&&state.failure==='duplicate'?[['이메일','minji@example.com','minji.new@example.com']]:fail&&state.failure==='target'?[['고정근무지','강남점','역삼점']]:[['직무','매장직','점장']];const detail=fail?t(state.failure+'Detail'):'';let body=`<h2>${h(t(fail?'individualFailureHeading':'individualSuccessHeading'))}</h2>${commonInfo(result)}${person()}${modificationTable(rows)}${detail?`<p class="detail">${h(detail)}</p>`:''}`;return emailFrame(t(fail?'individualFailureHeading':'individualSuccessHeading'),body,fallback);}
 function bulkEmail(fallback=false){
-const samples={partial:{total:10,applied:7,partial:2,failed:1,names:[['김샤플 (1024)',['basic','assigned']],['이샤플 (1025)',['assigned']],['박샤플 (1026)',['basic','assigned']]]},success:{total:10,applied:10,partial:0,failed:0,names:[]},failed:{total:3,applied:0,partial:0,failed:3,names:[['김샤플 (1024)',['basic','assigned']],['이샤플 (1025)',['assigned']],['박샤플 (1026)',['basic']]]}};
+const samples={partial:{total:10,applied:7,partial:2,failed:1,names:[['김샤플 (1024)',['basic','assigned'],['group']],['이샤플 (1025)',['assigned'],['basic']],['박샤플 (1026)',['basic','assigned'],[]]]},success:{total:10,applied:10,partial:0,failed:0,names:[]},failed:{total:3,applied:0,partial:0,failed:3,names:[['김샤플 (1024)',['basic','assigned']],['이샤플 (1025)',['assigned']],['박샤플 (1026)',['basic']]]}};
 const sample=samples[fallback?({bulk:'partial',bulkFailed:'failed',bulkSuccess:'success'}[state.fallback]||'partial'):state.bulk];
 const result=t(sample.failed===sample.total?'allFailed':sample.failed+sample.partial>0?'partial':'normal');
-let body=`<h2>구성원 정보 수정 예약의 처리 결과를 안내드립니다.</h2>`+commonInfo(result,true)+`<h3 class="summary-title">${h(t('summary'))}</h3><div class="summary-rows"><div class="total"><span>${h(t('member'))}</span><span>${sample.total}명</span></div>${['applied','partial','failed'].map(k=>`<div><span>${h(t(k))}</span><span>${sample[k]}명</span></div>`).join('')}</div>${sample.failed+sample.partial?`<section class="failed-members"><h3>${h(t('failedMembers'))}</h3>${sample.names.map(([name,scopes])=>`<p>${h(name)} — ${h(scopes.map(scope=>scopeNames[scope]).join(', '))} 수정 실패</p>`).join('')}</section>`:''}`;
+let body=`<h2>구성원 정보 수정 예약의 처리 결과를 안내드립니다.</h2>`+commonInfo(result,true)+`<h3 class="summary-title">${h(t('summary'))}</h3><div class="summary-rows"><div class="total"><span>${h(t('member'))}</span><span>${sample.total}명</span></div>${['applied','partial','failed'].map(k=>`<div><span>${h(t(k))}</span><span>${sample[k]}명</span></div>`).join('')}</div>${sample.failed+sample.partial?`<section class="failed-members"><h3>${h(t('failedMembers'))}</h3>${sample.names.map(([name,scopes,success=[]])=>`<p class="member-scope-result">${h(name)}${success.length?`<br><span>수정 완료: ${h(success.map(scope=>scopeNames[scope]).join(', '))}</span>`:''}<br><span>수정 실패: ${h(scopes.map(scope=>scopeNames[scope]).join(', '))}</span></p>`).join('')}</section>`:''}`;
 return emailFrame(t('bulkSubject'),body,fallback);}
 function replacementEmail(){if(state.replacementMailMode==='bulk')return groupedChangeEmail(false);return emailFrame(t('replacementSubject'),`<h2>${h(t('replacementHeading'))}</h2><dl><dt>${h(t('newCreator'))}</dt><dd>김서연</dd><dt>${h(t('newCreatedDate'))}</dt><dd>2026.11.12</dd></dl><p class="recipient-context">${h(t('replacementDetail'))}</p>${person()}<span class="section-label">${h(t('reservedChanges'))}</span>${table([t('information'),t('oldReservation'),t('newReservation')],[[t('dateLabel'),'2026.11.18','2026.11.20'],['직무','매장직 → 매니저','매장직 → 점장'],['직급','사원 → 주임',state.form.grade===original.grade?t('notModified'):'사원 → '+state.form.grade]])}`);}
 function controls(id){if(id==='S15'&&isConfirmationDetail())return '<p>확인창에서 연 상세는 조회 전용이며 닫기만 제공합니다.</p>';if(['S12','S15','S16','S17','S18'].includes(id))return selectControl('cancelPreview','검토할 요청 상태',[['success','정상 처리'],['network','통신 오류'],['permission','현재 권한 없음']]);if(id==='E3')return selectControl('replacementMailMode','검토할 발송 유형',[['single','단건'],['bulk','일괄 · 수신자별 묶음']]);if(id==='E4')return selectControl('cancelEmailCase','검토할 취소 케이스',[['standalone','단독 취소'],['single','즉시 수정 · 단건'],['bulk','즉시 수정 · 일괄']]);if(id==='S5')return selectControl('bulkPageKind','기존 일괄 수정 페이지',bulkPageKinds)+`<label><input type="checkbox" data-control="bulkUploadReady" ${state.bulkUploadReady?'checked':''}> 파일 적용·검증 완료 예시</label><label><input type="checkbox" data-control="bulkNoChanges" ${state.bulkNoChanges?'checked':''}> 실제 변경 0건 예시</label>`;if(['S1','S2','S3','S4'].includes(id))return `<label><input type="checkbox" data-control="individualCollision" ${state.individualCollision?'checked':''}> 같은 범위에 기존 예약이 있는 예시</label>`;if(id==='S6'||id==='S7')return selectControl('reservationScope','진입한 기존 수정 화면',scopeOptions);if(['S8','S9','S10'].includes(id))return selectControl('resetScope','초기화할 정보',[['fixed','고정근무지'],['assigned','담당근무지']])+(['S8','S9','S10'].includes(id)?selectControl('resetExistingKind','기존 예약에 담긴 내용 (비교 대상)',[['none','기존 예약 없음'],['reset','근무지 초기화'],['change','다른 근무지로 수정']]):'');if(id==='S11')return `<label><input type="checkbox" data-control="bulkCollision" ${state.bulkCollision?'checked':''}> 기존 예약이 있는 예시로 등록</label>`;if(id==='S13')return selectControl('status','검토할 상태',[['complete','예약 등록 완료'],['loading','예약 등록 중'],['network','통신 오류'],['permission','현재 권한 없음'],['race','비교 중인 기존 예약이 교체됨']]);if(id==='E1')return selectControl('individualResult','검토할 결과',[['applied','적용 완료'],['failed','적용 실패']])+(state.individualResult==='failed'?selectControl('failure','검토할 실패 원인',[['inactive','구성원 상태'],['duplicate','이메일·휴대폰 번호·사번 등 중복'],['target','그룹·근무지 사용 불가'],['settings','관련 고객사 설정'],['system','최종 시스템 오류']]):'');if(id==='E2')return selectControl('bulk','검토할 결과',[['partial','일부 실패 포함 · 10명'],['success','전원 적용 완료 · 10명'],['failed','전원 실패 · 3명']]);if(id==='E6')return selectControl('fallback','대체 수신 이메일',[['individualApplied','개별 적용 완료'],['individual','개별 실패 결과'],['bulkSuccess','일괄 전원 적용 완료'],['bulk','일괄 일부 실패 결과'],['bulkFailed','일괄 전원 실패 결과']]);return '';}
@@ -1428,7 +1428,7 @@ const meta=immediate?'<dl><dt>예약 취소자</dt><dd>김서연</dd><dt>예약 
 const content=`<div class="summary-rows"><div class="total"><span>${h(t('member'))}</span><span>${members.length}명</span></div></div><section class="failed-members grouped-cancelled-members">${immediate?'<h3>예약이 취소된 구성원</h3>':''}${members.map(m=>`<p>${h(m.name)}${m.id?` (${h(m.id)})`:''} — ${h(m.scopes.join(', '))} 수정 취소</p>`).join('')}</section>${immediate?'<p class="detail">수정된 내용은 구성원 정보에서 확인해 주세요.</p>':''}`;
 return emailFrame('구성원 정보 수정 예약이 취소되었습니다.',`<h2>${h(heading)}</h2>${meta}${content}`);
 }
-function cancellationEmail(immediate=false){if(immediate&&state.cancelEmailCase==='bulk')return groupedChangeEmail(true);const rows=immediate?comparisonRows([['직급','사원','대리']],[['직급','주임','과장'],['직무','매니저','점장']]):[['직급','사원','대리']];return emailFrame('구성원 정보 수정 예약이 취소되었습니다.',`<h2>${immediate?'다른 구성원이 수정 예약을 취소하고 구성원 정보를 수정했습니다.':'다른 구성원에 의해 수정 예약이 취소되었습니다.'}</h2><dl><dt>예약 취소자</dt><dd>김서연</dd><dt>예약 취소 일시</dt><dd>2026.11.18 14:30</dd></dl>${person('김샤플','1024')}<dl><dt>예약 적용일</dt><dd>2026.11.20</dd></dl><span class="section-label">예약 내용</span>${table(immediate?['정보','기존 예약','수정됨']:['정보','수정 전','수정 후'],rows)}`);}
+function cancellationEmail(immediate=false){if(immediate&&state.cancelEmailCase==='bulk')return groupedChangeEmail(true);const rows=immediate?comparisonRows([['직급','사원','대리']],[['직급','주임','과장'],['직무','매니저','점장']]):[['직급','사원','대리']];return emailFrame('구성원 정보 수정 예약이 취소되었습니다.',`<h2>${immediate?'다른 구성원이 수정 예약을 취소하고 구성원 정보를 수정했습니다.':'다른 구성원에 의해 수정 예약이 취소되었습니다.'}</h2><dl><dt>예약 취소자</dt><dd>김서연</dd><dt>예약 취소 일시</dt><dd>2026.11.18 14:30</dd><dt>예약 적용일</dt><dd>2026.11.20</dd></dl>${person('김샤플','1024')}<span class="section-label">예약 내용</span>${table(immediate?['정보','기존 예약','수정됨']:['정보','수정 전','수정 후'],rows)}`);}
 function beginImmediate(scope,reset=false){const r=activeReservation(scope);if(!r)return false;manager.selected=r.id;manager.origin=state.screen;manager.reset=reset;go('S17');return true;}
 function applyImmediateSample(){const scope=selectedReservation().scope;if(manager.reset){if(scope==='fixed')entryOriginal.fixed=entryDraft.fixed='';else entryOriginal.assigned=entryDraft.assigned=[];}else if(scope==='basic'){Object.keys(basicLabels).forEach(key=>{const value=normalizedBasicValue(key,state.form[key],original[key]);original[key]=state.form[key]=value;});}else if(scope==='group')Object.assign(entryOriginal.group,JSON.parse(JSON.stringify(entryDraft.group)));else if(scope==='fixed')entryOriginal.fixed=entryDraft.fixed;else entryOriginal.assigned=[...entryDraft.assigned];}
 function finishCancellation(immediate){if(manager.busy)return;if(state.cancelPreview==='network'||state.cancelPreview==='permission'){manager.error=t(state.cancelPreview==='network'?'registerError':'permissionError');render();return;}manager.busy=true;const r=selectedReservation();manager.cancelled.add(r.id);if(r.member==='김민지'){state.individualCollision=false;if(r.scope===state.resetScope)state.resetExistingKind='none';}if(immediate)applyImmediateSample();manager.busy=false;if(immediate){const destination=r.scope==='basic'||r.scope==='group'?'구성원 목록 / 상세':'구성원 상세 · 근무 정보';go(manager.origin);document.querySelector('.product-preview').innerHTML=`<div class="edit-shell"><div class="edit-heading">${h(destination)}</div><div class="edit-main">${table(['대상 구성원','수정 정보 범위','처리'],[[r.member,scopeNames[r.scope],'즉시 수정 완료 · 예약 취소 완료']])}<p class="guide">기존 저장 성공 후 복귀 위치의 예시입니다.</p></div></div>`;}else{const origin=manager.origin;if(origin==='S10')go('S9');else go(origin);}}
@@ -1987,7 +1987,7 @@ Policy_05_이메일_알림.md
 - 일괄 이메일에도 본문 상단 안내를 표시한 뒤 공통 정보와 결과 요약을 표시한다. 공통 정보의 처리 결과 항목은 생략하고 아래 인원 집계로 안내한다.
 - 결과 요약은 대상 구성원, 적용 완료, 일부 실패, 적용 실패 순서이며 결과 세 항목은 0명이어도 표시한다. 예약 건수가 아니라 구성원 수로 집계하고 한 구성원은 하나의 결과에만 포함한다.
 - 남은 모든 범위가 적용 완료면 적용 완료, 일부 범위는 실패하고 나머지는 적용 완료면 일부 실패, 남은 모든 범위가 실패하면 적용 실패로 집계한다.
-- 실패 구성원 영역에는 일부 실패·적용 실패 구성원을 함께 표시한다. 구성원마다 한 줄로 이름·사번과 실패한 정보 범위를 표시하고, 같은 사람의 실패 범위가 여러 개면 콤마로 구분한다. 예: 김샤플 (1024) — 기본 정보, 담당근무지 수정 실패. 상세 실패 원인은 내부 이력에 보존한다.
+- 실패 구성원 영역에는 일부 실패·적용 실패 구성원을 함께 표시한다. 이름·사번은 구성원마다 한 번 표시하고, 그 아래 `수정 완료: 성공한 범위`와 `수정 실패: 실패한 범위`를 구분한다. 같은 결과의 범위가 여러 개면 콤마로 구분한다. 전부 실패한 구성원은 수정 실패만 표시한다. 취소된 범위는 어느 결과에도 포함하지 않는다. 상세 실패 원인은 내부 이력에 보존한다.
 - 취소·교체된 예약은 원래 일괄 집계에서 제외한다. 한 구성원의 모든 범위 예약이 취소됐을 때만 그 구성원을 대상 인원에서 제외하고, 일부가 남으면 남은 범위 결과로 집계한다. 취소 자체는 실패가 아니다. 대상이 0명이면 결과 이메일을 발송하지 않는다.
 
 ## 6. 예약 변경 알림
@@ -2003,8 +2003,8 @@ Policy_05_이메일_알림.md
 
 ## 7. 관리자 대체 수신
 
-- 관리자 대체 수신의 모든 케이스는 제목과 본문 상단 타이틀을 `구성원 정보 수정 예약의 처리 결과를 안내드립니다.`로 통일한다.
-- 나머지 본문은 원래 개별·일괄 결과 이메일을 따른다.
+- 관리자 대체 수신의 모든 케이스는 이메일 제목만 `구성원 정보 수정 예약의 처리 결과를 안내드립니다.`로 통일한다.
+- 본문 상단 타이틀을 포함한 본문은 원래 개별·일괄 결과 이메일을 따른다.
 - 다른 점은 공통 푸터 마지막에 예약자에게 전달할 수 없어 관리자에게 대신 발송됐다는 설명을 추가하는 것이다.
 - 개별 실패 안내와 일괄 실패 구성원 표시는 원래 결과 이메일 규칙을 그대로 적용한다.
 
@@ -2226,7 +2226,7 @@ Email_dc_02_일괄_처리_결과.md
 
 | 케이스 | 조건 | 명세 |
 | --- | --- | --- |
-| Case 1 | 일부 실패 또는 적용 실패 1명 이상 | &lt;ul&gt;&lt;li&gt;`실패 구성원`(vc_1291_57) 레이블을 표시한다.&lt;/li&gt;&lt;li&gt;모든 실패 대상을 구성원마다 한 줄로 `이름 (사번값) — 실패 범위 수정 실패` 형식으로 표시한다.&lt;/li&gt;&lt;li&gt;사번이 없으면 이름만 표시한다.&lt;/li&gt;&lt;li&gt;한 사람의 실패 범위가 여러 개이면 콤마로 구분해 한 줄에 함께 표시한다. 예: 김샤플 (1024) — 기본 정보, 담당근무지 수정 실패. 명단은 접거나 생략하지 않는다.&lt;/li&gt;&lt;li&gt;구성원별 실패 원인과 원인별 묶음은 표시하지 않는다.&lt;/li&gt;&lt;/ul&gt; |
+| Case 1 | 일부 실패 또는 적용 실패 1명 이상 | &lt;ul&gt;&lt;li&gt;`실패 구성원`(vc_1291_57) 레이블을 표시한다.&lt;/li&gt;&lt;li&gt;이름 (사번값)은 구성원마다 한 번 표시한다. 사번이 없으면 이름만 표시한다.&lt;/li&gt;&lt;li&gt;일부 실패 구성원은 이름 아래 `수정 완료: 기본 정보`와 `수정 실패: 담당근무지`처럼 성공·실패 범위를 각각 표시한다.&lt;/li&gt;&lt;li&gt;전부 실패한 구성원은 `수정 실패` 범위만 표시한다. 동일 결과의 여러 범위는 콤마로 구분한다.&lt;/li&gt;&lt;li&gt;취소된 범위는 성공·실패 목록 모두에서 제외한다. 명단과 범위는 접거나 생략하지 않는다.&lt;/li&gt;&lt;li&gt;구성원별 상세 실패 원인과 원인별 묶음은 표시하지 않는다.&lt;/li&gt;&lt;/ul&gt; |
 | Case 2 | 일부 실패·적용 실패 모두 0명 | 실패 구성원 영역을 표시하지 않는다. |
 
 ## 5. 공통 푸터
@@ -2365,8 +2365,8 @@ Email_dc_04_관리자_대체_수신.md
 
 ## 1. 이메일 제목 및 본문
 
-- 모든 케이스의 이메일 제목과 본문 상단 타이틀은 `구성원 정보 수정 예약의 처리 결과를 안내드립니다.`로 통일한다.
-- 아래 본문 재사용 기준에서 제목과 상단 타이틀은 제외한다.
+- 모든 케이스의 이메일 제목은 `구성원 정보 수정 예약의 처리 결과를 안내드립니다.`로 통일한다.
+- 본문 상단 타이틀은 원래 E1·E2의 각 결과 문구를 그대로 사용한다. 아래 재사용 기준에서 이메일 제목만 제외한다.
 
 | 케이스 | 조건 | 명세 |
 | --- | --- | --- |
@@ -2420,10 +2420,10 @@ Email_dc_05_예약_취소_알림.md
 
 ## 2. 취소 정보
 
-- 상단 안내 아래에 예약 취소자 → 예약 취소 일시를 표시한다.
+- 단독 취소와 즉시 수정·단건은 상단 안내 아래에 예약 취소자 → 예약 취소 일시 → 예약 적용일을 같은 정보 영역에 표시한 뒤 대상 구성원을 표시한다.
 - 예약 취소 일시는 작업이 성공한 시각을 고객사 시간대 기준 분 단위까지 표시한다.
 - 단독 취소와 단건 즉시 저장의 대상 구성원은 이름 (사번값) 형식이며 사번이 없으면 이름만 표시한다. 단독 취소는 취소 완료 시점, E4은 즉시 저장·취소 완료 시점의 값을 사용한다.
-- 대상 구성원 다음에 취소된 예약의 예약 적용일을 표시한다. 정보 범위는 별도 항목으로 표시하지 않고, 예약 내용 표에서 실제 수정 항목을 보여준다.
+- 예약 적용일은 취소된 기존 예약의 적용 예정일이다. 정보 범위는 별도 항목으로 표시하지 않고, 예약 내용 표에서 실제 수정 항목을 보여준다.
 
 ## 3. 예약 내용 · 단독 취소 및 단건 즉시 저장
 
@@ -2442,7 +2442,7 @@ Email_dc_05_예약_취소_알림.md
 - 대상 구성원 수는 이 메일에 포함된 구성원을 중복 없이 집계한다. 같은 구성원의 여러 범위가 취소돼도 1명이다.
 - `예약이 취소된 구성원` 제목 아래에 구성원별 한 줄로 `이름 (사번값) — 기본 정보, 담당근무지 수정 취소`처럼 표시한다. 사번이 없으면 이름만 표시한다.
 - 해당 수신자의 예약 중 실제 취소된 범위만 콤마로 구분한다. 이름·사번은 즉시 저장·취소 완료 시점의 값을 사용한다.
-- 단건의 대상 구성원 영역과 예약 내용 비교 표를 반복하지 않는다. 기존 예약 적용일과 실제 수정 전후 값도 표시하지 않는다.
+- 단건의 대상 구성원 영역과 예약 내용 비교 표를 반복하지 않는다. 기존 예약 적용일과 실제 수정 전후 값도 표시하지 않는다. 여러 예약의 적용일이 서로 다를 수 있으므로 일괄 취소 정보 영역에도 공통 예약 적용일을 표시하지 않는다.
 - 목록 아래에 `수정된 내용은 구성원 정보에서 확인해 주세요.`를 표시한다. 별도의 이동 버튼은 추가하지 않는다. 구성원 정보에서는 조회 시점의 현재 정보를 확인한다.
 
 ## 5. 공통 푸터
