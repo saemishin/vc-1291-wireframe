@@ -1131,11 +1131,11 @@ window.WF_DATA = {
       "subtitle": "생성 없이 전체 중단",
       "asIs": "01-member-list.png",
       "notes": [
-        "헤더는 기존 예약 내역과 X 버튼으로 구성한다. 일괄 수정을 예약할 수 없습니다.는 본문 첫 안내로 표시한다. 푸터는 없고 바깥 영역 클릭으로 닫지 않는다.",
+        "헤더에 일괄 수정을 예약할 수 없습니다. 제목을 표시한다. X는 제공하지 않고 푸터에 닫기 버튼만 표시한다. 바깥 영역 클릭으로 닫지 않는다.",
         "충돌한 구성원 × 정보 범위별로 한 행을 표시한다. 이번 수정과 겹치는 예약만 조회한다.",
         "컬럼은 구성원·정보 범위·예약 적용일·예약자·상세보기다. S15 공통 상세에서 단건 취소할 수 있다.",
         "충돌 시 새 예약을 생성하지 않는다. 목록의 예약을 취소하거나 구성원을 제외한 뒤 사용자가 다시 예약해야 한다. 취소 완료만으로 자동 등록하지 않는다.",
-        "마지막 충돌 예약을 취소하면 빈 상태를 표시한다. 헤더 X로 닫으면 파일·검증 결과·날짜를 유지한 채 S5로 돌아간다."
+        "마지막 충돌 예약을 취소하면 빈 상태를 표시한다. 푸터 닫기로 닫으면 파일·검증 결과·날짜를 유지한 채 S5로 돌아간다."
       ]
     },
     {
@@ -1425,7 +1425,7 @@ function reservationCreator(r,label='예약자',withRegistered=true){return `<di
 function reservationReadOnlyDate(r,label='예약 적용일'){return `<div class="reservation-date"><span class="section-label">${h(label)}</span><div class="reservation-date-value">${h(r.date)}</div></div>`;}
 function reviewModal(markup){return markup.replace(/class="sf-Modal( wide)?"/,(_,wide)=>`class="sf-Modal${wide||''} reset-confirm reservation-review"`);}
 function managerError(){return manager.error?`<div class="status-toast preview-error-toast" role="alert">${h(manager.error)}</div>`:'';}
-function reservationListDialog(conflict=false){const rows=visibleReservations();const content=rows.length?`<div class="reservation-list table-wrap"><table class="sf-Table"><thead><tr><th>구성원</th><th>예약 정보</th><th>예약 적용일</th><th>예약자</th><th></th></tr></thead><tbody>${rows.map(r=>`<tr><td>${userProfile(r.member,r.group)}</td><td>${h(scopeNames[r.scope])}</td><td>${h(r.date)}</td><td>${userProfile(r.creator,r.creatorGroup)}</td><td>${button('상세보기',`data-review="view-detail" data-id="${r.id}"`)}</td></tr>`).join('')}</tbody></table></div>`:'<p class="reservation-empty">진행 중인 예약 내역이 없습니다.</p>';return modal('기존 예약 내역',(conflict?`<p class="reservation-body-heading">${h(t('bulkConflictTitle'))}</p><p class="guide">${h(t('bulkConflictBody'))} ${h(t('bulkConflictGuide'))}</p>`:`<p class="guide reservation-list-guide">업로드한 구성원에게 등록된 기존 정보 수정 예약 목록입니다. 상세보기에서 예약 내용을 확인한 뒤 취소할 수 있습니다.</p>`)+content,'',true,true).replace('data-action="cancel-dialog"','data-review="close-list"').replace('class="sf-Modal wide"','class="sf-Modal wide reservation-list-modal"');}
+function reservationListDialog(conflict=false){const rows=visibleReservations();const content=rows.length?`<div class="reservation-list table-wrap"><table class="sf-Table"><thead><tr><th>구성원</th><th>예약 정보</th><th>예약 적용일</th><th>예약자</th><th></th></tr></thead><tbody>${rows.map(r=>`<tr><td>${userProfile(r.member,r.group)}</td><td>${h(scopeNames[r.scope])}</td><td>${h(r.date)}</td><td>${userProfile(r.creator,r.creatorGroup)}</td><td>${button('상세보기',`data-review="view-detail" data-id="${r.id}"`)}</td></tr>`).join('')}</tbody></table></div>`:'<p class="reservation-empty">진행 중인 예약 내역이 없습니다.</p>';return modal(conflict?t('bulkConflictTitle'):'기존 예약 내역',(conflict?`<p class="guide">${h(t('bulkConflictBody'))} ${h(t('bulkConflictGuide'))}</p>`:`<p class="guide reservation-list-guide">업로드한 구성원에게 등록된 기존 정보 수정 예약 목록입니다. 상세보기에서 예약 내용을 확인한 뒤 취소할 수 있습니다.</p>`)+content,conflict?button('닫기','data-review="close-list"'):'',true,!conflict).replace('data-action="cancel-dialog"','data-review="close-list"').replace('class="sf-Modal wide"','class="sf-Modal wide reservation-list-modal"');}
 function reservationDetailDialog(){const r=selectedReservation();return reviewModal(modal('정보 수정 예약 내역',reservationCreator(r,'예약자',false)+`<span class="section-label">예약 내용</span>`+table(['정보','수정 전','수정 후'],r.rows)+reservationReadOnlyDate(r),button('닫기','data-review="close-detail"')+button('예약 취소',`data-review="ask-cancel" ${manager.cancelled.has(r.id)?'disabled':''}`,true),false,false));}
 function cancellationConfirmDialog(){return modal('수정 예약을 취소하시겠습니까?',`<p class="guide">현재 구성원 정보는 변경되지 않으며,<br>확인한 수정 예약만 취소됩니다.</p>`,button('닫기','data-review="back-detail"')+button('취소',`data-review="confirm-cancel" ${manager.busy?'disabled':''}`,true),false,false)+managerError();}
 function comparisonRows(oldRows,newRows){return [...new Set([...oldRows,...newRows].map(r=>r[0]))].map(label=>{const old=oldRows.find(r=>r[0]===label),next=newRows.find(r=>r[0]===label);return [label,old?old[1]+' → '+old[2]:t('notModified'),next?next[1]+' → '+next[2]:t('notModified')];});}
@@ -2971,9 +2971,9 @@ Web_dc_08_정보_일괄_수정_예약.md
 
 | 구분 | 정의 |
 | --- | --- |
-| Header | &lt;ul&gt;&lt;li&gt;기존 예약 내역 제목을 표시한다.&lt;/li&gt;&lt;li&gt;2-2번 [X] 버튼을 표시한다.&lt;/li&gt;&lt;/ul&gt; |
-| Body | &lt;ul&gt;&lt;li&gt;본문 첫 부분에서 일괄 수정을 예약할 수 없음을 안내한다.&lt;/li&gt;&lt;li&gt;충돌 구성원을 제외하거나 해당 예약을 상세 조회·단건 취소한 뒤 다시 시도하도록 안내한다.&lt;/li&gt;&lt;li&gt;2-1번 충돌 예약 Table을 표시한다.&lt;/li&gt;&lt;/ul&gt; |
-| Footer | 제공하지 않는다. |
+| Header | 일괄 수정을 예약할 수 없다는 제목을 표시하고 [X]는 제공하지 않는다. |
+| Body | &lt;ul&gt;&lt;li&gt;충돌 구성원을 제외하거나 해당 예약을 상세 조회·단건 취소한 뒤 다시 시도하도록 안내한다.&lt;/li&gt;&lt;li&gt;2-1번 충돌 예약 Table을 표시한다.&lt;/li&gt;&lt;/ul&gt; |
+| Footer | 2-2번 [닫기] 버튼만 표시한다. |
 
 ### 2-1. 충돌 예약 Table
 
@@ -2985,7 +2985,7 @@ Web_dc_08_정보_일괄_수정_예약.md
 - 이번 요청과 충돌하지 않는 범위의 예약은 표시하지 않는다.
 - 충돌 결과가 있을 때 진입한다. 상세에서 마지막 충돌 예약을 취소하면 예약이 없음을 표시하며, 자동 등록하지 않는다.
 
-### 2-2. Header [X] 버튼
+### 2-2. [닫기] 버튼
 
 - 충돌 안내 Modal을 닫고 원래 일괄 수정 페이지로 돌아간다.
 - 업로드 파일·적용 및 검증 결과를 유지한다.
