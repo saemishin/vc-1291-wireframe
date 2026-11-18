@@ -216,8 +216,6 @@
 .reservation-modal-stack > .detail-underlay { pointer-events:none; }
 .reservation-modal-stack > .detail-overlay { position:relative; z-index:2; background:rgba(0,0,0,.28); border-radius:var(--border-radius12); }
 .reservation-modal-stack > .detail-overlay > .mock-backdrop { height:100%; min-height:0; box-sizing:border-box; background:transparent; padding-top:70px; padding-bottom:40px; }
-.grouped-email-member + .grouped-email-member { margin-top:32px; }
-.grouped-email-reservation + .grouped-email-reservation { margin-top:24px; }
 </style><style>
 /* shopl-task 와이어프레임 키트 — shoplflow(@shoplflow/base) 컴포넌트 외형을 토큰(shoplflow.css)으로 흉내 낸다.
    클래스 이름은 shoplflow 컴포넌트 이름을 따른다 (sf-<Component>). 실제 구현은 같은 이름의 shoplflow 컴포넌트를 쓴다. */
@@ -1248,12 +1246,12 @@ window.WF_DATA = {
       "asIs": "04-basic-info-edit.png",
       "notes": [
         "제목은 취소 알림과 동일한 구성원 정보 수정 예약이 취소되었습니다.다. 본문에서는 새 예약으로 교체됐음을 구분한다. 관리자 대체 발송을 하지 않는다.",
-        "새 예약자·새 예약 등록일을 표시하고 취소된 기존 예약과 새 예약의 적용일·수정 내용을 하나의 표로 비교한다.",
+        "단건에서는 새 예약자·새 예약 등록일을 표시하고 취소된 기존 예약과 새 예약의 적용일·수정 내용을 하나의 표로 비교한다.",
         "기존 예약의 처리 중단과 새 예약 결과의 수신자를 설명하는 문장은 대상 구성원보다 먼저 둔다.",
-        "새 예약에 포함되지 않은 정보는 수정하지 않음으로 표시한다. 실제 값이 없는 없음과 구분한다.",
+        "단건에서는 새 예약에 포함되지 않은 정보는 수정하지 않음으로 표시한다. 실제 값이 없는 없음과 구분한다.",
         "기존 예약자와 새 예약자가 같으면 변경 알림을 발송하지 않는다. 기존 예약자가 비활성화되거나 관련 권한을 잃은 경우에도 사용자 알림을 생략하며 ADMIN 대체 발송은 적용하지 않는다.",
         "대상 이름·사번은 기존 예약 취소와 새 예약 등록이 성공한 시점의 실제 값이다. 예약 내용 제목 아래에 기존·새 예약 적용일과 수정 내용을 비교한다.",
-        "오른쪽에서 단건·일괄 묶음 예시를 선택한다. 일괄 예시는 한 수신자의 구성원 2명·예약 3건이며 구성원별로 각 예약 내용을 구분한다. 다른 작업과 다른 예약자의 내용은 합치지 않는다."
+        "일괄은 수신자별 대상 구성원 수와 한 줄씩의 취소된 예약 범위를 표시한다. 새 예약 적용일은 공통으로 표시하며 기존 적용일과 비교 표는 생략한다."
       ]
     },
     {
@@ -1289,15 +1287,15 @@ window.WF_DATA = {
       "id": "E6",
       "title": "취소 알림 · 즉시 수정",
       "group": "이메일",
-      "subtitle": "기존 예약과 실제 수정 내용 비교",
+      "subtitle": "단건 상세 비교 · 일괄 인원 및 취소 범위 안내",
       "asIs": "04-basic-info-edit.png",
       "notes": [
         "즉시 저장과 예약 취소가 모두 성공했을 때만 발송한다. 단독 취소와 같은 제목을 쓰되 상단 안내와 비교 표를 구분한다.",
-        "표는 정보·기존 예약·수정됨이다. 표시 문구와 레이블은 검토를 완료했다.",
-        "기존 예약은 예약 당시 값, 수정됨은 실제 저장 직전·직후 값이다. 한쪽에 없는 항목은 수정하지 않음, 실제 빈 값은 없음으로 표시한다.",
+        "단건에서는 표는 정보·기존 예약·수정됨이다. 표시 문구와 레이블은 검토를 완료했다.",
+        "단건에서는 기존 예약은 예약 당시 값, 수정됨은 실제 저장 직전·직후 값이다. 한쪽에 없는 항목은 수정하지 않음, 실제 빈 값은 없음으로 표시한다.",
         "본인 취소에는 발송하지 않는다. 변경·취소 이메일은 관리자 대체 발송을 하지 않는다.",
         "일괄 즉시 저장의 취소 알림은 같은 작업의 기존 예약자별 한 통으로 묶는다.",
-        "오른쪽에서 단건·일괄 묶음 예시를 선택한다. 일괄 예시는 한 수신자의 구성원 2명·예약 3건이며 구성원별로 각 예약 내용을 구분한다. 다른 작업과 다른 예약자의 내용은 합치지 않는다."
+        "일괄은 구성원 수와 구성원별 취소된 예약 범위를 한 줄씩 표시한다. 예약 적용일과 상세 비교 표는 생략하고 수정된 내용은 구성원 정보에서 확인하도록 안내한다."
       ]
     }
   ]
@@ -1435,7 +1433,13 @@ function bulkSaveReservations(){if(state.bulkNoChanges)return [];const scopes=st
 function bulkSaveDialog(reserve=false){const rows=bulkSaveReservations();const content=rows.length?`<div class="reservation-list table-wrap"><table class="sf-Table"><thead><tr><th>구성원</th><th>예약 정보</th><th>예약 적용일</th><th>예약자</th><th></th></tr></thead><tbody>${rows.map(r=>`<tr><td>${userProfile(r.member,r.group)}</td><td>${h(scopeNames[r.scope])}</td><td>${h(r.date)}</td><td>${userProfile(r.creator,r.creatorGroup)}</td><td>${button('상세보기',`data-review="view-detail" data-id="${r.id}"`)}</td></tr>`).join('')}</tbody></table></div>`:`<p class="guide">취소할 기존 예약이 없습니다. ${reserve?'예약을 누르면 새 일괄 예약을 등록합니다.':'저장하면 업로드한 수정 내용이 적용됩니다.'}</p>`;return modal(reserve?'예약하시겠습니까?':'저장하시겠습니까?',(rows.length?`<div class="sf-Callout warning">${reserve?'이미 등록된 정보 수정 예약이 있습니다. 새 예약을 등록하면 아래 기존 예약은 취소됩니다.':'수정할 구성원에게 이미 등록된 정보 수정 예약이 있습니다. 저장 시 업로드한 수정 내용은 바로 적용되며, 아래 기존 예약은 취소됩니다.'}</div><span class="section-label">${reserve?'기존 예약':'취소될 기존 예약'}</span>`:'')+content+(reserve?datePicker('bulk').replace(h(t('dateLabel')),'새 예약 적용일'):''),button('닫기','data-review="close-bulk-save"')+button(reserve?'예약':'저장',`data-review="${reserve?'confirm-bulk-reserve':'confirm-bulk-save'}" ${manager.busy||(reserve&&!state.date.bulk)?'disabled':''}`,true),true,false).replace('class="sf-Modal wide"','class="sf-Modal wide reservation-list-modal"')+managerError();}
 function finishBulkReserve(){if(manager.busy)return;if(!state.date.bulk||state.date.bulk<MIN||state.date.bulk>MAX){updateDateInput('bulk',state.dateInput.bulk||'',true);return;}if(state.cancelPreview!=='success'){manager.error=t(state.cancelPreview==='permission'?'permissionError':'registerError');render();return;}manager.busy=true;const old=bulkSaveReservations();const scope=state.bulkPageKind==='assigned'?'assigned':'basic';const members=[['김민지','강남1팀'],['이서준','강남2팀'],['박하늘','운영팀']];const date=fmt(state.date.bulk);old.forEach(r=>manager.cancelled.add(r.id));members.forEach(([member,group],i)=>reservationSamples.push({id:'bulk-new-'+Date.now()+'-'+i,member,group,scope,creator:'김서연',creatorGroup:'인사팀',date,rows:scope==='assigned'?[['담당근무지',i===0?'강남점, 역삼점':'강남점',['강남점, 삼성점','역삼점','선릉점'][i]]]:state.bulkPageKind==='email'?[['이메일','member@example.com','updated@example.com']]:[['직무','매장직',['점장','매니저','매장직'][i]]]}));manager.busy=false;state.bulkCollision=false;go('S5');document.querySelector('.product-preview').innerHTML=`<div class="edit-shell"><div class="edit-heading">구성원 목록</div><div class="edit-main"><p class="guide">예약되었습니다.</p><p>대상 구성원 3명의 새 예약을 등록했습니다. 기존 예약이 있는 대상은 예약을 교체했습니다.</p></div></div>`;}
 function finishBulkSave(){if(manager.busy)return;if(state.cancelPreview!=='success'){manager.error=t(state.cancelPreview==='permission'?'permissionError':'registerError');render();return;}manager.busy=true;const rows=bulkSaveReservations();rows.forEach(r=>manager.cancelled.add(r.id));manager.busy=false;state.bulkNoChanges=true;go('S5');document.querySelector('.product-preview').innerHTML=`<div class="edit-shell"><div class="edit-heading">구성원 목록</div><div class="edit-main"><p class="guide">일괄 수정이 완료되었습니다.</p><p>기존 예약이 있는 수정 대상은 예약 취소와 저장을 함께 처리했습니다.</p></div></div>`;}
-function groupedChangeEmail(immediate=false){const members=[{name:'김샤플',id:'1024',reservations:[{date:'2026.11.20',old:[['직급','사원','대리']],next:[['직급','사원','과장']]},{date:'2026.11.22',old:[['담당근무지','강남점','역삼점']],next:[['담당근무지','강남점','선릉점']]}]},{name:'이샤플',id:'1025',reservations:[{date:'2026.11.21',old:[['직무','매장직','매니저']],next:[['직무','매장직','점장']]}]}];const heading=immediate?'다른 구성원이 수정 예약을 취소하고 구성원 정보를 수정했습니다.':t('replacementHeading');const meta=immediate?'<dl><dt>예약 취소자</dt><dd>김서연</dd><dt>예약 취소 일시</dt><dd>2026.11.18 14:30</dd></dl>':`<dl><dt>${h(t('newCreator'))}</dt><dd>김서연</dd><dt>${h(t('newCreatedDate'))}</dt><dd>2026.11.18</dd></dl><p class="recipient-context">${h(t('replacementDetail'))}</p>`;const content=members.map(m=>`<section class="grouped-email-member">${person(m.name,m.id)}${m.reservations.map(r=>`<div class="grouped-email-reservation">${immediate?`<dl><dt>예약 적용일</dt><dd>${h(r.date)}</dd></dl>`:''}<span class="section-label">예약 내용</span>${table(['정보','기존 예약',immediate?'수정됨':'새 예약'],[...(immediate?[]:[['예약 적용일',r.date,'2026.11.25']]),...comparisonRows(r.old,r.next)])}</div>`).join('')}</section>`).join('');return emailFrame('구성원 정보 수정 예약이 취소되었습니다.',`<h2>${h(heading)}</h2>${meta}${content}`);}
+function groupedChangeEmail(immediate=false){
+const members=[{name:'김샤플',id:'1024',scopes:['기본 정보','담당근무지']},{name:'이샤플',id:'1025',scopes:['기본 정보']}];
+const heading=immediate?'다른 구성원이 수정 예약을 취소하고 구성원 정보를 수정했습니다.':t('replacementHeading');
+const meta=immediate?'<dl><dt>예약 취소자</dt><dd>김서연</dd><dt>예약 취소 일시</dt><dd>2026.11.18 14:30</dd></dl>':`<dl><dt>${h(t('newCreator'))}</dt><dd>김서연</dd><dt>${h(t('newCreatedDate'))}</dt><dd>2026.11.18</dd><dt>새 예약 적용일</dt><dd>2026.11.25</dd></dl><p class="recipient-context">${h(t('replacementDetail'))}</p>`;
+const content=`<div class="summary-rows"><div class="total"><span>${h(t('member'))}</span><span>${members.length}명</span></div></div><section class="failed-members grouped-cancelled-members"><h3>예약이 취소된 구성원</h3>${members.map(m=>`<p>${h(m.name)}${m.id?` (${h(m.id)})`:''} — ${h(m.scopes.join(', '))} 예약 취소</p>`).join('')}</section>${immediate?'<p class="detail">수정된 내용은 구성원 정보에서 확인해 주세요.</p>':''}`;
+return emailFrame('구성원 정보 수정 예약이 취소되었습니다.',`<h2>${h(heading)}</h2>${meta}${content}`);
+}
 function cancellationEmail(immediate=false){if(immediate&&state.cancelMailMode==='bulk')return groupedChangeEmail(true);const rows=immediate?comparisonRows([['직급','사원','대리']],[['직급','주임','과장'],['직무','매니저','점장']]):[['직급','사원','대리']];return emailFrame('구성원 정보 수정 예약이 취소되었습니다.',`<h2>${immediate?'다른 구성원이 수정 예약을 취소하고 구성원 정보를 수정했습니다.':'다른 구성원에 의해 수정 예약이 취소되었습니다.'}</h2><dl><dt>예약 취소자</dt><dd>김서연</dd><dt>예약 취소 일시</dt><dd>2026.11.18 14:30</dd></dl>${person('김샤플','1024')}<dl><dt>예약 적용일</dt><dd>2026.11.20</dd></dl><span class="section-label">예약 내용</span>${table(immediate?['정보','기존 예약','수정됨']:['정보','수정 전','수정 후'],rows)}`);}
 function beginImmediate(scope,reset=false){const r=activeReservation(scope);if(!r)return false;manager.selected=r.id;manager.origin=state.screen;manager.reset=reset;go('S17');return true;}
 function applyImmediateSample(){const scope=selectedReservation().scope;if(manager.reset){if(scope==='fixed')entryOriginal.fixed=entryDraft.fixed='';else entryOriginal.assigned=entryDraft.assigned=[];}else if(scope==='basic'){Object.keys(basicLabels).forEach(key=>{const value=normalizedBasicValue(key,state.form[key],original[key]);original[key]=state.form[key]=value;});}else if(scope==='group')Object.assign(entryOriginal.group,JSON.parse(JSON.stringify(entryDraft.group)));else if(scope==='fixed')entryOriginal.fixed=entryDraft.fixed;else entryOriginal.assigned=[...entryDraft.assigned];}
@@ -2002,7 +2006,7 @@ Policy_05_이메일_알림.md
 - 기존 예약자와 새 예약자가 같으면 발송하지 않는다.
 - 기존 예약자가 비활성화되거나 관련 권한을 잃었으면 사용자 알림을 생략하고 변경 이력은 남긴다.
 - 변경·취소 알림은 관리자에게 대체 발송하지 않는다. 예약자가 비활성 상태이거나 고객사 관리 권한을 잃었다면 사용자 알림을 생략하고 이력만 남긴다. 관리자 대체 발송은 예약 처리 결과 이메일에만 적용한다.
-- 새 예약자, 새 예약 등록일, 대상 구성원, 기존 예약과 새 예약의 적용일·수정 내용을 표시한다.
+- 단건 알림은 새 예약자, 새 예약 등록일, 대상 구성원, 기존 예약과 새 예약의 적용일·수정 내용을 표시한다. 일괄 알림은 11항의 인원 요약과 구성원 목록을 표시한다.
 - 비교 표는 예약 적용일을 첫 행에 두고 각 수정 정보는 `수정 전 → 수정 후`로 표시한다.
 - 한쪽 예약에 포함되지 않은 정보는 `수정하지 않음`, 실제 빈 값은 `없음`으로 표시한다.
 - 새 예약 결과는 새 예약자에게 안내하며 기존 예약자에게 추가 발송하지 않는다.
@@ -2038,7 +2042,7 @@ Policy_05_이메일_알림.md
 - E3 예약 교체와 E5·E6 취소 알림은 제목을 `구성원 정보 수정 예약이 취소되었습니다.`로 통일한다. 본문에서 새 예약 등록·단독 취소·즉시 수정을 구분한다.
 - 단독 취소 상단 안내는 `다른 구성원에 의해 수정 예약이 취소되었습니다.`다.
 - 즉시 저장에 따른 취소 상단 안내는 `다른 구성원이 수정 예약을 취소하고 구성원 정보를 수정했습니다.`다.
-- 예약 취소자, 예약 취소 일시, 대상 구성원, 기존 예약 적용일, 예약 내용을 표시한다. 정보 범위는 별도 항목으로 표시하지 않는다.
+- 단독 취소와 단건 즉시 저장 알림은 예약 취소자, 예약 취소 일시, 대상 구성원, 기존 예약 적용일, 예약 내용을 표시한다. 정보 범위는 별도 항목으로 표시하지 않는다. 일괄 즉시 저장 알림은 11항을 따른다.
 - 단독 취소의 예약 내용 표는 정보·수정 전·수정 후다. 즉시 저장에 따른 취소는 정보·기존 예약·수정됨으로 비교한다.
 - 기존 예약은 예약 당시 수정 전 값과 목표값을, 즉시 저장은 실제 저장 직전·직후 값을 표시한다. 같은 정보 범위에서 실제 변경한 항목만 표시하고 한쪽에 없으면 수정하지 않음, 실제 빈 값이면 없음으로 표시한다.
 - 변경·취소 알림은 관리자 대체 발송을 하지 않는다. 계정 비활성·관리 권한 상실 시 알림을 생략하고 이력을 남긴다. 단순 전송 실패도 별도 기록하며 취소·저장 결과는 되돌리지 않는다.
@@ -2051,9 +2055,12 @@ Policy_05_이메일_알림.md
 - 같은 수신자라도 서로 다른 작업의 알림은 합치지 않는다. 예약 상세에서 각각 수행한 단독 취소는 작업마다 E5를 발송한다.
 - 수신자 본인이 등록한 예약 중 해당 작업으로 실제 교체·취소된 예약만 포함한다. 다른 예약자의 내용은 포함하지 않는다.
 - 작업 수행자 본인의 예약은 알림에서 제외한다. 수신자에게 안내할 예약이 없으면 발송하지 않는다.
-- 같은 구성원의 여러 범위도 수신자가 같으면 한 통에 담는다. 구성원별로 묶어 이름·사번을 표시하고, 각 예약의 기존 적용일과 수정 내용을 빠짐없이 구분한다.
-- 제목·상단 안내·작업자·작업 일시 또는 등록일·푸터는 메일당 한 번 표시한다. 구성원별 예약 내용 영역만 반복한다. 별도 정보 범위 항목은 추가하지 않는다.
-- E3은 예약마다 기존·새 예약 적용일과 수정 내용을 비교한다. E6은 예약마다 기존 적용일과 기존 예약·실제 수정 내용을 비교한다. 같은 구성원의 다른 범위 예약을 하나의 예약처럼 합치지 않는다.
+- 대상 구성원 수는 이 메일에 포함된 구성원을 중복 없이 집계한다. 같은 구성원의 여러 범위가 취소돼도 1명으로 표시한다.
+- 제목·상단 안내·작업자·작업 일시 또는 등록일·푸터는 메일당 한 번 표시한다. E3에는 새 예약 적용일도 한 번 표시한다.
+- `예약이 취소된 구성원` 목록에 이름·사번과 취소된 예약의 정보 범위를 구성원마다 한 줄로 표시한다. 여러 범위는 콤마로 구분한다. 예: 김샤플 (1024) — 기본 정보, 담당근무지 예약 취소.
+- 일괄 알림에는 기존 예약 적용일과 수정 전후 값, 예약 내용 비교 표를 표시하지 않는다. 단건 알림의 상세 표는 유지한다.
+- E6 목록 아래에 `수정된 내용은 구성원 정보에서 확인해 주세요.`를 표시한다. 이 안내는 현재 구성원 정보를 확인하라는 의미이며, 작업 당시의 수정 내역을 보존한 화면으로 연결하는 것은 아니다.
+- E3은 아직 새 예약이 적용되기 전이므로 구성원 정보에서 수정 내용을 확인하라는 안내를 표시하지 않는다. 기존 예약이 취소되었으며 새 예약 결과는 새 예약자에게 안내된다는 문구를 유지한다.
 - 실제 작업이 성공한 뒤 발송한다. 실패한 교체·취소를 성공한 것처럼 포함하지 않는다. 기존 수신 예외와 관리자 대체 미발송 원칙은 그대로 적용한다.
 
 ────────────────────────────────────────
@@ -2295,13 +2302,13 @@ Email_dc_03_예약_변경_알림.md
 
 - 새 예약 정보 다음에 `기존 예약은 취소되어 더 이상 처리되지 않습니다. 새 예약의 처리 결과는 새 예약자에게 안내됩니다.`(vc_1291_62)를 표시한다.
 
-## 3. 대상 구성원
+## 3. 대상 구성원 · 단건
 
 - 안내 문장 아래에 대상 구성원을 `이름 (사번값)` 형식으로 표시한다.
 - 사번이 없으면 이름만 표시한다.
 - 이름·사번은 기존 예약 취소·새 예약 등록이 성공한 시점의 실제 값을 사용한다.
 
-## 4. 기존 예약과 새 예약 비교
+## 4. 기존 예약과 새 예약 비교 · 단건
 
 - 비교 표 제목은 `예약 내용`(vc_1291_67)이다.
 - 예약 적용일을 첫 행에 표시한 뒤, 어느 한쪽 예약에 포함된 수정 정보를 표시한다.
@@ -2317,11 +2324,19 @@ Email_dc_03_예약_변경_알림.md
 - 여러 값은 전체를 콤마로 구분해 표시하고 셀 안에서 자동 줄바꿈한다.
 - 화면 S7의 기존·새 예약 적용일 Input 배치를 이메일에 그대로 적용하지 않는다.
 
-- 일괄 묶음에서는 구성원별로 이름·사번을 표시하고 각 예약의 비교 표를 반복한다. 같은 구성원의 여러 범위 예약은 각 적용일·내용을 구분하며 생략하지 않는다. 새 예약자·새 등록일·상단 안내는 한 번만 표시한다.
+## 5. 일괄 교체의 인원 요약과 구성원 목록
 
-## 5. 공통 푸터
+- 상단 안내·새 예약자·새 예약 등록일은 한 번만 표시하고, 새 예약 등록일 다음에 `새 예약 적용일`을 표시한다.
+- 새 예약 정보 다음의 기존 예약 취소·새 예약 결과 수신자 안내는 단건과 동일하다.
+- 대상 구성원 수는 해당 수신자의 예약이 교체된 구성원을 중복 없이 집계한다. 같은 구성원의 여러 범위가 교체돼도 1명이다.
+- `예약이 취소된 구성원` 제목 아래에 구성원별 한 줄로 `이름 (사번값) — 기본 정보, 담당근무지 예약 취소`처럼 표시한다. 사번이 없으면 이름만 표시한다.
+- 목록에는 해당 수신자에게 속하며 실제 취소된 예약의 범위만 콤마로 구분한다. 이름·사번 기준 시점은 단건과 같다.
+- 단건의 대상 구성원 영역과 비교 표를 반복하지 않는다. 기존 예약 적용일과 수정 전후 값도 표시하지 않는다.
+- 아직 새 예약이 적용되기 전이므로 현재 구성원 정보에서 수정 내용을 확인하라는 안내는 표시하지 않는다.
 
-- 비교 표 뒤에 공통 푸터를 표시한다.
+## 6. 공통 푸터
+
+- 단건 비교 표 또는 일괄 구성원 목록 뒤에 공통 푸터를 표시한다.
 - 서비스 공통 저작권 → `샤플앤컴퍼니`·`support@shoplworks.com` → `서울특별시 강남구 도곡로 111 미진빌딩 8층` 순서로 표시한다.
 - 문의 이메일은 메일 링크로 제공하고, 저작권 연도는 서비스 공통 푸터 기준을 따른다.
 
@@ -2390,7 +2405,7 @@ Email_dc_05_예약_취소_알림.md
 ---
 
 - 와이어프레임 E5 단독 취소·E6 즉시 저장에 따른 취소에 해당한다.
-- 기존 예약자에게 예약이 취소되었음을 알리고, 즉시 저장이 있었다면 실제 수정 내용도 함께 안내한다.
+- 기존 예약자에게 예약이 취소되었음을 알리고, 단건 즉시 저장은 실제 수정 내용을, 일괄 즉시 저장은 인원과 취소된 예약 범위를 안내한다.
 
 ## 발송 조건 및 수신자
 
@@ -2419,23 +2434,30 @@ Email_dc_05_예약_취소_알림.md
 
 - 상단 안내 아래에 예약 취소자 → 예약 취소 일시를 표시한다.
 - 예약 취소 일시는 작업이 성공한 시각을 고객사 시간대 기준 분 단위까지 표시한다.
-- 대상 구성원은 이름 (사번값) 형식이며 사번이 없으면 이름만 표시한다. 단독 취소는 취소 완료 시점, E6은 즉시 저장·취소 완료 시점의 값을 사용한다.
+- 단독 취소와 단건 즉시 저장의 대상 구성원은 이름 (사번값) 형식이며 사번이 없으면 이름만 표시한다. 단독 취소는 취소 완료 시점, E6은 즉시 저장·취소 완료 시점의 값을 사용한다.
 - 대상 구성원 다음에 취소된 예약의 예약 적용일을 표시한다. 정보 범위는 별도 항목으로 표시하지 않고, 예약 내용 표에서 실제 수정 항목을 보여준다.
 
-## 3. 예약 내용
+## 3. 예약 내용 · 단독 취소 및 단건 즉시 저장
 
 | 케이스 | 조건 | 명세 |
 | --- | --- | --- |
 | Case 3-1 | E5 단독 취소 | &lt;ul&gt;&lt;li&gt;예약 내용 제목 아래 정보·수정 전·수정 후 표를 표시한다.&lt;/li&gt;&lt;li&gt;예약 당시 수정 전 값과 목표값을 유지한다. 현재 정보 전체를 보여주지 않는다.&lt;/li&gt;&lt;/ul&gt; |
-| Case 3-2 | E6 즉시 저장과 함께 취소 | &lt;ul&gt;&lt;li&gt;예약 내용 제목 아래 정보·기존 예약·수정됨으로 비교한다.&lt;/li&gt;&lt;li&gt;기존 예약은 예약 당시 수정 전 → 목표값이다.&lt;/li&gt;&lt;li&gt;수정됨은 실제 저장 직전 → 저장 직후 값이다.&lt;/li&gt;&lt;li&gt;같은 정보 범위의 실제 변경 항목만 표시한다.&lt;/li&gt;&lt;/ul&gt; |
+| Case 3-2 | E6 단건 즉시 저장과 함께 취소 | &lt;ul&gt;&lt;li&gt;예약 내용 제목 아래 정보·기존 예약·수정됨으로 비교한다.&lt;/li&gt;&lt;li&gt;기존 예약은 예약 당시 수정 전 → 목표값이다.&lt;/li&gt;&lt;li&gt;수정됨은 실제 저장 직전 → 저장 직후 값이다.&lt;/li&gt;&lt;li&gt;같은 정보 범위의 실제 변경 항목만 표시한다.&lt;/li&gt;&lt;/ul&gt; |
 
 - 한쪽에 없는 항목은 수정하지 않음, 실제 빈 값은 없음으로 표시한다. 여러 값은 콤마로 구분해 모두 표시한다.
 - E6에는 새 예약 적용일이 없다. 실제 수정 시각은 예약 취소 일시와 함께 완료된 작업의 시각이다.
 
 - E6의 검토 도구에서 단건·일괄 묶음 예시를 선택한다. 실제 이메일에는 선택 도구를 표시하지 않는다.
-- 일괄 묶음은 상단 안내·예약 취소자·예약 취소 일시를 한 번 표시하고, 구성원별 이름·사번 아래 각 예약의 적용일과 비교 표를 반복한다. 수신자 본인의 예약만 포함하며, 같은 구성원의 여러 범위도 각 예약의 내용을 구분한다.
+## 4. 일괄 즉시 저장의 인원 요약과 구성원 목록
 
-## 4. 공통 푸터
+- 상단 안내·예약 취소자·예약 취소 일시를 한 번 표시한다.
+- 대상 구성원 수는 이 메일에 포함된 구성원을 중복 없이 집계한다. 같은 구성원의 여러 범위가 취소돼도 1명이다.
+- `예약이 취소된 구성원` 제목 아래에 구성원별 한 줄로 `이름 (사번값) — 기본 정보, 담당근무지 예약 취소`처럼 표시한다. 사번이 없으면 이름만 표시한다.
+- 해당 수신자의 예약 중 실제 취소된 범위만 콤마로 구분한다. 이름·사번은 즉시 저장·취소 완료 시점의 값을 사용한다.
+- 단건의 대상 구성원 영역과 예약 내용 비교 표를 반복하지 않는다. 기존 예약 적용일과 실제 수정 전후 값도 표시하지 않는다.
+- 목록 아래에 `수정된 내용은 구성원 정보에서 확인해 주세요.`를 표시한다. 별도의 이동 버튼은 추가하지 않는다. 구성원 정보에서는 조회 시점의 현재 정보를 확인한다.
+
+## 5. 공통 푸터
 
 - 본문 다음에 기존 이메일 공통 푸터를 표시한다. 관리자 대체 수신 사유를 추가하지 않는다.
 
