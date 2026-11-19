@@ -589,15 +589,16 @@ select.sf-Input { padding-right:var(--spacing08); }
 .reservation-date-value{padding:var(--spacing12) var(--spacing16);border:1px solid var(--neutral200);border-radius:var(--border-radius08);background:var(--neutral100);font-size:14px}
 </style><style>
 /* Reader layout: screen tree → explanation and cases → preview. */
-.wf-screen { grid-template-columns:272px minmax(0,1fr); }
-.wf-notes { max-height:calc(100vh - 124px); overflow-y:auto; scrollbar-gutter:stable; }
+.wf-screen { grid-template-columns:272px minmax(0,1fr); padding:0; gap:0; }
+.wf-stage { padding:var(--spacing24); }
+.wf-notes { top:76px; height:calc(100vh - 76px); max-height:calc(100vh - 76px); overflow-y:auto; scrollbar-gutter:stable; border:0; border-right:1px solid var(--neutral200); border-radius:0; }
 .wf-case-group { border:0; padding:0; margin:0 0 var(--spacing20); min-width:0; }
 .wf-case-group legend { padding:0; margin-bottom:var(--spacing08); font-weight:600; }
 .wf-case-options { display:flex; flex-direction:column; gap:6px; }
 .wf-case-option { width:100%; text-align:left; padding:9px 10px; border:1px solid var(--neutral300); border-radius:var(--border-radius06); background:var(--neutral0); color:var(--neutral700); line-height:1.5; cursor:pointer; }
 .wf-case-option:hover { background:var(--neutral100); }
 .wf-case-option[aria-pressed="true"] { background:var(--primary100); border-color:var(--primary300); color:var(--primary300); font-weight:600; }
-@media(max-width:1000px) { .wf-screen { grid-template-columns:1fr; } .wf-notes { position:static; max-height:none; } .wf-case-options { flex-direction:row; flex-wrap:wrap; } .wf-case-option { width:auto; max-width:100%; } }
+@media(max-width:1000px) { .wf-screen { grid-template-columns:1fr; } .wf-notes { position:static; height:auto; max-height:none; border-right:0; border-bottom:1px solid var(--neutral200); } .wf-case-options { flex-direction:row; flex-wrap:wrap; } .wf-case-option { width:auto; max-width:100%; } }
 </style>
 </head>
 <body>
